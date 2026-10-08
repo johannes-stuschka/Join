@@ -33,6 +33,11 @@
   justify-content: center;
   width: 32px;
   height: 32px;
+  transition: transform 0.1s ease-in-out;
+}
+
+.header-help:hover {
+  transform: scale(1.2);
 }
 
 .header-user {

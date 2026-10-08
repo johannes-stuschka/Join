@@ -1,6 +1,6 @@
-async function includeTemplate(id, file) {
-  const response = await fetch(file);
-  document.getElementById(id).innerHTML = await response.text();
+async function includeTemplate(element) {
+  const response = await fetch(element.dataset.include);
+  element.innerHTML = await response.text();
 }
 
-includeTemplate("header", "./templates/header.html");
+document.querySelectorAll("[data-include]").forEach(includeTemplate);
