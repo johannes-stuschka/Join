@@ -1,22 +1,42 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Legal Notice</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./css/base.css" />
-    <link
-      rel="icon"
-      href="./assets/favicons/favicon.svg"
-      type="image/svg+xml"
-    />
-    <link rel="icon" href="./assets/favicons/favicon.ico" sizes="32x32" />
-  </head>
-  <body></body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal Notice | Join</title>
+
+  <link rel="icon" href="../assets/favicons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="../assets/favicons/favicon.ico" sizes="32x32" />
+
+  <link rel="stylesheet" href="../css/fonts.css">
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/sidebar.css" />
+
+  <script src="../templates/sidebar_template.js" defer></script>
+  <script src="../js/sidebar.js" defer></script>
+</head>
+
+<body>
+  <section id="header" data-include="/templates/header.html"></section>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" id="sidebar-nav" aria-label="Main navigation"></nav>
+
+      <div class="sidebar-legal">
+        <a href="/pages/privacy.html">Privacy Policy</a>
+        <a href="/pages/legal.html">Legal notice</a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <h1>Legal Notice</h1>
+    </main>
+  </div>
+
+  <script src="../js/include.js"></script>
+</body>
+
 </html>
