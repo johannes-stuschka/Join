@@ -1,20 +1,52 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./css/base.css" />
-  </head>
-  <body>
-    <!-- Header -->
-    <h1>Hello World!</h1>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join</title>
+
+  <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.svg">
+
+  <link rel="stylesheet" href="./css/fonts.css">
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/sidebar.css" />
+</head>
+
+<body>
+  <div class="layout">
     <!-- Sidebar -->
-  </body>
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Main navigation">
+        <a class="sidebar-btn" href="./pages/summary.html">
+          <img src="./assets/icons/summary_icon.svg" alt="" width="24" height="24" />
+          <span>Summary</span>
+        </a>
+        <a class="sidebar-btn" href="./pages/add_task.html">
+          <img src="./assets/icons/add_task_icon.svg" alt="" width="24" height="24" />
+          <span>Add Task</span>
+        </a>
+        <a class="sidebar-btn" href="./pages/board.html">
+          <img src="./assets/icons/board_icon.svg" alt="" width="24" height="24" />
+          <span>Board</span>
+        </a>
+        <a class="sidebar-btn" href="./pages/contacts.html">
+          <img src="./assets/icons/contacts_icon.svg" alt="" width="24" height="24" />
+          <span>Contacts</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-legal">
+        <a href="./pages/privacy.html">Privacy Policy</a>
+        <a href="./pages/legal.html">Legal notice</a>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+
+    </main>
+  </div>
+</body>
+
 </html>

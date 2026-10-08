@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.layout {
+  display: flex;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-top: var(--header-height);
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar {
+  width: 230px;
+  flex-shrink: 0;
+  height: calc(100vh - var(--header-height));
+  position: sticky;
+  top: var(--header-height);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 12px 40px 12px;
+  background-color: #fff;
+  border-right: 1px solid var(--selected-color);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sidebar-btn:hover {
+  background-color: var(--hover-color);
+}
+
+.sidebar-btn.active,
+.sidebar-btn[aria-current="page"] {
+  background-color: var(--selected-color);
+}
+
+.sidebar-legal {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 16px;
+}
+
+.sidebar-legal a {
+  padding: 8px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.sidebar-legal a:hover {
+  color: var(--main-color);
+}
