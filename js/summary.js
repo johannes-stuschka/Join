@@ -2,12 +2,12 @@ const BOARD_URL = "/pages/board.html";
 
 const ICON_PATH = "../assets/icons/"; 
 const SUMMARY_ICONS = {
-  urgent: "urgent.svg",
-  board: "board.svg",
-  todo: "todo.svg",
-  progress: "progress.svg",
-  feedback: "feedback.svg",
-  done: "done.svg",
+  urgent: "urgent.png",
+  board: "task_in_board.png",
+  todo: "todo.png",
+  progress: "in_progress.png",
+  feedback: "afeedback.png",
+  done: "done.png",
 };
 
 function getGreeting(hour = new Date().getHours()) {
