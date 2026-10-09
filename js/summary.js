@@ -1,6 +1,6 @@
-const BOARD_URL = "/pages/board.html"; 
+const BOARD_URL = "pages/board.html";
 
-const ICON_PATH = "../assets/icons/"; 
+const ICON_PATH = "assets/icons/";
 const SUMMARY_ICONS = {
   urgent: "urgent.png",
   board: "task_in_board.png",
@@ -44,11 +44,11 @@ function formatDeadline(date) {
 
 function buildCard(key, count, label, cssClass) {
   return {
-    icon: ICON_PATH + SUMMARY_ICONS[key],
+    icon: BASE_PATH + ICON_PATH + SUMMARY_ICONS[key],
     count,
     label,
     cssClass,
-    href: BOARD_URL,
+    href: BASE_PATH + BOARD_URL,
   };
 }
 

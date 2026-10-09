@@ -1,8 +1,11 @@
 .content {
   display: flex;
   max-width: 1440px;
+  width: calc(100% - 230px);
   margin: 0 auto;
-  min-height: 100vh;
-  position: fixed;
   flex: 1;
+  border: 5px solid red;
+  height: calc(100vh - var(--header-height));
+  left: 230px;
+  position: fixed;
 }
