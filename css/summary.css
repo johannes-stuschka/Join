@@ -1,79 +1,149 @@
 .summary {
-  --summary-text: #2a3647;
-  --summary-border: #e0e0e0;
+    --summary-text: #2a3647;
+    --summary-border: #e0e0e0;
 
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 80px 16px;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 80px 16px;
 }
 
 .summary-greeting {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 56px;
-  font-size: clamp(32px, 4vw, 48px);
-  color: var(--summary-text);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 56px;
+    font-size: clamp(32px, 4vw, 48px);
+    color: var(--summary-text);
 }
 
-.greeting-text { font-weight: 400; }
-.greeting-guest { font-weight: 700; }
-.greeting-name { font-weight: 700; color: var(--main-color); }
+.greeting-text {
+    font-weight: 400;
+}
+
+.greeting-guest {
+    font-weight: 700;
+}
+
+.greeting-name {
+    font-weight: 700;
+    color: var(--main-color);
+}
 
 .summary-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
 }
 
 .summary-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 130px;
-  padding: 16px;
-  border: 1px solid var(--summary-border);
-  border-radius: 30px;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  color: var(--main-color);
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 130px;
+    padding: 16px;
+    border: 1px solid var(--summary-border);
+    border-radius: 30px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    color: var(--main-color);
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.summary-card:hover { background: var(--selected-color); }
+.summary-card:hover {
+    background: var(--main-color);
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-top-left-radius: 0;
+}
 
-.card-top { display: flex; align-items: center; gap: 16px; }
-.card-icon { width: 48px; height: 48px; }
-.card-count { font-size: 40px; font-weight: 700; color: #000; }
-.card-label { font-size: 18px; }
+.summary-card:hover .card-count {
+    color: #fff;
+}
+
+.card-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+}
+
+.card-count {
+    font-size: 40px;
+    font-weight: 700;
+    color: #000;
+}
+
+.card-label {
+    font-size: 18px;
+}
 
 .card-urgent {
-  grid-column: span 3;
-  flex-direction: row;
-  gap: 32px;
-  background: var(--main-color);
-  color: #fff;
+    grid-column: span 3;
+    flex-direction: row;
+    gap: 32px;
+    background: var(--main-color);
+    color: #fff;
 }
-.card-urgent:hover { background: var(--main-color); }
-.card-urgent .card-count { color: #fff; }
+
+.card-urgent,
+.card-urgent .card-count,
+.card-urgent .card-label,
+.card-urgent .urgent-date {
+    color: #fff;
+}
 
 .urgent-left,
 .urgent-right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
-.urgent-divider { align-self: stretch; width: 2px; background: #fff; }
-.urgent-date { font-size: 24px; font-weight: 700; }
+
+.urgent-divider {
+    align-self: stretch;
+    width: 2px;
+    background: #fff;
+}
+
+.urgent-date {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.card-urgent:hover {
+    background: #fff;
+    color: var(--main-color);
+    transform: scale(1.05);
+}
+
+.card-urgent:hover .card-count,
+.card-urgent:hover .card-label,
+.card-urgent:hover .urgent-date {
+    color: var(--main-color);
+}
+
+.card-urgent:hover .urgent-divider {
+    background: var(--main-color);
+}
 
 @media (max-width: 700px) {
-  .summary-grid { grid-template-columns: repeat(2, 1fr); }
-  .card-urgent { grid-column: span 2; }
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-urgent {
+        grid-column: span 2;
+    }
 }

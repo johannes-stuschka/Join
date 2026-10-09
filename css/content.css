@@ -4,7 +4,6 @@
   width: calc(100% - 230px);
   margin: 0 auto;
   flex: 1;
-  border: 5px solid red;
   height: calc(100vh - var(--header-height));
   left: 230px;
   position: fixed;

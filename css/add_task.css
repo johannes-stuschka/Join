@@ -1,0 +1,306 @@
+.add-task {
+    --at-text: #2a3647;
+    --at-line: #d1d1d1;
+    --prio-urgent: #ff3d00;
+    --prio-medium: #ffa800;
+    --prio-low: #7ae229;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 32px;
+    min-height: 100%;
+    padding: 32px 16px;
+    color: var(--at-text);
+}
+
+.add-task-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 0 1 440px;
+    min-width: 0;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field-label {
+    font-weight: 700;
+}
+
+.optional {
+    font-weight: 400;
+}
+
+.title-input,
+.line-input,
+.dropdown-toggle {
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-bottom: 1px solid var(--at-line);
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    outline: none;
+}
+
+.title-input {
+    font-size: 24px;
+}
+
+.title-input:focus,
+.line-input:focus,
+.dropdown-toggle:focus {
+    border-bottom-color: var(--main-color);
+}
+
+textarea {
+    min-height: 70px;
+    padding: 8px 12px;
+    border: 1px solid var(--at-line);
+    border-radius: 10px;
+    font: inherit;
+    resize: vertical;
+    outline: none;
+}
+
+textarea:focus {
+    border-color: var(--main-color);
+}
+
+/* Priority */
+.prio-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.prio-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid var(--at-line);
+    border-radius: 10px;
+    background: #fff;
+    font: inherit;
+    cursor: pointer;
+}
+
+.prio-urgent:hover {
+    box-shadow: 0 2px 0 var(--prio-urgent), 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.prio-medium:hover {
+    box-shadow: 0 2px 0 var(--prio-medium), 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.prio-low:hover {
+    box-shadow: 0 2px 0 var(--prio-low), 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.prio-btn.active:hover {
+    box-shadow: none;
+}
+
+.prio-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.prio-btn.active {
+    color: #fff;
+    border-color: transparent;
+}
+
+.prio-btn.active img {
+    filter: brightness(0) invert(1);
+}
+
+.prio-urgent.active {
+    background: var(--prio-urgent);
+}
+
+.prio-medium.active {
+    background: var(--prio-medium);
+}
+
+.prio-low.active {
+    background: var(--prio-low);
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown-list {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    margin: 0;
+    padding: 4px 0;
+    list-style: none;
+    background: #fff;
+    border: 1px solid var(--at-line);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown.open .dropdown-list {
+    display: block;
+}
+
+.dropdown-item label {
+    display: flex;
+    gap: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.dropdown-item label:hover {
+    background: var(--hover-color);
+}
+
+/* Subtasks */
+.subtask-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.subtask-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 8px;
+}
+
+.subtask-item:hover {
+    background: var(--hover-color);
+}
+
+.subtask-delete {
+    border: none;
+    background: none;
+    color: var(--at-text);
+    cursor: pointer;
+}
+
+/* Buttons */
+.add-task-actions {
+    display: flex;
+    flex-shrink: 0;
+    gap: 16px;
+    margin-left: auto;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-secondary {
+    border: 1px solid var(--at-text);
+    background: #fff;
+    color: var(--at-text);
+}
+
+.btn-secondary:hover {
+    border-color: var(--main-color);
+    color: var(--main-color);
+}
+
+.btn-primary {
+    border: none;
+    background: var(--main-color);
+    color: #fff;
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.date-wrapper {
+    position: relative;
+}
+
+.date-wrapper .line-input {
+    padding-right: 40px;
+}
+
+.date-wrapper input::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+.date-btn {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    display: flex;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.date-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.dropdown-toggle {
+    padding-right: 40px;
+}
+
+.dropdown::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    transform: translateY(-50%);
+    background-color: var(--main-color);
+    -webkit-mask: url("../assets/icons/arrow_drop_down.svg") no-repeat center / contain;
+    mask: url("../assets/icons/arrow_drop_down.svg") no-repeat center / contain;
+    pointer-events: none;
+    transition: transform 0.15s ease;
+}
+
+.dropdown.open::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.dropdown-option {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.dropdown-option:hover {
+    background: var(--hover-color);
+}
