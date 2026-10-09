@@ -10,6 +10,7 @@
   padding: 24px 12px 40px 12px;
   background-color: #fff;
   border-right: 1px solid var(--selected-color);
+  margin: 0;
 }
 
 .sidebar-nav {
