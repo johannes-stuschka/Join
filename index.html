@@ -3,41 +3,73 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join | Summary</title>
+    <title>Log in | Join</title>
 
     <link rel="icon" href="./assets/favicons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="./assets/favicons/favicon.ico" sizes="32x32" />
 
     <link rel="stylesheet" href="./css/fonts.css" />
     <link rel="stylesheet" href="./css/base.css" />
-    <link rel="stylesheet" href="./css/header.css" />
-    <link rel="stylesheet" href="./css/sidebar.css" />
-    <link rel="stylesheet" href="./css/content.css" />
-    <link rel="stylesheet" href="./css/summary.css" />
+    <link rel="stylesheet" href="./css/auth.css" />
+    <link rel="stylesheet" href="./css/auth_form.css" />
 
-    <script src="./templates/sidebar_template.js" defer></script>
-    <script src="./js/sidebar.js" defer></script>
+    <script src="./js/firebase.js" defer></script>
+    <script src="./js/auth.js" defer></script>
+    <script src="./js/auth_ui.js" defer></script>
+    <script src="./js/login.js" defer></script>
   </head>
 
-  <body>
-    <section id="header" data-include="./templates/header.html"></section>
+  <body class="splash">
+    <div class="splash-bg"></div>
 
-    <div class="layout">
-      <aside class="sidebar">
-        <nav class="sidebar-nav" id="sidebar-nav" aria-label="Main navigation"></nav>
-        <div class="sidebar-legal">
-          <a href="../pages/privacy.html">Privacy Policy</a>
-          <a href="../pages/legal.html">Legal notice</a>
-        </div>
-      </aside>
+    <div class="auth-page">
+      <div class="logo">
+        <img class="logo-dark" src="./assets/icons/logo_dark_on_light.svg" alt="Join logo" />
+        <img class="logo-light" src="./assets/icons/logo_white_on_blue.svg" alt="" />
+      </div>
 
-      <main class="content">
-        <div class="summary" id="summary"></div>
+      <main class="auth-main">
+        <section class="auth-card">
+          <h1 class="auth-title">Log in</h1>
+
+          <form id="login-form" class="auth-form" novalidate>
+            <div class="field-group">
+              <div class="field">
+                <input id="email" type="text" placeholder="Email" autocomplete="email" />
+                <img class="field-icon" src="./assets/icons/input_mail.svg" alt="" />
+              </div>
+              <p class="field-error" hidden></p>
+            </div>
+
+            <div class="field-group">
+              <div class="field">
+                <input id="password" type="password" placeholder="Password" autocomplete="current-password" />
+                <button class="field-toggle" type="button" aria-label="Show or hide password" disabled>
+                  <img src="./assets/icons/input_lock.svg" alt="" />
+                </button>
+              </div>
+              <p class="field-error" hidden></p>
+            </div>
+
+            <p class="form-error" id="loginFormError" hidden></p>
+
+            <div class="btn-row">
+              <button id="login-button" class="btn btn-primary" type="submit">Log in</button>
+              <button id="guest-button" class="btn btn-secondary" type="button">Guest Log in</button>
+            </div>
+          </form>
+        </section>
       </main>
-    </div>
 
-    <script src="./templates/summary_template.js"></script>
-    <script src="./js/summary.js"></script>
-    <script src="./js/include.js"></script>
+      <div class="auth-top">
+        <span class="auth-top-text">Not a Join user?</span>
+        <a class="btn btn-primary btn-small" href="./pages/sign_up.html">Sign up</a>
+      </div>
+
+      <footer class="auth-footer">
+        <a href="./pages/privacy.html">Privacy Policy</a>
+        <a href="./pages/legal.html">Legal notice</a>
+      </footer>
+    </div>
   </body>
 </html>

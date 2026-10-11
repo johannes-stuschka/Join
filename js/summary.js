@@ -16,9 +16,9 @@ function getGreeting(hour = new Date().getHours()) {
   return "Good evening";
 }
 
-// TODO: an euer Login anpassen. Guest = null zurückgeben.
 function getUserName() {
-  return null;
+  const user = getCurrentUser();
+  return user && !user.isGuest ? user.name : null;
 }
 
 // TODO: durch echte Daten ersetzen. Aktuell Platzhalter aus dem Figma.

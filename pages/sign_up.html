@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up | Join</title>
+
+    <link rel="icon" href="../assets/favicons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../assets/favicons/favicon.ico" sizes="32x32" />
+
+    <link rel="stylesheet" href="../css/fonts.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/auth.css" />
+    <link rel="stylesheet" href="../css/auth_form.css" />
+
+    <script src="../js/firebase.js" defer></script>
+    <script src="../js/auth.js" defer></script>
+    <script src="../js/auth_ui.js" defer></script>
+    <script src="../js/sign_up.js" defer></script>
+  </head>
+
+  <body>
+    <div class="auth-page">
+      <div class="logo">
+        <img class="logo-dark" src="../assets/icons/logo_dark_on_light.svg" alt="Join logo" />
+      </div>
+
+      <main class="auth-main">
+        <section class="auth-card auth-card-signup">
+          <a class="back-link" href="../index.html" aria-label="Back to log in">
+            <img src="../assets/icons/arrow_left_line.svg" alt="" />
+          </a>
+          <h1 class="auth-title">Sign up</h1>
+
+          <form id="signup-form" class="auth-form" novalidate>
+            <div class="field-group">
+              <div class="field">
+                <input id="name" type="text" placeholder="Name" autocomplete="name" />
+                <img class="field-icon" src="../assets/icons/input_person.svg" alt="" />
+              </div>
+              <p class="field-error" hidden></p>
+            </div>
+
+            <div class="field-group">
+              <div class="field">
+                <input id="email" type="text" placeholder="Email" autocomplete="email" />
+                <img class="field-icon" src="../assets/icons/input_mail.svg" alt="" />
+              </div>
+              <p class="field-error" hidden></p>
+            </div>
+
+            <div class="field-group">
+              <div class="field">
+                <input id="password" type="password" placeholder="Password" autocomplete="new-password" />
+                <button class="field-toggle" type="button" aria-label="Show or hide password" disabled>
+                  <img src="../assets/icons/input_lock.svg" alt="" />
+                </button>
+              </div>
+              <p class="field-error" hidden></p>
+            </div>
+
+            <div class="field-group">
+              <div class="field">
+                <input id="confirm-password" type="password" placeholder="Confirm Password" autocomplete="new-password" />
+                <button class="field-toggle" type="button" aria-label="Show or hide password" disabled>
+                  <img src="../assets/icons/input_lock.svg" alt="" />
+                </button>
+              </div>
+              <p class="field-error" hidden></p>
+            </div>
+
+            <label class="checkbox">
+              <input id="privacy" type="checkbox" />
+              <span class="checkbox-box"></span>
+              <span class="checkbox-text">I accept the <a href="./privacy.html">Privacy policy</a></span>
+            </label>
+
+            <p class="form-error" id="signUpFormError" hidden></p>
+
+            <button id="signup-button" class="btn btn-primary" type="submit" disabled>Sign up</button>
+          </form>
+        </section>
+      </main>
+
+      <footer class="auth-footer">
+        <a href="./privacy.html">Privacy Policy</a>
+        <a href="./legal.html">Legal notice</a>
+      </footer>
+    </div>
+
+    <div id="toast" class="toast" role="status">You Signed Up successfully</div>
+  </body>
+</html>

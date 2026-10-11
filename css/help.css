@@ -30,19 +30,29 @@
 
 .help-back {
   display: flex;
-  padding: 4px;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
   border: none;
   border-radius: 50%;
   background: none;
-  color: var(--main-color);
   cursor: pointer;
-  transition: transform 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
 }
 
 .help-back:hover {
-  padding: 7px;
   background-color: var(--hover-color);
-  transform: scale(1.2);
+}
+
+.help-back-icon-hover,
+.help-back:hover .help-back-icon {
+  display: none;
+}
+
+.help-back:hover .help-back-icon-hover {
+  display: block;
 }
 
 .brand {

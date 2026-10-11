@@ -1,0 +1,55 @@
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function getAvatarTemplate(contact, sizeClass = "") {
+  return `<span class="avatar ${sizeClass}" style="--avatar-color: ${contact.color}">${getInitials(contact.name)}</span>`;
+}
+
+function getContactGroupTemplate(letter) {
+  return `<li class="contact-group-letter">${escapeHtml(letter)}</li>`;
+}
+
+function getContactItemTemplate(contact, isActive) {
+  return `<li>
+    <button type="button" class="contact-item ${isActive ? "active" : ""}" onclick="selectContact(${contact.id})">
+      ${getAvatarTemplate(contact)}
+      <span class="contact-item-text">
+        <span class="contact-item-name">${escapeHtml(contact.name)}</span>
+        <span class="contact-item-email">${escapeHtml(contact.email)}</span>
+      </span>
+    </button>
+  </li>`;
+}
+
+function getContactDetailTemplate(contact) {
+  return `<div class="contact-detail-content">
+    <div class="contact-detail-head">
+      ${getAvatarTemplate(contact, "avatar-lg")}
+      <div>
+        <h1 class="contact-detail-name">${escapeHtml(contact.name)}</h1>
+        <div class="contact-actions">
+          <button type="button" class="contact-action" onclick="openEditContact(${contact.id})">
+            <span class="icon icon-edit"></span>Edit
+          </button>
+          <button type="button" class="contact-action" onclick="deleteContact(${contact.id})">
+            <span class="icon icon-delete"></span>Delete
+          </button>
+        </div>
+      </div>
+    </div>
+    <h2 class="contact-info-title">Contact Information</h2>
+    <dl class="contact-info">
+      <dt>Email</dt>
+      <dd><a href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a></dd>
+      <dt>Phone</dt>
+      <dd>${escapeHtml(contact.phone)}</dd>
+    </dl>
+  </div>`;
+}
+
+function getAvatarPlaceholderTemplate() {
+  return `<span class="avatar avatar-lg avatar-placeholder"><span class="icon icon-person"></span></span>`;
+}

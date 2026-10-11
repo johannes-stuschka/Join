@@ -5,6 +5,16 @@
     <a href="../pages/help.html" class="header-help">
       <img src="../assets/icons/help_icon.svg" alt="Help" />
     </a>
-    <button class="header-user" aria-label="User menu">SM</button>
+    <div class="header-user-wrap">
+      <button class="header-user" id="headerUser" aria-label="User menu" aria-haspopup="true" aria-expanded="false" aria-controls="headerMenu">SM</button>
+      <nav class="header-menu" id="headerMenu" aria-label="User menu" hidden>
+        <ul class="header-menu-list">
+          <li class="header-menu-mobile"><a class="header-menu-item" href="../pages/help.html">Help</a></li>
+          <li><a class="header-menu-item" href="../pages/legal.html">Legal Notice</a></li>
+          <li><a class="header-menu-item" href="../pages/privacy.html">Privacy Policy</a></li>
+          <li><button class="header-menu-item" id="headerLogout" type="button">Log out</button></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </header>
