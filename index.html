@@ -1,75 +1,77 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Log in | Join</title>
 
-    <link rel="icon" href="./assets/favicons/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="./assets/favicons/favicon.ico" sizes="32x32" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log in | Join</title>
 
-    <link rel="stylesheet" href="./css/fonts.css" />
-    <link rel="stylesheet" href="./css/base.css" />
-    <link rel="stylesheet" href="./css/auth.css" />
-    <link rel="stylesheet" href="./css/auth_form.css" />
+  <link rel="icon" href="./assets/favicons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="./assets/favicons/favicon.ico" sizes="32x32" />
 
-    <script src="./js/firebase.js" defer></script>
-    <script src="./js/auth.js" defer></script>
-    <script src="./js/auth_ui.js" defer></script>
-    <script src="./js/login.js" defer></script>
-  </head>
+  <link rel="stylesheet" href="./css/fonts.css" />
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/auth.css" />
+  <link rel="stylesheet" href="./css/auth_form.css" />
 
-  <body class="splash">
-    <div class="splash-bg"></div>
+  <script src="./js/firebase.js" defer></script>
+  <script src="./js/auth.js" defer></script>
+  <script src="./js/auth_ui.js" defer></script>
+  <script src="./js/login.js" defer></script>
+</head>
 
-    <div class="auth-page">
-      <div class="logo">
-        <img class="logo-dark" src="./assets/icons/logo_dark_on_light.svg" alt="Join logo" />
-        <img class="logo-light" src="./assets/icons/logo_white_on_blue.svg" alt="" />
-      </div>
+<body class="splash">
+  <div class="splash-bg"></div>
 
-      <main class="auth-main">
-        <section class="auth-card">
-          <h1 class="auth-title">Log in</h1>
-
-          <form id="login-form" class="auth-form" novalidate>
-            <div class="field-group">
-              <div class="field">
-                <input id="email" type="text" placeholder="Email" autocomplete="email" />
-                <img class="field-icon" src="./assets/icons/input_mail.svg" alt="" />
-              </div>
-              <p class="field-error" hidden></p>
-            </div>
-
-            <div class="field-group">
-              <div class="field">
-                <input id="password" type="password" placeholder="Password" autocomplete="current-password" />
-                <button class="field-toggle" type="button" aria-label="Show or hide password" disabled>
-                  <img src="./assets/icons/input_lock.svg" alt="" />
-                </button>
-              </div>
-              <p class="field-error" hidden></p>
-            </div>
-
-            <p class="form-error" id="loginFormError" hidden></p>
-
-            <div class="btn-row">
-              <button id="login-button" class="btn btn-primary" type="submit">Log in</button>
-              <button id="guest-button" class="btn btn-secondary" type="button">Guest Log in</button>
-            </div>
-          </form>
-        </section>
-      </main>
-
-      <div class="auth-top">
-        <span class="auth-top-text">Not a Join user?</span>
-        <a class="btn btn-primary btn-small" href="./pages/sign_up.html">Sign up</a>
-      </div>
-
-      <footer class="auth-footer">
-        <a href="./pages/privacy.html">Privacy Policy</a>
-        <a href="./pages/legal.html">Legal notice</a>
-      </footer>
+  <div class="auth-page">
+    <div class="logo">
+      <img class="logo-dark" src="./assets/icons/logo_dark_on_light.svg" alt="Join logo" />
+      <img class="logo-light" src="./assets/icons/logo_white_on_blue.svg" alt="" />
     </div>
-  </body>
+
+    <main class="auth-main">
+      <section class="auth-card">
+        <h1 class="auth-title">Log in</h1>
+
+        <form id="login-form" class="auth-form" novalidate>
+          <div class="field-group">
+            <div class="field">
+              <input id="email" type="text" placeholder="Email" autocomplete="email" />
+              <img class="field-icon" src="./assets/icons/input_mail.svg" alt="" />
+            </div>
+            <p class="field-error" hidden></p>
+          </div>
+
+          <div class="field-group">
+            <div class="field">
+              <input id="password" type="password" placeholder="Password" autocomplete="current-password" />
+              <button class="field-toggle" type="button" aria-label="Show or hide password" disabled>
+                <img src="./assets/icons/input_lock.svg" alt="" />
+              </button>
+            </div>
+            <p class="field-error" hidden></p>
+          </div>
+
+          <p class="form-error" id="loginFormError" hidden></p>
+
+          <div class="btn-row">
+            <button id="login-button" class="btn btn-primary" type="submit">Log in</button>
+            <button id="guest-button" class="btn btn-secondary" type="button">Guest Log in</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <div class="auth-top">
+      <span class="auth-top-text">Not a Join user?</span>
+      <a class="btn btn-primary btn-small" href="./pages/sign_up.html">Sign up</a>
+    </div>
+
+    <footer class="auth-footer">
+      <a href="./pages/privacy.html">Privacy Policy</a>
+      <a href="./pages/legal.html">Legal notice</a>
+    </footer>
+  </div>
+</body>
+
 </html>

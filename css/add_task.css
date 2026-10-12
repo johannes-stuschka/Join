@@ -305,6 +305,7 @@ textarea:focus {
 .dropdown-option:hover {
     background: var(--hover-color);
 }
+
 /* Pflichtfeld-Meldungen */
 .field-error {
     font-size: 12px;
@@ -342,7 +343,7 @@ textarea.title-input {
     font-size: 12px;
 }
 
-.avatar + .avatar {
+.avatar+.avatar {
     margin-left: -8px;
 }
 
@@ -353,7 +354,7 @@ textarea.title-input {
     padding: 0 12px;
 }
 
-.selected-avatars .avatar + .avatar {
+.selected-avatars .avatar+.avatar {
     margin-left: 0;
 }
 

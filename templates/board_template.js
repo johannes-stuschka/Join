@@ -143,7 +143,7 @@ function getDetailSubtasksTemplate(task) {
 }
 
 function getDetailSubtaskTemplate(taskId, subtask, index) {
-  return `<li class="detail-subtask"><label>
+    return `<li class="detail-subtask"><label>
     <input type="checkbox" ${subtask.done ? "checked" : ""}
       onchange="toggleSubtask(${taskId}, ${index})" />
     <span class="check-icon"></span>
@@ -152,7 +152,7 @@ function getDetailSubtaskTemplate(taskId, subtask, index) {
 }
 
 function getDetailActionsTemplate(id) {
-  return `
+    return `
     <div class="detail-actions">
       <button type="button" onclick="deleteTask(${id})"><span class="detail-icon icon-delete"></span> Delete</button>
       <span class="detail-divider"></span>
