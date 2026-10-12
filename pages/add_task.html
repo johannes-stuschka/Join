@@ -34,64 +34,12 @@
       </div>
     </aside>
 
-    <main class="content">
-      <form class="add-task" id="add-task-form" novalidate>
-        <div class="add-task-fields">
-          <input class="title-input" id="task-title" type="text" placeholder="Enter a title" required />
-
-          <label class="field">
-            <span class="field-label">Description <span class="optional">(optional)</span></span>
-            <textarea id="task-description" placeholder="Enter a Description"></textarea>
-          </label>
-
-          <label class="field">
-            <span class="field-label">Due date</span>
-            <div class="date-wrapper">
-              <input class="line-input" id="task-due-date" type="date" required />
-              <button class="date-btn" type="button" onclick="openDatePicker()" aria-label="Open calendar">
-                <img src="../assets/icons/calendar.svg" alt="Open calendar" />
-              </button>
-            </div>
-          </label>
-
-          <div class="field">
-            <span class="field-label">Priority</span>
-            <div class="prio-buttons" id="prio-buttons"></div>
-          </div>
-
-          <div class="field">
-            <span class="field-label">Assigned to <span class="optional">(optional)</span></span>
-            <div class="dropdown" id="assigned-dropdown">
-              <button class="dropdown-toggle" id="assigned-toggle" type="button">Select contacts to assign</button>
-              <ul class="dropdown-list" id="assigned-list"></ul>
-            </div>
-          </div>
-
-          <div class="field">
-            <span class="field-label">Category</span>
-            <div class="dropdown" id="category-dropdown">
-              <button class="dropdown-toggle" id="category-toggle" type="button">Select task category</button>
-              <ul class="dropdown-list" id="category-list"></ul>
-            </div>
-          </div>
-
-          <div class="field">
-            <span class="field-label">Subtasks <span class="optional">(optional)</span></span>
-            <input class="line-input" id="subtask-input" type="text" placeholder="Add new subtask" />
-            <ul class="subtask-list" id="subtask-list"></ul>
-          </div>
-        </div>
-
-        <div class="add-task-actions">
-          <button class="btn btn-secondary" type="reset">Clear ✕</button>
-          <button class="btn btn-primary" id="create-task-btn" type="submit" disabled>Create Task ✓</button>
-        </div>
-      </form>
-    </main>
+    <main class="content" id="add-task-page"></main>
   </div>
 
   <script src="../templates/add_task_template.js"></script>
   <script src="../js/add_task.js"></script>
+  <script>initAddTaskPage();</script>
   <script src="../js/header.js"></script>
   <script src="../js/include.js"></script>
 </body>

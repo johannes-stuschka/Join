@@ -4,15 +4,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Board | Join</title>
+  <title>Join | Board</title>
 
   <link rel="icon" href="../assets/favicons/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="../assets/favicons/favicon.ico" sizes="32x32" />
 
-  <link rel="stylesheet" href="../css/fonts.css">
+  <link rel="stylesheet" href="../css/fonts.css" />
   <link rel="stylesheet" href="../css/base.css" />
-  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/sidebar.css" />
+  <link rel="stylesheet" href="../css/content.css" />
+  <link rel="stylesheet" href="../css/add_task.css" />
+  <link rel="stylesheet" href="../css/board.css" />
 
   <script src="../js/auth.js"></script>
   <script>requireLogin();</script>
@@ -21,23 +24,26 @@
 </head>
 
 <body>
-  <section id="header" data-include="/templates/header.html"></section>
+  <section id="header" data-include="../templates/header.html"></section>
 
   <div class="layout">
     <aside class="sidebar">
       <nav class="sidebar-nav" id="sidebar-nav" aria-label="Main navigation"></nav>
-
       <div class="sidebar-legal">
-        <a href="/pages/privacy.html">Privacy Policy</a>
-        <a href="/pages/legal.html">Legal notice</a>
+        <a href="../pages/privacy.html">Privacy Policy</a>
+        <a href="../pages/legal.html">Legal notice</a>
       </div>
     </aside>
 
     <main class="content">
-      <h1>Board</h1>
+      <div class="board" id="board"></div>
     </main>
   </div>
 
+  <script src="../templates/add_task_template.js"></script>
+  <script src="../js/add_task.js"></script>
+  <script src="../templates/board_template.js"></script>
+  <script src="../js/board.js"></script>
   <script src="../js/header.js"></script>
   <script src="../js/include.js"></script>
 </body>

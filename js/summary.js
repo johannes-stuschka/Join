@@ -55,12 +55,24 @@ function buildCard(key, count, label, cssClass) {
 function renderSummary() {
   const data = getSummaryData();
   const greetingHtml = getGreetingTemplate(getGreeting(), getUserName());
+  const urgentHtml = getUrgentHtml(data);
+  const cardsHtml = getCardsHtml(data);
 
-  const urgentHtml = getUrgentCardTemplate(
+  document.getElementById("summary").innerHTML = getSummaryTemplate(
+    greetingHtml,
+    urgentHtml,
+    cardsHtml
+  );
+}
+
+function getUrgentHtml(data) {
+  return getUrgentCardTemplate(
     buildCard("urgent", data.urgent, "Tasks Urgent", ""),
     formatDeadline(data.deadline)
   );
+}
 
+function getCardsHtml(data) {
   const cards = [
     buildCard("board", data.board, "Task in Board", "card-board"),
     buildCard("todo", data.todo, "Tasks To-do", "card-small"),
@@ -68,13 +80,7 @@ function renderSummary() {
     buildCard("feedback", data.feedback, "Awaiting Feedback", "card-small"),
     buildCard("done", data.done, "Tasks Done", "card-small"),
   ];
-  const cardsHtml = cards.map(getSummaryCardTemplate).join("");
-
-  document.getElementById("summary").innerHTML = getSummaryTemplate(
-    greetingHtml,
-    urgentHtml,
-    cardsHtml
-  );
+  return cards.map(getSummaryCardTemplate).join("");
 }
 
 document.addEventListener("DOMContentLoaded", renderSummary);

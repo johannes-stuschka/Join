@@ -32,6 +32,7 @@
 
 .field-label {
     font-weight: 700;
+    color: #42526e;
 }
 
 .optional {
@@ -303,4 +304,135 @@ textarea:focus {
 
 .dropdown-option:hover {
     background: var(--hover-color);
+}
+/* Pflichtfeld-Meldungen */
+.field-error {
+    font-size: 12px;
+    color: var(--error-color, #ff8190);
+}
+
+.field-error[hidden] {
+    display: none;
+}
+
+.title-input.invalid,
+.line-input.invalid,
+.dropdown-toggle.invalid {
+    border-bottom-color: var(--error-color, #ff8190);
+}
+
+textarea.title-input {
+    min-height: 0;
+    padding: 8px 12px;
+    border-radius: 0;
+    resize: none;
+    overflow: hidden;
+    field-sizing: content;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 12px;
+}
+
+.avatar + .avatar {
+    margin-left: -8px;
+}
+
+.selected-avatars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 12px;
+}
+
+.selected-avatars .avatar + .avatar {
+    margin-left: 0;
+}
+
+.detail-icon {
+    width: 18px;
+    height: 18px;
+    background-color: var(--main-color);
+}
+
+.icon-delete {
+    -webkit-mask: url("../assets/icons/delete.svg") no-repeat center / contain;
+    mask: url("../assets/icons/delete.svg") no-repeat center / contain;
+}
+
+.icon-edit {
+    -webkit-mask: url("../assets/icons/edit.svg") no-repeat center / contain;
+    mask: url("../assets/icons/edit.svg") no-repeat center / contain;
+}
+
+.subtask-item {
+    min-height: 36px;
+}
+
+.subtask-text {
+    overflow-wrap: anywhere;
+}
+
+.subtask-text::before {
+    content: "\2022";
+    margin-right: 12px;
+}
+
+.subtask-tools {
+    display: none;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.subtask-item:hover .subtask-tools,
+.subtask-item:focus-within .subtask-tools {
+    display: flex;
+}
+
+.subtask-btn {
+    display: flex;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.subtask-btn svg {
+    stroke: var(--main-color);
+}
+
+.subtask-divider {
+    width: 1px;
+    height: 18px;
+    background: var(--at-line);
+}
+
+.subtask-item.editing,
+.subtask-item.editing:hover {
+    background: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid var(--at-line);
+}
+
+.subtask-item.editing .subtask-tools {
+    display: flex;
+}
+
+.subtask-edit-input {
+    flex: 1;
+    min-width: 0;
+    padding: 4px 0;
+    border: none;
+    background: transparent;
+    font: inherit;
+    outline: none;
 }

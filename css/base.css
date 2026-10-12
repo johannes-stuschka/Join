@@ -18,6 +18,8 @@ body {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   color: #1a1a1a;
+  scrollbar-color: var(--main-color) transparent;
+  scrollbar-width: thin;
 }
 
 .layout {

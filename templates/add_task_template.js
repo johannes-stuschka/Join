@@ -27,9 +27,134 @@ function getCategoryOptionTemplate(category, index) {
   </li>`;
 }
 
-function getSubtaskTemplate(text, index) {
+function getSubtaskTemplate(text, index, isEditing) {
+  if (isEditing) return getSubtaskEditTemplate(index);
   return `<li class="subtask-item">
-    <span>${escapeHtml(text)}</span>
-    <button type="button" class="subtask-delete" onclick="deleteSubtask(${index})" aria-label="Delete subtask">✕</button>
+    <span class="subtask-text">${escapeHtml(text)}</span>
+    <span class="subtask-tools">
+      <button type="button" class="subtask-btn" onclick="editSubtask(${index})" aria-label="Edit subtask"><span class="detail-icon icon-edit"></span></button>
+      <span class="subtask-divider"></span>
+      <button type="button" class="subtask-btn" onclick="deleteSubtask(${index})" aria-label="Delete subtask"><span class="detail-icon icon-delete"></span></button>
+    </span>
   </li>`;
+}
+
+function getSubtaskEditTemplate(index) {
+  return `<li class="subtask-item editing">
+    <input class="subtask-edit-input" id="subtask-edit" type="text"
+      onkeydown="handleSubtaskEditKey(event, ${index})" />
+    <span class="subtask-tools">
+      <button type="button" class="subtask-btn" onclick="cancelSubtaskEdit()" aria-label="Cancel">${getCrossIcon()}</button>
+      <span class="subtask-divider"></span>
+      <button type="button" class="subtask-btn" onclick="confirmSubtaskEdit(${index})" aria-label="Save">${getCheckIcon()}</button>
+    </span>
+  </li>`;
+}
+
+function getCrossIcon() {
+  return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>`;
+}
+
+function getCheckIcon() {
+  return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>`;
+}
+
+function getAddTaskFormTemplate(withClear, submitLabel = "Create Task") {
+  return `<form class="add-task" id="add-task-form" novalidate>
+    <div class="add-task-fields">
+      ${getTitleDescriptionTemplate()}
+      ${getDueDateTemplate()}
+      ${getPriorityFieldTemplate()}
+      ${getAssignedFieldTemplate()}
+      ${getCategoryFieldTemplate()}
+      ${getSubtaskFieldTemplate()}
+    </div>
+    ${getAddTaskActionsTemplate(withClear, submitLabel)}
+  </form>`;
+}
+
+function getTitleDescriptionTemplate() {
+  return `
+    <div class="field">
+      <textarea class="title-input" id="task-title" rows="1" placeholder="Enter a title" required></textarea>
+      ${getErrorTemplate("title-error")}
+    </div>
+    <label class="field">
+      <span class="field-label">Description <span class="optional">(optional)</span></span>
+      <textarea id="task-description" placeholder="Enter a Description"></textarea>
+    </label>`;
+}
+
+function getDueDateTemplate() {
+  return `
+    <label class="field">
+      <span class="field-label">Due date</span>
+      <div class="date-wrapper">
+        <input class="line-input" id="task-due-date" type="date" required />
+        <button class="date-btn" type="button" onclick="openDatePicker()" aria-label="Open calendar">
+          <img src="../assets/icons/calendar.svg" alt="Open calendar" />
+        </button>
+      </div>
+      ${getErrorTemplate("dueDate-error")}
+    </label>`;
+}
+
+function getPriorityFieldTemplate() {
+  return `
+    <div class="field">
+      <span class="field-label">Priority</span>
+      <div class="prio-buttons" id="prio-buttons"></div>
+    </div>`;
+}
+
+function getAssignedFieldTemplate() {
+  return `
+    <div class="field">
+      <span class="field-label">Assigned to <span class="optional">(optional)</span></span>
+      <div class="dropdown" id="assigned-dropdown">
+        <button class="dropdown-toggle" id="assigned-toggle" type="button">Select contacts to assign</button>
+        <ul class="dropdown-list" id="assigned-list"></ul>
+      </div>
+      <div class="selected-avatars" id="selected-avatars"></div>
+    </div>`;
+}
+
+function getCategoryFieldTemplate() {
+  return `
+    <div class="field category-field">
+      <span class="field-label">Category</span>
+      <div class="dropdown" id="category-dropdown">
+        <button class="dropdown-toggle" id="category-toggle" type="button">Select task category</button>
+        <ul class="dropdown-list" id="category-list"></ul>
+      </div>
+      ${getErrorTemplate("category-error")}
+    </div>`;
+}
+
+function getErrorTemplate(id) {
+  return `<span class="field-error" id="${id}" hidden>This field is required</span>`;
+}
+
+function getSubtaskFieldTemplate() {
+  return `
+    <div class="field">
+      <span class="field-label">Subtasks <span class="optional">(optional)</span></span>
+      <input class="line-input" id="subtask-input" type="text" placeholder="Add new subtask" />
+      <ul class="subtask-list" id="subtask-list"></ul>
+    </div>`;
+}
+
+function getAddTaskActionsTemplate(withClear, submitLabel) {
+  const clearBtn = withClear
+    ? `<button class="btn btn-secondary" type="reset">Clear ✕</button>`
+    : "";
+  return `
+    <div class="add-task-actions">
+      ${clearBtn}
+      <button class="btn btn-primary" id="create-task-btn" type="submit" disabled>${submitLabel} ✓</button>
+    </div>`;
+}
+
+function getSelectedAvatarTemplate(user) {
+  return `<span class="avatar" style="background:${user.color}">${user.initials}</span>`;
 }
