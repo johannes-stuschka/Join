@@ -1,3 +1,6 @@
+const BASE_PATH = window.location.pathname.includes("/pages/") ? "../" : "./";
+
+
 function getHeaderElements() {
   return {
     wrap: document.querySelector(".header-user-wrap"),
@@ -63,4 +66,10 @@ function initHeader() {
 }
 
 
-document.addEventListener("templatesLoaded", initHeader);
+function renderHeader() {
+  document.getElementById("header").innerHTML = getHeaderTemplate(BASE_PATH);
+  initHeader();
+}
+
+
+renderHeader();
