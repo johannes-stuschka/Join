@@ -31,7 +31,7 @@ function getColumnTemplate(column, cardsHtml) {
 function getColumnAddButton(column) {
     if (column.status === "done") return "";
     return `<button type="button" class="btn-column-add" aria-label="Add task"
-    onclick="openAddTask('${column.status}')">+</button>`;
+    onclick="openAddTask('${column.status}')"><img src="../assets/icons/add.svg" alt="" /></button>`;
 }
 
 function getEmptyTemplate(title) {
@@ -77,7 +77,7 @@ function getAvatarsTemplate(assigned) {
 function getAddTaskOverlayTemplate() {
     return `
     <div class="task-panel">
-      <button type="button" class="panel-close" onclick="closeAddTask()" aria-label="Close">✕</button>
+      <button type="button" class="panel-close" onclick="closeAddTask()" aria-label="Close"><img src="../assets/icons/exit.svg" alt="" /></button>
       <h1 class="panel-title">Add Task</h1>
       ${getAddTaskFormTemplate(false)}
     </div>`;
@@ -99,7 +99,7 @@ function getDetailHeaderTemplate(task) {
     return `
     <div class="detail-top">
       <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
-      <button type="button" class="panel-close" onclick="closeAddTask()" aria-label="Close">✕</button>
+      <button type="button" class="panel-close" onclick="closeAddTask()" aria-label="Close"><img src="../assets/icons/exit.svg" alt="" /></button>
     </div>
     <h1 class="detail-title">${escapeHtml(task.title)}</h1>`;
 }
@@ -163,7 +163,7 @@ function getDetailActionsTemplate(id) {
 function getEditTaskTemplate() {
     return `
     <div class="edit-panel">
-      <button type="button" class="panel-close" onclick="closeAddTask()" aria-label="Close">✕</button>
+      <button type="button" class="panel-close" onclick="closeAddTask()" aria-label="Close"><img src="../assets/icons/exit.svg" alt="" /></button>
       ${getAddTaskFormTemplate(false, "Ok")}
     </div>`;
 }
