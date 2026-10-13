@@ -1,19 +1,29 @@
 .add-task {
     --at-text: #2a3647;
     --at-line: #d1d1d1;
+    --at-border: #a8a8a8;
+    --at-placeholder: #626262;
     --prio-urgent: #ff3d00;
     --prio-medium: #ffa800;
     --prio-low: #7ae229;
 
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: flex-start;
     width: 100%;
     box-sizing: border-box;
     gap: 32px;
     min-height: 100%;
-    padding: 32px 16px;
+    padding: 64px 24px 32px;
     color: var(--at-text);
+}
+
+#add-task-page {
+    overflow-y: auto;
+}
+
+.add-task ::placeholder {
+    color: var(--at-placeholder);
 }
 
 .add-task-fields {
@@ -31,29 +41,37 @@
 }
 
 .field-label {
+    font-size: 19px;
     font-weight: 700;
+    line-height: 1.2;
     color: #42526e;
 }
 
 .optional {
+    font-size: inherit;
     font-weight: 400;
+    color: inherit;
 }
 
 .title-input,
 .line-input,
 .dropdown-toggle {
     width: 100%;
-    padding: 8px 12px;
+    min-height: 48px;
+    padding: 12px 16px;
     border: none;
-    border-bottom: 1px solid var(--at-line);
+    border-bottom: 1px solid var(--at-border);
+    border-radius: 0;
     background: transparent;
     font: inherit;
+    font-size: 19px;
+    line-height: 1.2;
     color: inherit;
     outline: none;
 }
 
 .title-input {
-    font-size: 24px;
+    font-size: 32px;
 }
 
 .title-input:focus,
@@ -63,11 +81,13 @@
 }
 
 textarea {
-    min-height: 70px;
-    padding: 8px 12px;
-    border: 1px solid var(--at-line);
+    min-height: 103px;
+    padding: 18px 16px;
+    border: 1px solid var(--at-border);
     border-radius: 10px;
     font: inherit;
+    font-size: 19px;
+    line-height: 1.2;
     resize: vertical;
     outline: none;
 }
@@ -79,7 +99,7 @@ textarea:focus {
 /* Priority */
 .prio-buttons {
     display: flex;
-    gap: 8px;
+    gap: 16px;
 }
 
 .prio-btn {
@@ -87,12 +107,16 @@ textarea:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 8px;
-    border: 1px solid var(--at-line);
+    gap: 10px;
+    height: 51px;
+    padding: 10px 18px;
+    border: none;
     border-radius: 10px;
     background: #fff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
     font: inherit;
+    font-size: 21px;
+    color: #000;
     cursor: pointer;
 }
 
@@ -108,6 +132,7 @@ textarea:focus {
     box-shadow: 0 2px 0 var(--prio-low), 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
+.prio-btn.active,
 .prio-btn.active:hover {
     box-shadow: none;
 }
@@ -119,7 +144,6 @@ textarea:focus {
 
 .prio-btn.active {
     color: #fff;
-    border-color: transparent;
 }
 
 .prio-btn.active img {
@@ -145,6 +169,7 @@ textarea:focus {
 
 .dropdown-toggle {
     text-align: left;
+    color: #000;
     cursor: pointer;
 }
 
@@ -207,26 +232,28 @@ textarea:focus {
 .add-task-actions {
     display: flex;
     flex-shrink: 0;
-    gap: 16px;
+    align-self: flex-end;
+    gap: 24px;
     margin-left: auto;
 }
 
 .btn {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 16px;
+    gap: 4px;
+    padding: 16px;
     border-radius: 10px;
     font: inherit;
-    font-size: 20px;
+    font-size: 21px;
+    line-height: 1.2;
     cursor: pointer;
     white-space: nowrap;
 }
 
 .btn-secondary {
-    border: 1px solid var(--at-text);
+    border: 1px solid #647188;
     background: #fff;
-    color: var(--at-text);
+    color: #647188;
 }
 
 .btn-secondary:hover {
@@ -251,6 +278,10 @@ textarea:focus {
 
 .date-wrapper .line-input {
     padding-right: 40px;
+}
+
+.date-wrapper .line-input:invalid {
+    color: var(--at-placeholder);
 }
 
 .date-wrapper input::-webkit-calendar-picker-indicator {
@@ -308,8 +339,9 @@ textarea:focus {
 
 /* Pflichtfeld-Meldungen */
 .field-error {
-    font-size: 12px;
-    color: var(--error-color, #ff8190);
+    font-size: 13px;
+    line-height: 1.2;
+    color: var(--error-color);
 }
 
 .field-error[hidden] {
@@ -319,13 +351,12 @@ textarea:focus {
 .title-input.invalid,
 .line-input.invalid,
 .dropdown-toggle.invalid {
-    border-bottom-color: var(--error-color, #ff8190);
+    border-bottom-color: var(--error-color);
 }
 
 textarea.title-input {
-    min-height: 0;
-    padding: 8px 12px;
-    border-radius: 0;
+    min-height: 64px;
+    padding: 13px 16px;
     resize: none;
     overflow: hidden;
     field-sizing: content;
@@ -436,4 +467,70 @@ textarea.title-input {
     background: transparent;
     font: inherit;
     outline: none;
+}
+
+@media (max-width: 700px) {
+    .add-task {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    #add-task-page .add-task {
+        padding-bottom: 80px;
+    }
+
+    .add-task-fields {
+        flex: none;
+        width: 100%;
+        gap: 16px;
+    }
+
+    .field-label {
+        font-size: 16px;
+    }
+
+    .title-input {
+        font-size: 21px;
+    }
+
+    textarea.title-input {
+        min-height: 48px;
+        padding: 7px 16px;
+    }
+
+    textarea {
+        min-height: 88px;
+    }
+
+    .prio-btn {
+        height: 48px;
+        padding: 10px 8px;
+        gap: 8px;
+        font-size: 16px;
+    }
+
+    #add-task-page .add-task-actions {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: var(--mobile-nav-height);
+        z-index: 5;
+        justify-content: center;
+        gap: 32px;
+        height: 64px;
+        margin: 0;
+        padding: 8px 16px;
+        background: #fff;
+    }
+
+    #add-task-page .btn {
+        height: 48px;
+        padding: 8px 12px;
+    }
+
+    #add-task-page .btn-primary {
+        background: var(--at-text);
+    }
 }

@@ -119,4 +119,29 @@
   .header-menu-mobile {
     display: block;
   }
+
+  .header {
+    padding: 20px 25px;
+  }
+
+  .header-logo {
+    height: 39px;
+  }
+
+  .header-nav {
+    width: auto;
+  }
+
+  .header-title,
+  .header-help {
+    display: none;
+  }
+
+  .header-user {
+    width: 40px;
+    height: 40px;
+    border-width: 2px;
+    padding: 2px;
+    font-size: 14px;
+  }
 }

@@ -56,3 +56,40 @@
 .sidebar-legal a:hover {
   color: var(--main-color);
 }
+
+@media (max-width: 700px) {
+  .sidebar {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--mobile-nav-height);
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 16px;
+    border-right: none;
+    border-top: 1px solid var(--selected-color);
+    z-index: 10;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    max-width: 396px;
+  }
+
+  .sidebar-btn {
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 75px;
+    padding: 15px 0;
+  }
+
+  .sidebar-legal {
+    display: none;
+  }
+}

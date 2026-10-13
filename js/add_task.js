@@ -1,9 +1,9 @@
 const ICON_PATH = "../assets/icons/"; // Dateinamen anpassen
 
 const PRIORITIES = [
-    { key: "urgent", label: "Urgent", icon: ICON_PATH + "prio_urgent.svg" },
-    { key: "medium", label: "Medium", icon: ICON_PATH + "prio_medium.svg" },
-    { key: "low", label: "Low", icon: ICON_PATH + "prio_low.svg" },
+    { key: "urgent", label: "Urgent", icon: ICON_PATH + "Prio_urgent.svg" },
+    { key: "medium", label: "Medium", icon: ICON_PATH + "Prio_medium.svg" },
+    { key: "low", label: "Low", icon: ICON_PATH + "Prio_low.svg" },
 ];
 
 // Platzhalter, später aus euren Daten

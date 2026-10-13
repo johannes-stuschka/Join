@@ -11,7 +11,17 @@ body {
   --selected-color: rgba(210, 227, 255, 1);
   --hover-color: rgba(227, 238, 255, 1);
 
+  --error-color: #ff8190;
+
   --header-height: 96px;
+  --mobile-nav-height: 0px;
+}
+
+@media (max-width: 700px) {
+  :root {
+    --header-height: 80px;
+    --mobile-nav-height: 77px;
+  }
 }
 
 * {
