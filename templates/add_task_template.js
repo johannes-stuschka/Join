@@ -158,3 +158,10 @@ function getAddTaskActionsTemplate(withClear, submitLabel) {
 function getSelectedAvatarTemplate(user) {
   return `<span class="avatar" style="background:${user.color}">${user.initials}</span>`;
 }
+
+function getToastTemplate(message) {
+  return `<div class="toast" id="toast">
+    <span>${escapeHtml(message)}</span>
+    <span class="toast-icon"></span>
+  </div>`;
+}

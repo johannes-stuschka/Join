@@ -563,3 +563,38 @@ textarea.title-input {
         background: var(--at-text);
     }
 }
+
+.toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 16px 24px;
+    border-radius: 20px;
+    background: var(--main-color);
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
+    animation: toast-fly 2.2s forwards;
+}
+
+.toast span {
+    color: #fff;
+    font-size: 22px;
+}
+
+.toast-icon {
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    -webkit-mask: url("../assets/icons/board_icon.svg") no-repeat center / contain;
+    mask: url("../assets/icons/board_icon.svg") no-repeat center / contain;
+}
+
+@keyframes toast-fly {
+    0% { transform: translate(-50%, 100vh); animation-timing-function: ease-out; }
+    25% { transform: translate(-50%, -50%); opacity: 1; }
+    80% { transform: translate(-50%, -50%); opacity: 1; }
+    100% { transform: translate(-50%, -50%); opacity: 0; }
+}

@@ -177,6 +177,7 @@ async function createTaskFromForm(formTask, status) {
   boardTasks.push({ ...task, id: result.name });
   closeAddTask();
   renderColumns();
+  showToast("Task added to board");
 }
 
 function openTaskDetail(id) {

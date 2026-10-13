@@ -60,7 +60,8 @@ async function initAddTaskPage() {
 
 async function saveNewTask(formTask) {
     await postData("tasks", toBoardTask(formTask, "todo"));
-    window.location.href = "board.html";
+    showToast("Task added to board");
+    setTimeout(() => (window.location.href = "board.html"), 2200);
 }
 
 function toBoardTask(formTask, status) {
@@ -263,6 +264,8 @@ function handleSubmit(event) {
     if (!validateAll()) return;
     const task = getTaskFromForm();
     if (addTaskCallback) return addTaskCallback(task);
+    console.log("Neuer Task:", task); // TODO: später speichern
+    showToast("Task added to board");
     event.target.reset();
 }
 
@@ -307,6 +310,17 @@ function openDatePicker() {
     } else {
         input.focus();
     }
+}
+
+function showToast(message) {
+    removeToast();
+    document.body.insertAdjacentHTML("beforeend", getToastTemplate(message));
+    setTimeout(removeToast, 2200);
+}
+
+function removeToast() {
+    const toast = document.getElementById("toast");
+    if (toast) toast.remove();
 }
 
 function selectCategory(index) {
