@@ -15,7 +15,7 @@ button {
   height: 48px;
   padding: 12px 21px;
   background: #fff;
-  border-bottom: 1px solid #d1d1d1;
+  border-bottom: 1px solid #686868;
   transition: border-color 100ms;
 }
 
@@ -38,7 +38,7 @@ button {
 }
 
 .field input::placeholder {
-  color: #d1d1d1;
+  color: #686868;
   opacity: 1;
 }
 
@@ -82,8 +82,8 @@ button {
   height: 48px;
   padding: 0 35px;
   border-radius: 8px;
-  font-size: 21px;
-  font-weight: 700;
+  font-size: 23px;
+  font-weight: 400;
   line-height: 1.2;
   text-decoration: none;
   cursor: pointer;
@@ -91,7 +91,7 @@ button {
 }
 
 .btn-primary {
-  background: #4589ff;
+  background: var(--main-color);
   color: #fff;
 }
 
@@ -101,7 +101,7 @@ button {
 }
 
 .btn-primary:disabled {
-  background: #a8a8a8;
+  background: var(--main-color);
   box-shadow: none;
   cursor: default;
 }
@@ -109,19 +109,16 @@ button {
 .btn-secondary {
   background: #fff;
   box-shadow: inset 0 0 0 1px #647188;
-  font-size: 16px;
-  font-weight: 400;
   color: #647188;
 }
 
 .btn-secondary:hover {
-  box-shadow: inset 0 0 0 2px #4589ff, 0 4px 8px rgba(0, 0, 0, 0.2);
-  color: #4589ff;
+  box-shadow: inset 0 0 0 2px var(--main-color), 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: var(--main-color);
 }
 
 .btn-small {
   padding: 0 16px;
-  font-size: 16px;
 }
 
 .btn:focus-visible,
@@ -136,14 +133,24 @@ button {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px 35px;
-  margin-top: 7px;
+  margin-top: 29px;
 }
 
 .auth-card-signup .btn-primary {
   align-self: center;
+  height: 43px;
   margin-top: 11px;
   padding: 0 20px;
-  font-weight: 400;
+  font-size: 19px;
+}
+
+.auth-card-signup .checkbox {
+  align-self: center;
+  margin-top: 12px;
+}
+
+.auth-card-signup .field-error {
+  font-size: 13px;
 }
 
 .checkbox {
@@ -184,7 +191,7 @@ button {
   content: "";
   position: absolute;
   inset: 4px;
-  border: 2px solid #4589ff;
+  border: 2px solid var(--main-color);
   border-radius: 3px;
 }
 
@@ -195,8 +202,8 @@ button {
   left: 7px;
   width: 10px;
   height: 5px;
-  border-bottom: 2px solid #4589ff;
-  border-left: 2px solid #4589ff;
+  border-bottom: 2px solid var(--main-color);
+  border-left: 2px solid var(--main-color);
   opacity: 0;
   transform: rotate(-45deg);
   transition: opacity 100ms;
@@ -214,12 +221,12 @@ button {
 .checkbox-text a {
   font-size: 16px;
   line-height: 1.2;
-  color: #647188;
+  color: #42526e;
 }
 
 .checkbox-text a {
   color: #005dff;
-  transition: text-decoration-color 100ms;
+  text-decoration: none;
 }
 
 .checkbox-text a:hover {
@@ -230,7 +237,7 @@ button {
   display: flex;
   justify-content: center;
   gap: 16px;
-  padding: 8px 16px 24px;
+  padding: 8px 16px 43px;
 }
 
 .auth-footer a {
@@ -246,6 +253,14 @@ button {
   color: #005dff;
 }
 
+.auth-blue .auth-footer a {
+  color: #fff;
+}
+
+.auth-blue .auth-footer a:hover {
+  text-decoration: underline;
+}
+
 .toast {
   position: fixed;
   top: 50%;
@@ -257,7 +272,7 @@ button {
   width: min(326px, calc(100% - 32px));
   height: 74px;
   padding: 0 16px;
-  background: #4589ff;
+  background: var(--main-color);
   border-radius: 20px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
   font-size: 23px;
@@ -276,10 +291,30 @@ button {
   .btn-row {
     flex-direction: column;
     align-items: center;
+    margin-top: 24px;
   }
 
-  .btn-row .btn {
-    width: 180px;
+  .btn,
+  .auth-card-signup .btn-primary {
     font-size: 16px;
+  }
+
+  .auth-footer {
+    padding-bottom: 24px;
+  }
+
+  .btn-row .btn,
+  .auth-card-signup .btn-primary {
+    width: 180px;
+    height: 48px;
+  }
+
+  .btn-secondary {
+    box-shadow: inset 0 0 0 1px #42526e;
+    color: #42526e;
+  }
+
+  .auth-top .btn-small {
+    height: 43px;
   }
 }
