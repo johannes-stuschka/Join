@@ -3,22 +3,24 @@ const AVATAR_COLORS = [
   "#1fd7c1", "#462f8a", "#ff4646", "#00bee8",
 ];
 
-let contacts = [
-  { id: 1, name: "Anton Mayer", email: "antom@gmail.com", phone: "+49 1111 111 11 1", color: "#ff7a00" },
-  { id: 2, name: "Anja Schulz", email: "schulz@hotmail.com", phone: "+49 2222 222 22 2", color: "#9327ff" },
-  { id: 3, name: "Benedikt Ziegler", email: "benedikt@gmail.com", phone: "+49 3333 333 33 3", color: "#6e52ff" },
-  { id: 4, name: "David Eisenberg", email: "davidberg@gmail.com", phone: "+49 4444 444 44 4", color: "#fc71ff" },
-  { id: 5, name: "Eva Fischer", email: "eva@gmail.com", phone: "+49 5555 555 55 5", color: "#ffbb2b" },
-  { id: 6, name: "Emmanuel Mauer", email: "emmanuelma@gmail.com", phone: "+49 6666 666 66 6", color: "#1fd7c1" },
-  { id: 7, name: "Marcel Bauer", email: "bauer@gmail.com", phone: "+49 7777 777 77 7", color: "#462f8a" },
-  { id: 8, name: "Tatjana Wolf", email: "wolf@gmail.com", phone: "+49 2222 22 222 2", color: "#ff4646" },
+const DEFAULT_CONTACTS = [
+  { name: "Anton Mayer", email: "antom@gmail.com", phone: "+49 1111 111 11 1", color: "#ff7a00" },
+  { name: "Anja Schulz", email: "schulz@hotmail.com", phone: "+49 2222 222 22 2", color: "#9327ff" },
+  { name: "Benedikt Ziegler", email: "benedikt@gmail.com", phone: "+49 3333 333 33 3", color: "#6e52ff" },
+  { name: "David Eisenberg", email: "davidberg@gmail.com", phone: "+49 4444 444 44 4", color: "#fc71ff" },
+  { name: "Eva Fischer", email: "eva@gmail.com", phone: "+49 5555 555 55 5", color: "#ffbb2b" },
+  { name: "Emmanuel Mauer", email: "emmanuelma@gmail.com", phone: "+49 6666 666 66 6", color: "#1fd7c1" },
+  { name: "Marcel Bauer", email: "bauer@gmail.com", phone: "+49 7777 777 77 7", color: "#462f8a" },
+  { name: "Tatjana Wolf", email: "wolf@gmail.com", phone: "+49 2222 22 222 2", color: "#ff4646" },
 ];
+
+let contacts = [];
 
 let selectedContactId = null;
 let editingContactId = null;
 let toastTimeout = null;
 
-function getInitials(name) {
+function getContactInitials(name) {
   const parts = name.trim().split(/\s+/);
   const first = parts[0][0];
   const last = parts.length > 1 ? parts[parts.length - 1][0] : "";
@@ -51,6 +53,10 @@ function renderContactList() {
 function renderContactDetail() {
   const contact = getContactById(selectedContactId);
   document.getElementById("contact-detail").innerHTML = contact ? getContactDetailTemplate(contact) : "";
+}
+
+function toggleContactSelection(id) {
+  selectContact(selectedContactId === id ? null : id);
 }
 
 function selectContact(id) {
@@ -125,39 +131,50 @@ function getContactFromForm() {
   };
 }
 
-function handleContactSubmit(event) {
+async function handleContactSubmit(event) {
   event.preventDefault();
   if (!validateContactForm()) return;
-  if (editingContactId) {
-    updateContact(editingContactId, getContactFromForm());
-  } else {
-    createContact(getContactFromForm());
+  try {
+    if (editingContactId) {
+      await updateContact(editingContactId, getContactFromForm());
+    } else {
+      await createContact(getContactFromForm());
+    }
+    closeContactDialog();
+  } catch (error) {
+    showToast("Contact could not be saved");
   }
-  closeContactDialog();
 }
 
-function createContact(data) {
-  const id = Math.max(0, ...contacts.map((contact) => contact.id)) + 1;
+async function createContact(data) {
   const color = AVATAR_COLORS[contacts.length % AVATAR_COLORS.length];
-  contacts.push({ id, ...data, color });
-  selectContact(id);
+  const contact = { ...data, color };
+  const result = await postData("contacts", contact);
+  contacts.push({ ...contact, id: result.name });
+  selectContact(result.name);
   showToast("Contact successfully created");
 }
 
-function updateContact(id, data) {
+async function updateContact(id, data) {
+  await patchData(`contacts/${id}`, data);
   Object.assign(getContactById(id), data);
   selectContact(id);
 }
 
-function deleteContact(id) {
+async function deleteContact(id) {
+  try {
+    await deleteData(`contacts/${id}`);
+  } catch (error) {
+    return showToast("Contact could not be deleted");
+  }
   contacts = contacts.filter((contact) => contact.id !== id);
   if (selectedContactId === id) selectedContactId = null;
   renderContactList();
   renderContactDetail();
 }
 
-function deleteEditingContact() {
-  deleteContact(editingContactId);
+async function deleteEditingContact() {
+  await deleteContact(editingContactId);
   closeContactDialog();
 }
 
@@ -178,9 +195,27 @@ function addContactListeners() {
   document.getElementById("contact-dialog").addEventListener("click", closeDialogOnBackdropClick);
 }
 
-function initContacts() {
-  renderContactList();
+async function seedContacts() {
+  for (const contact of DEFAULT_CONTACTS) {
+    await postData("contacts", contact);
+  }
+  return await loadData("contacts");
+}
+
+async function loadContacts() {
+  let data = await loadData("contacts");
+  if (!data) data = await seedContacts();
+  contacts = toList(data);
+}
+
+async function initContacts() {
   addContactListeners();
+  try {
+    await loadContacts();
+  } catch (error) {
+    showToast("Contacts could not be loaded");
+  }
+  renderContactList();
 }
 
 document.addEventListener("DOMContentLoaded", initContacts);

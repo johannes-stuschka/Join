@@ -5,7 +5,7 @@ function escapeHtml(text) {
 }
 
 function getAvatarTemplate(contact, sizeClass = "") {
-  return `<span class="avatar ${sizeClass}" style="--avatar-color: ${contact.color}">${getInitials(contact.name)}</span>`;
+  return `<span class="avatar ${sizeClass}" style="--avatar-color: ${contact.color}">${getContactInitials(contact.name)}</span>`;
 }
 
 function getContactGroupTemplate(letter) {
@@ -14,7 +14,7 @@ function getContactGroupTemplate(letter) {
 
 function getContactItemTemplate(contact, isActive) {
   return `<li>
-    <button type="button" class="contact-item ${isActive ? "active" : ""}" onclick="selectContact(${contact.id})">
+    <button type="button" class="contact-item ${isActive ? "active" : ""}" onclick="toggleContactSelection('${contact.id}')">
       ${getAvatarTemplate(contact)}
       <span class="contact-item-text">
         <span class="contact-item-name">${escapeHtml(contact.name)}</span>
@@ -31,10 +31,10 @@ function getContactDetailTemplate(contact) {
       <div>
         <h1 class="contact-detail-name">${escapeHtml(contact.name)}</h1>
         <div class="contact-actions">
-          <button type="button" class="contact-action" onclick="openEditContact(${contact.id})">
+          <button type="button" class="contact-action" onclick="openEditContact('${contact.id}')">
             <span class="icon icon-edit"></span>Edit
           </button>
-          <button type="button" class="contact-action" onclick="deleteContact(${contact.id})">
+          <button type="button" class="contact-action" onclick="deleteContact('${contact.id}')">
             <span class="icon icon-delete"></span>Delete
           </button>
         </div>

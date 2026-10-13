@@ -31,3 +31,19 @@ async function postData(path, data) {
 async function putData(path, data) {
   return await sendRequest("PUT", path, data);
 }
+
+
+async function patchData(path, data) {
+  return await sendRequest("PATCH", path, data);
+}
+
+
+async function deleteData(path) {
+  const response = await fetch(`${FIREBASE_URL}${path}.json`, { method: "DELETE" });
+  return await parseResponse(response);
+}
+
+
+function toList(data) {
+  return Object.entries(data || {}).map(([id, entry]) => ({ ...entry, id }));
+}

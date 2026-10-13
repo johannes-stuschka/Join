@@ -5,9 +5,8 @@ const BOARD_COLUMNS = [
   { status: "done", title: "Done" },
 ];
 
-const PLACEHOLDER_TASKS = [
+const DEFAULT_TASKS = [
   {
-    id: 1,
     status: "progress",
     category: "User Story",
     priority: "medium",
@@ -24,7 +23,6 @@ const PLACEHOLDER_TASKS = [
     ],
   },
   {
-    id: 2,
     status: "feedback",
     category: "Technical Task",
     priority: "low",
@@ -38,7 +36,6 @@ const PLACEHOLDER_TASKS = [
     ],
   },
   {
-    id: 3,
     status: "feedback",
     category: "User Story",
     priority: "medium",
@@ -49,7 +46,6 @@ const PLACEHOLDER_TASKS = [
     assigned: [{ name: "Tim Weber", initials: "TW", color: "#ff4646" }],
   },
   {
-    id: 4,
     status: "done",
     category: "Technical Task",
     priority: "urgent",
@@ -67,13 +63,44 @@ const PLACEHOLDER_TASKS = [
   },
 ];
 
-let boardTasks = [...PLACEHOLDER_TASKS];
+let boardTasks = [];
 let draggedTaskId = null;
 
-function initBoard() {
+async function initBoard() {
   document.getElementById("board").innerHTML = getBoardTemplate();
   document.getElementById("board-search").addEventListener("input", renderColumns);
+  try {
+    await Promise.all([loadTasks(), loadTaskContacts()]);
+  } catch (error) {
+    console.error(error);
+  }
   renderColumns();
+}
+
+async function seedTasks() {
+  for (const task of DEFAULT_TASKS) {
+    await postData("tasks", task);
+  }
+  return await loadData("tasks");
+}
+
+async function loadTasks() {
+  let data = await loadData("tasks");
+  if (!data) data = await seedTasks();
+  boardTasks = toList(data).map(normalizeTask);
+}
+
+function normalizeTask(task) {
+  return { ...task, description: task.description || "", subtasks: task.subtasks || [], assigned: task.assigned || [] };
+}
+
+function getTaskById(id) {
+  return boardTasks.find((t) => t.id === id);
+}
+
+async function saveTask(task) {
+  const { id, ...data } = task;
+  await putData(`tasks/${id}`, data);
 }
 
 function getVisibleTasks() {
@@ -115,12 +142,14 @@ function leaveDrop(event) {
   event.currentTarget.classList.remove("drag-over");
 }
 
-function dropTask(event, status) {
+async function dropTask(event, status) {
   event.preventDefault();
-  const task = boardTasks.find((t) => t.id === draggedTaskId);
-  if (task) task.status = status;
+  const task = getTaskById(draggedTaskId);
   draggedTaskId = null;
+  if (!task || task.status === status) return renderColumns();
+  task.status = status;
   renderColumns();
+  await patchData(`tasks/${task.id}`, { status });
 }
 
 initBoard();
@@ -142,44 +171,39 @@ function closeAddTaskOnBackdrop(event) {
   if (event.target === event.currentTarget) closeAddTask();
 }
 
-function createTaskFromForm(formTask, status) {
-  boardTasks.push(toBoardTask(formTask, status));
+async function createTaskFromForm(formTask, status) {
+  const task = toBoardTask(formTask, status);
+  const result = await postData("tasks", task);
+  boardTasks.push({ ...task, id: result.name });
   closeAddTask();
   renderColumns();
 }
 
-function toBoardTask(formTask, status) {
-  return {
-    ...formTask,
-    id: Date.now(),
-    status,
-    subtasks: formTask.subtasks.map((text) => ({ text, done: false })),
-    assigned: formTask.assignedTo.map(toAvatar),
-  };
-}
-
 function openTaskDetail(id) {
-  const task = boardTasks.find((t) => t.id === id);
+  const task = getTaskById(id);
   if (!task) return;
   const overlay = document.getElementById("task-overlay");
   overlay.innerHTML = getTaskDetailTemplate(task);
   overlay.classList.add("open", "centered");
 }
 
-function toggleSubtask(taskId, index) {
-  const task = boardTasks.find((t) => t.id === taskId);
-  task.subtasks[index].done = !task.subtasks[index].done;
+async function toggleSubtask(taskId, index) {
+  const task = getTaskById(taskId);
+  const done = !task.subtasks[index].done;
+  task.subtasks[index].done = done;
   renderColumns();
+  await putData(`tasks/${taskId}/subtasks/${index}/done`, done);
 }
 
-function deleteTask(id) {
+async function deleteTask(id) {
+  await deleteData(`tasks/${id}`);
   boardTasks = boardTasks.filter((t) => t.id !== id);
   closeAddTask();
   renderColumns();
 }
 
 function editTask(id) {
-  const task = boardTasks.find((t) => t.id === id);
+  const task = getTaskById(id);
   if (!task) return;
   const overlay = document.getElementById("task-overlay");
   overlay.innerHTML = getEditTaskTemplate();
@@ -187,16 +211,19 @@ function editTask(id) {
   initAddTask((formTask) => updateTaskFromForm(id, formTask), task);
 }
 
-function updateTaskFromForm(id, formTask) {
+async function updateTaskFromForm(id, formTask) {
   const index = boardTasks.findIndex((t) => t.id === id);
   const old = boardTasks[index];
-  boardTasks[index] = {
-    ...formTask,
+  const { assignedTo, ...fields } = formTask;
+  const task = {
+    ...fields,
     id,
     status: old.status,
     subtasks: mergeSubtasks(formTask.subtasks, old.subtasks),
-    assigned: formTask.assignedTo.map((name) => old.assigned.find((u) => u.name === name) || toAvatar(name)),
+    assigned: assignedTo.map((name) => old.assigned.find((u) => u.name === name) || toAvatar(name)),
   };
+  await saveTask(task);
+  boardTasks[index] = task;
   renderColumns();
   openTaskDetail(id);
 }

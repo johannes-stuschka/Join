@@ -40,8 +40,8 @@ function getEmptyTemplate(title) {
 
 function getCardTemplate(task) {
     return `
-    <article class="task-card" draggable="true" onclick="openTaskDetail(${task.id})"
-      ondragstart="startDrag(event, ${task.id})" ondragend="endDrag(event)">
+    <article class="task-card" draggable="true" onclick="openTaskDetail('${task.id}')"
+      ondragstart="startDrag(event, '${task.id}')" ondragend="endDrag(event)">
       <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
       <h3 class="task-title">${escapeHtml(task.title)}</h3>
       <p class="task-desc">${escapeHtml(task.description)}</p>
@@ -145,7 +145,7 @@ function getDetailSubtasksTemplate(task) {
 function getDetailSubtaskTemplate(taskId, subtask, index) {
     return `<li class="detail-subtask"><label>
     <input type="checkbox" ${subtask.done ? "checked" : ""}
-      onchange="toggleSubtask(${taskId}, ${index})" />
+      onchange="toggleSubtask('${taskId}', ${index})" />
     <span class="check-icon"></span>
     ${escapeHtml(subtask.text)}
   </label></li>`;
@@ -154,9 +154,9 @@ function getDetailSubtaskTemplate(taskId, subtask, index) {
 function getDetailActionsTemplate(id) {
     return `
     <div class="detail-actions">
-      <button type="button" onclick="deleteTask(${id})"><span class="detail-icon icon-delete"></span> Delete</button>
+      <button type="button" onclick="deleteTask('${id}')"><span class="detail-icon icon-delete"></span> Delete</button>
       <span class="detail-divider"></span>
-      <button type="button" onclick="editTask(${id})"><span class="detail-icon icon-edit"></span> Edit</button>
+      <button type="button" onclick="editTask('${id}')"><span class="detail-icon icon-edit"></span> Edit</button>
     </div>`;
 }
 

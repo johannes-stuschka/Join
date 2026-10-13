@@ -6,8 +6,7 @@ const PRIORITIES = [
     { key: "low", label: "Low", icon: ICON_PATH + "Prio_low.svg" },
 ];
 
-// Platzhalter, später aus euren Daten
-const CONTACTS = ["Anna Schmidt", "Ben Weber", "Clara Fischer"];
+let CONTACTS = [];
 const CATEGORIES = ["Technical Task", "User Story"];
 
 let selectedPriority = "medium";
@@ -43,9 +42,35 @@ function fillForm(task) {
     subtasks = task.subtasks.map((subtask) => subtask.text);
 }
 
-function initAddTaskPage() {
+async function loadTaskContacts() {
+    const contacts = toList(await loadData("contacts"));
+    CONTACTS = contacts.map((contact) => contact.name).sort((a, b) => a.localeCompare(b));
+}
+
+async function initAddTaskPage() {
     document.getElementById("add-task-page").innerHTML = getAddTaskFormTemplate(true);
-    initAddTask();
+    initAddTask(saveNewTask);
+    try {
+        await loadTaskContacts();
+    } catch (error) {
+        console.error(error);
+    }
+    renderContacts();
+}
+
+async function saveNewTask(formTask) {
+    await postData("tasks", toBoardTask(formTask, "todo"));
+    window.location.href = "board.html";
+}
+
+function toBoardTask(formTask, status) {
+    const { assignedTo, ...fields } = formTask;
+    return {
+        ...fields,
+        status,
+        subtasks: formTask.subtasks.map((text) => ({ text, done: false })),
+        assigned: assignedTo.map(toAvatar),
+    };
 }
 
 function resetAddTaskState() {
@@ -238,7 +263,6 @@ function handleSubmit(event) {
     if (!validateAll()) return;
     const task = getTaskFromForm();
     if (addTaskCallback) return addTaskCallback(task);
-    console.log("Neuer Task:", task); // TODO: später speichern
     event.target.reset();
 }
 
