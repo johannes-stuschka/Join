@@ -1,5 +1,10 @@
 * {
   box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  color: #1a1a1a;
+  scrollbar-color: var(--main-color) transparent;
+  scrollbar-width: thin;
 }
 
 body {
@@ -22,14 +27,6 @@ body {
     --header-height: 80px;
     --mobile-nav-height: 77px;
   }
-}
-
-* {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 400;
-  color: #1a1a1a;
-  scrollbar-color: var(--main-color) transparent;
-  scrollbar-width: thin;
 }
 
 .layout {

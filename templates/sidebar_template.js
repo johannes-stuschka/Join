@@ -1,7 +1,7 @@
 function getSidebarButtonTemplate(button) {
   return `
     <a class="sidebar-btn ${button.activeClass}" href="${button.href}">
-      <img src="${button.icon}" alt="" width="24" height="24" />
+      <span class="sidebar-icon" style="--icon: url('${button.icon}')" aria-hidden="true"></span>
       <span>${button.label}</span>
     </a>`;
 }

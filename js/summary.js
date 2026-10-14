@@ -75,7 +75,7 @@ function getUrgentHtml(data) {
 function getCardsHtml(data) {
   const cards = [
     buildCard("board", data.board, "Task in Board", "card-board"),
-    buildCard("todo", data.todo, "Tasks To-do", "card-small"),
+    buildCard("todo", data.todo, "Tasks To-do", "card-todo"),
     buildCard("progress", data.progress, "Task in Progress", "card-small"),
     buildCard("feedback", data.feedback, "Awaiting Feedback", "card-small"),
     buildCard("done", data.done, "Tasks Done", "card-small"),
