@@ -26,6 +26,9 @@ function getContactItemTemplate(contact, isActive) {
 
 function getContactDetailTemplate(contact) {
   return `<div class="contact-detail-content">
+    <button type="button" class="contact-back" onclick="selectContact(null)" aria-label="Back to contact list">
+      <img src="../assets/icons/arrow_left.svg" alt="" width="21" height="20" />
+    </button>
     <div class="contact-detail-head">
       ${getAvatarTemplate(contact, "avatar-lg")}
       <div>
@@ -47,6 +50,9 @@ function getContactDetailTemplate(contact) {
       <dt>Phone</dt>
       <dd>${escapeHtml(contact.phone)}</dd>
     </dl>
+    <button type="button" class="contact-fab contact-options-btn" onclick="toggleContactOptions(event)" aria-label="Contact options">
+      <span class="icon icon-lg icon-more"></span>
+    </button>
   </div>`;
 }
 
