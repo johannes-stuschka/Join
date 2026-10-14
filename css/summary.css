@@ -56,22 +56,6 @@
     transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.summary-card:hover {
-    background: var(--main-color);
-    color: #fff;
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-top-left-radius: 0;
-}
-
-.summary-card:hover .card-count {
-    color: #fff;
-}
-
-.summary-card:hover .card-label {
-    color: #fff;
-}
-
 .card-top {
     display: flex;
     align-items: center;
@@ -128,24 +112,39 @@
     font-weight: 700;
 }
 
-.card-urgent:hover {
-    background: #fff;
-    color: var(--main-color);
-    transform: scale(1.05);
-}
-
-.card-urgent:hover .card-count,
-.card-urgent:hover .card-label,
-.card-urgent:hover .urgent-date {
-    color: var(--main-color);
-}
-
-.card-urgent:hover .urgent-divider {
-    background: var(--main-color);
-}
-
 .card-todo {
     background: var(--selected-color);
+}
+
+@media (min-width: 701px) {
+    .summary-card:hover {
+        background: var(--main-color);
+        color: #fff;
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-top-left-radius: 0;
+    }
+
+    .summary-card:hover .card-count,
+    .summary-card:hover .card-label {
+        color: #fff;
+    }
+
+    .card-urgent:hover {
+        background: #fff;
+        color: var(--main-color);
+        transform: scale(1.05);
+    }
+
+    .card-urgent:hover .card-count,
+    .card-urgent:hover .card-label,
+    .card-urgent:hover .urgent-date {
+        color: var(--main-color);
+    }
+
+    .card-urgent:hover .urgent-divider {
+        background: var(--main-color);
+    }
 }
 
 @media (min-width: 701px) and (max-width: 792px) {
@@ -213,10 +212,6 @@
     .card-todo {
         order: -1;
         grid-column: span 2;
-    }
-
-    .card-todo:hover {
-        transform: scale(1.05);
     }
 
     .summary-greeting {
