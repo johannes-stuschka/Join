@@ -52,7 +52,19 @@ function renderContactList() {
 
 function renderContactDetail() {
   const contact = getContactById(selectedContactId);
-  document.getElementById("contact-detail").innerHTML = contact ? getContactDetailTemplate(contact) : "";
+  const detail = document.getElementById("contact-detail");
+  detail.innerHTML = contact ? getContactDetailTemplate(contact) : "";
+  detail.classList.remove("options-open");
+  document.querySelector(".contacts").classList.toggle("has-selection", Boolean(contact));
+}
+
+function toggleContactOptions(event) {
+  event.stopPropagation();
+  document.getElementById("contact-detail").classList.toggle("options-open");
+}
+
+function closeContactOptions() {
+  document.getElementById("contact-detail").classList.remove("options-open");
 }
 
 function toggleContactSelection(id) {
@@ -193,6 +205,7 @@ function addContactListeners() {
     if (event.target.matches("input")) validateField(event.target);
   });
   document.getElementById("contact-dialog").addEventListener("click", closeDialogOnBackdropClick);
+  document.addEventListener("click", closeContactOptions);
 }
 
 async function seedContacts() {

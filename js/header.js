@@ -50,6 +50,7 @@ function bindHeaderEvents() {
   document.getElementById("headerLogout").addEventListener("click", logout);
   document.addEventListener("click", onHeaderDocumentClick);
   document.addEventListener("keydown", onHeaderKeydown);
+  window.addEventListener("pageshow", () => setMenuOpen(false));
 }
 
 

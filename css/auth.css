@@ -201,21 +201,17 @@ body.splash .auth-footer {
 @media (max-width: 700px) {
   .auth-card,
   .auth-card-signup {
-    padding-right: 40px;
-    padding-left: 40px;
-  }
-
-  .auth-top {
-    right: 24px;
-  }
-}
-
-@media (max-width: 600px) {
-  .auth-card,
-  .auth-card-signup {
     gap: 32px;
     max-width: 396px;
     padding: 32px 16px;
+  }
+
+  .auth-card-signup {
+    gap: 24px;
+  }
+
+  .auth-card-signup .auth-form {
+    --form-gap: 32px;
   }
 
   .auth-title {
@@ -228,7 +224,9 @@ body.splash .auth-footer {
 
   .back-link {
     top: 40px;
-    left: 16px;
+    left: 40px;
+    width: 32px;
+    height: 32px;
   }
 
   .auth-top-text {
@@ -241,5 +239,11 @@ body.splash .auth-footer {
     justify-content: center;
     gap: 16px 35px;
     padding: 0 16px 16px;
+  }
+}
+
+@media (max-width: 400px) {
+  .back-link {
+    left: 16px;
   }
 }
