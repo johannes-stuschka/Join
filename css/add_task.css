@@ -1,637 +1,663 @@
 .add-task {
-    --at-text: #2a3647;
-    --at-line: #d1d1d1;
-    --at-border: #a8a8a8;
-    --at-placeholder: #626262;
-    --prio-urgent: #ff3d00;
-    --prio-medium: #ffa800;
-    --prio-low: #7ae229;
+  --at-text: #2a3647;
+  --at-line: #d1d1d1;
+  --at-border: #a8a8a8;
+  --at-placeholder: #626262;
+  --prio-urgent: #ff3d00;
+  --prio-medium: #ffa800;
+  --prio-low: #7ae229;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    box-sizing: border-box;
-    gap: 12px;
-    min-height: 100%;
-    padding: 32px 24px;
-    color: var(--at-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 12px;
+  min-height: 100%;
+  padding: 32px 24px;
+  color: var(--at-text);
 }
 
 #add-task-page {
-    overflow-y: auto;
+  overflow-y: auto;
 }
 
 #add-task-page .add-task {
-    align-self: flex-start;
+  align-self: flex-start;
 }
 
 .add-task ::placeholder {
-    color: var(--at-placeholder);
+  color: var(--at-placeholder);
 }
 
 .add-task-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    flex: 0 1 440px;
-    min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 0 1 440px;
 }
 
 .field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .field-label {
-    font-size: 19px;
-    font-weight: 700;
-    line-height: 1.2;
-    color: #42526e;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #42526e;
 }
 
 .optional {
-    font-size: inherit;
-    font-weight: 400;
-    color: inherit;
+  font-size: inherit;
+  font-weight: 400;
+  color: inherit;
 }
 
 .title-input,
 .line-input,
 .dropdown-toggle {
-    width: 100%;
-    min-height: 48px;
-    padding: 12px 16px;
-    border: none;
-    border-bottom: 1px solid var(--at-border);
-    border-radius: 0;
-    background: transparent;
-    font: inherit;
-    font-size: 19px;
-    line-height: 1.2;
-    color: inherit;
-    outline: none;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 16px;
+  border: none;
+  border-bottom: 1px solid var(--at-border);
+  border-radius: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 19px;
+  line-height: 1.2;
+  color: inherit;
+  outline: none;
 }
 
 .title-input {
-    font-size: 32px;
+  font-size: 32px;
 }
 
 .title-input:focus,
 .line-input:focus,
 .dropdown-toggle:focus {
-    border-bottom-color: var(--main-color);
+  border-bottom-color: var(--main-color);
 }
 
 textarea {
-    min-height: 103px;
-    padding: 18px 16px;
-    border: 1px solid var(--at-border);
-    border-radius: 10px;
-    font: inherit;
-    font-size: 19px;
-    line-height: 1.2;
-    resize: vertical;
-    outline: none;
+  min-height: 103px;
+  padding: 18px 16px;
+  border: 1px solid var(--at-border);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 19px;
+  line-height: 1.2;
+  resize: vertical;
+  outline: none;
 }
 
 textarea:focus {
-    border-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.input-field {
+  min-width: 0;
 }
 
 /* Priority */
 .prio-buttons {
-    display: flex;
-    gap: 16px;
+  display: flex;
+  gap: 16px;
 }
 
 .prio-btn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    height: 51px;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 10px;
-    background: #fff;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-    font: inherit;
-    font-size: 21px;
-    color: #000;
-    cursor: pointer;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 51px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  font: inherit;
+  font-size: 21px;
+  color: #000;
+  cursor: pointer;
 }
 
 .prio-btn.active,
 .prio-btn.active:hover {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 .prio-btn img {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .prio-btn.active {
-    color: #fff;
+  color: #fff;
 }
 
 .prio-btn.active img {
-    filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
 }
 
 .prio-urgent.active {
-    background: var(--prio-urgent);
+  background: var(--prio-urgent);
 }
 
 .prio-medium.active {
-    background: var(--prio-medium);
+  background: var(--prio-medium);
 }
 
 .prio-low.active {
-    background: var(--prio-low);
+  background: var(--prio-low);
 }
 
 /* Dropdown */
 .dropdown {
-    position: relative;
+  position: relative;
 }
 
 .dropdown-toggle {
-    text-align: left;
-    color: #000;
-    cursor: pointer;
+  text-align: left;
+  color: #000;
+  cursor: pointer;
 }
 
 .dropdown-list {
-    display: none;
-    position: absolute;
-    z-index: 10;
-    width: 100%;
-    margin: 0;
-    padding: 4px 0;
-    list-style: none;
-    background: #fff;
-    border: 1px solid var(--at-line);
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: none;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  background: #fff;
+  border: 1px solid var(--at-line);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .dropdown.open .dropdown-list {
-    display: block;
+  display: block;
 }
 
 .dropdown-item label {
-    display: flex;
-    gap: 8px;
-    padding: 8px 12px;
-    cursor: pointer;
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
 }
 
 /* Subtasks */
 .subtask-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .subtask-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px 12px;
-    border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 8px;
 }
 
 .subtask-delete {
-    border: none;
-    background: none;
-    color: var(--at-text);
-    cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--at-text);
+  cursor: pointer;
 }
 
 /* Buttons */
 .add-task-actions {
-    display: flex;
-    flex-shrink: 0;
-    align-self: flex-end;
-    gap: 24px;
-    margin-left: auto;
+  display: flex;
+  flex-shrink: 0;
+  align-self: flex-end;
+  gap: 24px;
+  margin-left: auto;
 }
 
 .btn {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 16px;
-    border-radius: 10px;
-    font: inherit;
-    font-size: 21px;
-    line-height: 1.2;
-    cursor: pointer;
-    white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 16px;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 21px;
+  line-height: 1.2;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
 .btn-secondary {
-    border: 1px solid #647188;
-    background: #fff;
-    color: #647188;
+  border: 1px solid #647188;
+  background: #fff;
+  color: #647188;
 }
 
 .btn-primary {
-    border: none;
-    background: var(--main-color);
-    color: #fff;
+  border: none;
+  background: var(--main-color);
+  color: #fff;
 }
 
 .btn-primary:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .date-wrapper {
-    position: relative;
+  position: relative;
 }
 
 .date-wrapper .line-input {
-    padding-right: 40px;
+  padding-right: 40px;
 }
 
 .date-wrapper .line-input:invalid {
-    color: var(--at-placeholder);
+  color: var(--at-placeholder);
 }
 
 .date-wrapper input::-webkit-calendar-picker-indicator {
-    display: none;
+  display: none;
 }
 
 .date-btn {
-    position: absolute;
-    top: 50%;
-    right: 8px;
-    transform: translateY(-50%);
-    display: flex;
-    padding: 0;
-    border: none;
-    background: none;
-    cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  display: flex;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 .date-btn img {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .dropdown-toggle {
-    padding-right: 40px;
+  padding-right: 40px;
 }
 
 .dropdown::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    transform: translate(50%, -50%);
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transform: translate(50%, -50%);
+  pointer-events: none;
 }
 
 .dropdown::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    width: 24px;
-    height: 24px;
-    transform: translate(50%, -50%);
-    background-color: var(--main-color);
-    -webkit-mask: url("../assets/icons/arrow_drop_down.svg") no-repeat center / contain;
-    mask: url("../assets/icons/arrow_drop_down.svg") no-repeat center / contain;
-    pointer-events: none;
-    transition: transform 0.15s ease;
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  transform: translate(50%, -50%);
+  background-color: var(--main-color);
+  -webkit-mask: url("../assets/icons/arrow_drop_down.svg") no-repeat center / contain;
+  mask: url("../assets/icons/arrow_drop_down.svg") no-repeat center / contain;
+  pointer-events: none;
+  transition: transform 0.15s ease;
 }
 
 .dropdown.open::after {
-    transform: translate(50%, -50%) rotate(180deg);
+  transform: translate(50%, -50%) rotate(180deg);
 }
 
 .dropdown-option {
-    padding: 8px 12px;
-    cursor: pointer;
+  padding: 8px 12px;
+  cursor: pointer;
 }
 
 /* Pflichtfeld-Meldungen */
 .field-error {
-    font-size: 13px;
-    line-height: 1.2;
-    color: var(--error-color);
+  font-size: 13px;
+  line-height: 1.2;
+  color: var(--error-color);
 }
 
 .field-error[hidden] {
-    display: none;
+  display: none;
 }
 
 .title-input.invalid,
 .line-input.invalid,
 .dropdown-toggle.invalid {
-    border-bottom-color: var(--error-color);
+  border-bottom-color: var(--error-color);
 }
 
 textarea.title-input {
-    min-height: 64px;
-    padding: 13px 16px;
-    resize: none;
-    overflow: hidden;
-    field-sizing: content;
+  min-height: 64px;
+  padding: 13px 16px;
+  resize: none;
+  overflow: hidden;
+  field-sizing: content;
 }
 
 .avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    color: #fff;
-    font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
 }
 
-.avatar+.avatar {
-    margin-left: -8px;
+.avatar + .avatar {
+  margin-left: -8px;
 }
 
 .selected-avatars {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 0 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 12px;
 }
 
-.selected-avatars .avatar+.avatar {
-    margin-left: 0;
+.selected-avatars .avatar + .avatar {
+  margin-left: 0;
 }
 
 .detail-icon {
-    width: 18px;
-    height: 18px;
-    background-color: var(--main-color);
+  width: 18px;
+  height: 18px;
+  background-color: var(--main-color);
 }
 
 .icon-delete {
-    -webkit-mask: url("../assets/icons/delete.svg") no-repeat center / contain;
-    mask: url("../assets/icons/delete.svg") no-repeat center / contain;
+  -webkit-mask: url("../assets/icons/delete.svg") no-repeat center / contain;
+  mask: url("../assets/icons/delete.svg") no-repeat center / contain;
 }
 
 .icon-edit {
-    -webkit-mask: url("../assets/icons/edit.svg") no-repeat center / contain;
-    mask: url("../assets/icons/edit.svg") no-repeat center / contain;
+  -webkit-mask: url("../assets/icons/edit.svg") no-repeat center / contain;
+  mask: url("../assets/icons/edit.svg") no-repeat center / contain;
 }
 
 .subtask-item {
-    min-height: 36px;
+  min-height: 36px;
 }
 
 .subtask-text {
-    overflow-wrap: anywhere;
+  overflow-wrap: anywhere;
 }
 
 .subtask-text::before {
-    content: "\2022";
-    margin-right: 12px;
+  content: "\2022";
+  margin-right: 12px;
 }
 
 .subtask-tools {
-    display: none;
-    align-items: center;
-    gap: 4px;
-    flex-shrink: 0;
+  display: none;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
 }
 
 .subtask-item:focus-within .subtask-tools {
-    display: flex;
+  display: flex;
 }
 
 .subtask-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    padding: 0;
-    border: none;
-    border-radius: 50%;
-    background: none;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
 }
 
 .subtask-btn svg {
-    stroke: var(--main-color);
+  stroke: var(--main-color);
 }
 
 .subtask-divider {
-    width: 1px;
-    height: 18px;
-    background: var(--at-line);
+  width: 1px;
+  height: 18px;
+  background: var(--at-line);
 }
 
 .subtask-item.editing,
 .subtask-item.editing:hover {
-    background: transparent;
-    border-radius: 0;
-    border-bottom: 1px solid var(--at-line);
+  background: transparent;
+  border-radius: 0;
+  border-bottom: 1px solid var(--at-line);
 }
 
 .subtask-item.editing .subtask-tools {
-    display: flex;
+  display: flex;
 }
 
 .subtask-edit-input {
-    flex: 1;
-    min-width: 0;
-    padding: 4px 0;
-    border: none;
-    background: transparent;
-    font: inherit;
-    outline: none;
+  flex: 1;
+  min-width: 0;
+  padding: 4px 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  outline: none;
+}
+
+input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 @media (min-width: 701px) {
-    .prio-urgent:hover {
-        box-shadow: 0 2px 0 var(--prio-urgent), 0 2px 6px rgba(0, 0, 0, 0.15);
-    }
+  .prio-urgent:hover {
+    box-shadow:
+      0 2px 0 var(--prio-urgent),
+      0 2px 6px rgba(0, 0, 0, 0.15);
+  }
 
-    .prio-medium:hover {
-        box-shadow: 0 2px 0 var(--prio-medium), 0 2px 6px rgba(0, 0, 0, 0.15);
-    }
+  .prio-medium:hover {
+    box-shadow:
+      0 2px 0 var(--prio-medium),
+      0 2px 6px rgba(0, 0, 0, 0.15);
+  }
 
-    .prio-low:hover {
-        box-shadow: 0 2px 0 var(--prio-low), 0 2px 6px rgba(0, 0, 0, 0.15);
-    }
+  .prio-low:hover {
+    box-shadow:
+      0 2px 0 var(--prio-low),
+      0 2px 6px rgba(0, 0, 0, 0.15);
+  }
 
-    .dropdown-item label:hover,
-    .dropdown-option:hover,
-    .subtask-item:hover {
-        background: var(--hover-color);
-    }
+  .dropdown-item label:hover,
+  .dropdown-option:hover,
+  .subtask-item:hover {
+    background: var(--hover-color);
+  }
 
-    .dropdown:has(.dropdown-toggle:hover)::before {
-        background: var(--hover-color);
-    }
+  .dropdown:has(.dropdown-toggle:hover)::before {
+    background: var(--hover-color);
+  }
 
-    .subtask-item:hover .subtask-tools {
-        display: flex;
-    }
+  .subtask-item:hover .subtask-tools {
+    display: flex;
+  }
 
-    .subtask-btn:hover {
-        background: var(--selected-color);
-    }
+  .subtask-btn:hover {
+    background: var(--selected-color);
+  }
 
-    .btn-secondary:hover {
-        border-color: var(--main-color);
-        color: var(--main-color);
-    }
+  .btn-secondary:hover {
+    border-color: var(--main-color);
+    color: var(--main-color);
+  }
 
-    .btn:hover:not(:disabled) {
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    }
+  .btn:hover:not(:disabled) {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
 }
 
 @media (max-width: 1060px) {
-    .add-task {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-    }
+  .add-task {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
 
-    .add-task-fields {
-        flex: none;
-        width: 100%;
-        max-width: 440px;
-    }
+  .add-task-fields {
+    flex: none;
+    width: 100%;
+    max-width: 440px;
+  }
 
-    .add-task-actions {
-        align-self: flex-start;
-        justify-content: center;
-        width: 100%;
-        max-width: 440px;
-        margin-left: 0;
-    }
+  .add-task-actions {
+    align-self: flex-start;
+    justify-content: center;
+    width: 100%;
+    max-width: 440px;
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 700px) {
-    .add-task {
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-        padding: 16px;
-    }
+  .add-task {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+  }
 
-    .add-task-fields {
-        flex: none;
-        width: 100%;
-        gap: 12px;
-    }
+  .add-task-fields {
+    flex: none;
+    width: 100%;
+    gap: 12px;
+  }
 
-    .field-label {
-        font-size: 16px;
-    }
+  .field-label {
+    font-size: 16px;
+  }
 
-    .title-input {
-        font-size: 21px;
-    }
+  .title-input {
+    font-size: 21px;
+  }
 
-    textarea.title-input {
-        min-height: 48px;
-        padding: 7px 16px;
-    }
+  textarea.title-input {
+    min-height: 48px;
+    padding: 7px 16px;
+  }
 
-    textarea {
-        min-height: 88px;
-    }
+  textarea {
+    min-height: 88px;
+  }
 
-    .prio-btn {
-        height: 48px;
-        padding: 10px 8px;
-        gap: 8px;
-        font-size: 16px;
-    }
+  .prio-btn {
+    height: 48px;
+    padding: 10px 8px;
+    gap: 8px;
+    font-size: 16px;
+  }
 
-    .add-task-actions {
-        align-self: center;
-        justify-content: center;
-        width: 100%;
-        max-width: 440px;
-        gap: 16px;
-    }
+  .add-task-actions {
+    align-self: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 440px;
+    gap: 16px;
+  }
 
-    .subtask-tools {
-        display: flex;
-    }
+  .subtask-tools {
+    display: flex;
+  }
 
-    #add-task-page .btn {
-        height: 48px;
-        padding: 8px 12px;
-    }
+  #add-task-page .btn {
+    height: 48px;
+    padding: 8px 12px;
+  }
 
-    #add-task-page .btn-primary {
-        background: var(--at-text);
-    }
+  #add-task-page .btn-primary {
+    background: var(--at-text);
+  }
 }
 
 .toast {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    z-index: 2000;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    padding: 16px 24px;
-    border-radius: 20px;
-    background: var(--main-color);
-    box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
-    animation: toast-fly 2.2s forwards;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 24px;
+  border-radius: 20px;
+  background: var(--main-color);
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
+  animation: toast-fly 2.2s forwards;
 }
 
 .toast span {
-    color: #fff;
-    font-size: 22px;
+  color: #fff;
+  font-size: 22px;
 }
 
 .toast-icon {
-    width: 32px;
-    height: 32px;
-    background-color: #fff;
-    -webkit-mask: url("../assets/icons/board_icon.svg") no-repeat center / contain;
-    mask: url("../assets/icons/board_icon.svg") no-repeat center / contain;
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  -webkit-mask: url("../assets/icons/board_icon.svg") no-repeat center / contain;
+  mask: url("../assets/icons/board_icon.svg") no-repeat center / contain;
 }
 
 @media (max-width: 370px) {
-    .prio-buttons {
-        gap: 8px;
-    }
+  .prio-buttons {
+    gap: 8px;
+  }
 
-    .prio-btn {
-        min-width: 0;
-        padding: 10px 4px;
-        gap: 4px;
-        font-size: 14px;
-    }
+  .prio-btn {
+    min-width: 0;
+    padding: 10px 4px;
+    gap: 4px;
+    font-size: 14px;
+  }
 
-    .prio-btn img {
-        width: 16px;
-        height: 16px;
-    }
+  .prio-btn img {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 @keyframes toast-fly {
-    0% { transform: translate(-50%, 100vh); animation-timing-function: ease-out; }
-    25% { transform: translate(-50%, -50%); opacity: 1; }
-    80% { transform: translate(-50%, -50%); opacity: 1; }
-    100% { transform: translate(-50%, -50%); opacity: 0; }
+  0% {
+    transform: translate(-50%, 100vh);
+    animation-timing-function: ease-out;
+  }
+  25% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  80% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
 }

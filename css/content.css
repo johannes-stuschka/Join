@@ -1,6 +1,6 @@
 .content {
   display: flex;
-  max-width: 1440px;
+  max-width: calc(1440px - 230px);
   width: calc(100% - 230px);
   margin: 0 auto;
   flex: 1;

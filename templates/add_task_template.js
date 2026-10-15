@@ -87,7 +87,7 @@ function getTitleDescriptionTemplate() {
 
 function getDueDateTemplate() {
   return `
-    <label class="field">
+    <label class="field input-field">
       <span class="field-label">Due date</span>
       <div class="date-wrapper">
         <input class="line-input" id="task-due-date" type="date" required />
