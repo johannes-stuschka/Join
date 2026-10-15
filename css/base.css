@@ -27,6 +27,10 @@ body {
     --header-height: 80px;
     --mobile-nav-height: 77px;
   }
+
+  body {
+    overflow-x: hidden;
+  }
 }
 
 .layout {

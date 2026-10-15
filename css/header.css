@@ -7,6 +7,8 @@
   background-color: var(--main-color);
   padding: 20px 39px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 100;
 }
 
 .header-logo {
@@ -58,15 +60,10 @@
   cursor: pointer;
 }
 
-.header-user-wrap {
-  position: relative;
-}
-
 .header-menu {
   position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  z-index: 100;
+  top: calc(100% + 4px);
+  right: 8px;
   width: max-content;
   max-width: calc(100vw - 16px);
   padding: 10px;
@@ -100,7 +97,7 @@
   font: inherit;
   font-size: 16px;
   line-height: 23px;
-  text-align: left;
+  text-align: right;
   text-decoration: none;
   color: #42526e;
   cursor: pointer;
@@ -145,5 +142,25 @@
     border-width: 2px;
     padding: 2px;
     font-size: 14px;
+  }
+
+  .header-menu {
+    right: 16px;
+    animation: header-menu-in 0.3s ease-out;
+  }
+
+  .header-menu-item {
+    width: 140px;
+    color: var(--main-color);
+  }
+}
+
+@keyframes header-menu-in {
+  from {
+    transform: translateX(calc(100% + 16px));
+  }
+
+  to {
+    transform: translateX(0);
   }
 }
