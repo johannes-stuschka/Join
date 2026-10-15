@@ -4,14 +4,16 @@ const AVATAR_COLORS = [
 ];
 
 const DEFAULT_CONTACTS = [
-  { name: "Anton Mayer", email: "antom@gmail.com", phone: "+49 1111 111 11 1", color: "#ff7a00" },
-  { name: "Anja Schulz", email: "schulz@hotmail.com", phone: "+49 2222 222 22 2", color: "#9327ff" },
-  { name: "Benedikt Ziegler", email: "benedikt@gmail.com", phone: "+49 3333 333 33 3", color: "#6e52ff" },
-  { name: "David Eisenberg", email: "davidberg@gmail.com", phone: "+49 4444 444 44 4", color: "#fc71ff" },
-  { name: "Eva Fischer", email: "eva@gmail.com", phone: "+49 5555 555 55 5", color: "#ffbb2b" },
-  { name: "Emmanuel Mauer", email: "emmanuelma@gmail.com", phone: "+49 6666 666 66 6", color: "#1fd7c1" },
-  { name: "Marcel Bauer", email: "bauer@gmail.com", phone: "+49 7777 777 77 7", color: "#462f8a" },
-  { name: "Tatjana Wolf", email: "wolf@gmail.com", phone: "+49 2222 22 222 2", color: "#ff4646" },
+  { name: "Lena Hoffmann", email: "lena.hoffmann@gmail.com", phone: "+49 1511 234 56 7", color: "#ff7a00" },
+  { name: "Jonas Becker", email: "jonas.becker@gmail.com", phone: "+49 1522 345 67 8", color: "#9327ff" },
+  { name: "Mia Schneider", email: "mia.schneider@gmail.com", phone: "+49 1533 456 78 9", color: "#6e52ff" },
+  { name: "Felix Wagner", email: "felix.wagner@gmail.com", phone: "+49 1544 567 89 0", color: "#fc71ff" },
+  { name: "Clara Richter", email: "clara.richter@gmail.com", phone: "+49 1555 678 90 1", color: "#ffbb2b" },
+  { name: "Lukas Neumann", email: "lukas.neumann@gmail.com", phone: "+49 1566 789 01 2", color: "#1fd7c1" },
+  { name: "Nora Krause", email: "nora.krause@gmail.com", phone: "+49 1577 890 12 3", color: "#462f8a" },
+  { name: "Paul Schäfer", email: "paul.schaefer@gmail.com", phone: "+49 1588 901 23 4", color: "#ff4646" },
+  { name: "Hannah Vogel", email: "hannah.vogel@gmail.com", phone: "+49 1599 012 34 5", color: "#00bee8" },
+  { name: "Tim Hartmann", email: "tim.hartmann@gmail.com", phone: "+49 1600 123 45 6", color: "#ff745e" },
 ];
 
 let contacts = [];
