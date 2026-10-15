@@ -40,9 +40,7 @@
 }
 
 .add-contact-btn:hover {
-  border-color: #005dff;
-  background: #005dff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .add-contact-btn:active {
@@ -453,8 +451,6 @@
 }
 
 .dialog-btn-secondary:hover {
-  border-color: var(--main-color);
-  color: var(--main-color);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -467,8 +463,6 @@
 }
 
 .dialog-btn-primary:hover {
-  border-color: var(--c-dark);
-  background: var(--c-dark);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -559,12 +553,11 @@
     color: #fff;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+    transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
   }
 
   .contact-fab:hover {
-    border-color: #005dff;
-    background: #005dff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   }
 
   .contact-detail {
