@@ -499,7 +499,27 @@
   display: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1300px) {
+  .contact-detail {
+    padding: 56px 40px;
+  }
+
+  .contact-detail-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .contact-detail-name {
+    font-size: 40px;
+  }
+
+  .contact-info-title {
+    margin-top: 36px;
+  }
+}
+
+@media (max-width: 1100px) {
   .contacts-panel {
     position: relative;
     width: 100%;
@@ -609,6 +629,8 @@
   }
 
   .contact-detail-head {
+    flex-direction: row;
+    align-items: center;
     gap: 20px;
   }
 
@@ -635,17 +657,20 @@
     right: 24px;
     bottom: calc(var(--mobile-nav-height) + 23px + 64px + 8px);
     z-index: 3;
-    display: none;
     flex-direction: column;
     gap: 0;
     padding: 10px;
     border-radius: 20px 20px 0 20px;
     background: #fff;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    visibility: hidden;
+    transform: translateX(calc(100% + 24px));
+    transition: transform 0.3s ease-out, visibility 0.3s;
   }
 
   .options-open .contact-actions {
-    display: flex;
+    visibility: visible;
+    transform: translateX(0);
   }
 
   .contact-action {
@@ -657,7 +682,9 @@
     position: fixed;
     bottom: calc(var(--mobile-nav-height) + 23px);
   }
+}
 
+@media (max-width: 700px) {
   .contact-dialog,
   .contact-dialog.is-edit {
     width: 396px;
