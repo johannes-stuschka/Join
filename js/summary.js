@@ -21,20 +21,38 @@ function getUserName() {
   return user && !user.isGuest ? user.name : null;
 }
 
-// TODO: durch echte Daten ersetzen. Aktuell Platzhalter aus dem Figma.
-function getSummaryData() {
+async function loadSummaryTasks() {
+  return toList(await loadData("tasks"));
+}
+
+function countByStatus(tasks, status) {
+  return tasks.filter((task) => task.status === status).length;
+}
+
+function getUrgentTasks(tasks) {
+  return tasks.filter((task) => task.priority === "urgent" && task.status !== "done");
+}
+
+function getNextDeadline(tasks) {
+  const dates = tasks.map((task) => task.dueDate).filter(Boolean).sort();
+  return dates.length ? new Date(`${dates[0]}T00:00:00`) : null;
+}
+
+function getSummaryData(tasks) {
+  const urgentTasks = getUrgentTasks(tasks);
   return {
-    urgent: 1,
-    deadline: new Date(2022, 9, 16),
-    board: 5,
-    todo: 1,
-    progress: 2,
-    feedback: 2,
-    done: 1,
+    urgent: urgentTasks.length,
+    deadline: getNextDeadline(urgentTasks),
+    board: tasks.length,
+    todo: countByStatus(tasks, "todo"),
+    progress: countByStatus(tasks, "progress"),
+    feedback: countByStatus(tasks, "feedback"),
+    done: countByStatus(tasks, "done"),
   };
 }
 
 function formatDeadline(date) {
+  if (!date) return "No deadline";
   return date.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -52,8 +70,14 @@ function buildCard(key, count, label, cssClass) {
   };
 }
 
-function renderSummary() {
-  const data = getSummaryData();
+async function renderSummary() {
+  let tasks = [];
+  try {
+    tasks = await loadSummaryTasks();
+  } catch (error) {
+    console.error(error);
+  }
+  const data = getSummaryData(tasks);
   const greetingHtml = getGreetingTemplate(getGreeting(), getUserName());
   const urgentHtml = getUrgentHtml(data);
   const cardsHtml = getCardsHtml(data);
