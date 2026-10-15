@@ -698,7 +698,7 @@
 
   .contact-dialog[open],
   .contact-dialog.is-edit[open] {
-    animation-name: slide-up;
+    animation-name: slide-in;
   }
 
   .contact-dialog-head,
@@ -817,18 +817,6 @@
 
   .contact-toast.show {
     transform: translate(-50%, -50%);
-  }
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 
