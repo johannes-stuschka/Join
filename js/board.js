@@ -264,3 +264,14 @@ function formatDate(isoDate) {
   const [year, month, day] = isoDate.split("-");
   return `${day}/${month}/${year}`;
 }
+
+function openAddTask(status = "todo") {
+  if (window.matchMedia("(max-width: 700px)").matches) {
+    window.location.href = "add_task.html";
+    return;
+  }
+  const overlay = document.getElementById("task-overlay");
+  overlay.innerHTML = getAddTaskOverlayTemplate();
+  overlay.classList.add("open");
+  initAddTask((formTask) => createTaskFromForm(formTask, status));
+}

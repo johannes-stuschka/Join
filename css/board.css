@@ -63,10 +63,6 @@
     cursor: pointer;
 }
 
-.btn-add-task:hover {
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
-
 .board-columns {
     flex: 1;
     min-height: 0;
@@ -96,6 +92,8 @@
 .column-head h2 {
     margin: 0;
     font-size: 20px;
+    font-weight: 700;
+    color: rgba(66, 82, 110, 1)
 }
 
 .btn-column-add {
@@ -114,10 +112,6 @@
 .btn-column-add img {
     width: 20px;
     height: 20px;
-}
-
-.btn-column-add:hover {
-    background: var(--hover-color);
 }
 
 .column-body {
@@ -259,8 +253,8 @@
     position: relative;
     width: min(100%, 520px);
     height: 100%;
-    padding: 32px 40px 16px;
-    overflow-y: auto;
+    padding: 32px 40px 32px;
+    overflow-y: hidden;
     background: #fff;
     border-radius: 30px 0 0 30px;
     animation: panel-in 0.3s ease;
@@ -297,10 +291,6 @@
     height: 24px;
 }
 
-.panel-close:hover {
-    background: var(--hover-color);
-}
-
 @keyframes panel-in {
     from {
         transform: translateX(100%);
@@ -322,13 +312,16 @@
 }
 
 .task-panel .add-task-fields {
-    flex: none;
+    flex: 1;
+    min-height: 0;
     width: 100%;
     gap: 16px;
+    overflow-y: auto;
+    padding-right: 8px;
 }
 
 .task-panel .add-task-actions {
-    margin: 0 0 0 auto;
+    flex-shrink: 0;
 }
 
 .task-panel textarea {
@@ -448,10 +441,6 @@
     cursor: pointer;
 }
 
-.detail-subtask label:hover {
-    background: var(--hover-color);
-}
-
 .detail-subtask input {
     position: absolute;
     opacity: 0;
@@ -494,11 +483,6 @@
     background: none;
     color: var(--text);
     cursor: pointer;
-}
-
-.detail-actions button:hover {
-    color: var(--blue);
-    font-weight: 700;
 }
 
 .detail-divider {
@@ -553,6 +537,7 @@
 .edit-panel .add-task-actions {
     flex-shrink: 0;
     margin: 0 0 0 auto;
+    justify-content: flex-end;
 }
 
 .edit-panel #task-description {
@@ -565,4 +550,114 @@
 
 .edit-panel .category-field {
     display: none;
+}
+
+@media (min-width: 701px) and (max-width: 1200px) {
+    .board {
+        padding-left: 40px;
+        padding-right: 24px;
+    }
+
+    .board-columns {
+        overflow-x: auto;
+    }
+
+    .board-column {
+        flex: 0 0 206px;
+    }
+}
+
+@media (min-width: 701px) {
+    .btn-add-task:hover {
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-column-add:hover,
+    .panel-close:hover {
+        background: var(--hover-color);
+    }
+
+    .detail-subtask label:hover {
+        background: var(--hover-color);
+    }
+
+    .detail-actions button:hover {
+        color: var(--blue);
+        font-weight: 700;
+    }
+}
+
+@media (max-width: 700px) {
+    .board {
+        padding: 16px 0 0;
+    }
+
+    .board-toolbar {
+        margin: 0 16px 16px;
+    }
+
+    .board-search {
+        width: 100%;
+    }
+
+    .btn-add-task {
+        display: none;
+    }
+
+    .board-columns {
+        flex-direction: column;
+        gap: 16px;
+        overflow-y: auto;
+        padding-bottom: 16px;
+    }
+
+    .board-column {
+        flex: none;
+    }
+
+    .column-head {
+        padding: 0 16px;
+    }
+
+    .column-body {
+        flex: none;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 8px 16px 16px;
+    }
+
+    .task-card {
+        flex: 0 0 220px;
+    }
+
+    .no-tasks {
+        flex: 1;
+    }
+
+    .edit-panel {
+        width: calc(100% - 16px);
+        padding: 64px 16px 16px;
+    }
+
+    .edit-panel .btn {
+        height: 42px;
+        padding: 8px 16px;
+        font-size: 18px;
+    }
+
+    .detail-panel {
+        width: calc(100% - 16px);
+        padding: 24px 20px 20px;
+    }
+
+    .detail-desc,
+    .detail-row,
+    .detail-label {
+        font-size: 16px;
+    }
+
+    .detail-row {
+        gap: 16px;
+    }
 }
