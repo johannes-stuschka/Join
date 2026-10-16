@@ -146,6 +146,8 @@
 
 .task-card {
     display: flex;
+    position: relative;
+    overflow: hidden;
     flex-direction: column;
     gap: 10px;
     padding: 12px;
@@ -552,6 +554,72 @@
     display: none;
 }
 
+.task-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.btn-move {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.btn-move img {
+    width: 30px;
+    height: 30px;
+}
+
+.move-menu {
+    position: absolute;
+    top: 48px;
+    right: 8px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 20px 16px 16px;
+    border-radius: 0 24px 24px 24px;
+    background: #4589ff;
+    visibility: hidden;
+    transform: translateX(calc(100% + 8px));
+    transition: transform 0.25s ease, visibility 0.25s;
+}
+
+.move-menu.open {
+    visibility: visible;
+    transform: none;
+}
+
+.move-menu-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.move-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.move-option img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
 @media (min-width: 701px) and (max-width: 1200px) {
     .board {
         padding-left: 40px;
@@ -629,6 +697,7 @@
 
     .task-card {
         flex: 0 0 220px;
+        min-height: 175px;
     }
 
     .no-tasks {
@@ -659,5 +728,9 @@
 
     .detail-row {
         gap: 16px;
+    }
+
+    .btn-move {
+        display: flex;
     }
 }

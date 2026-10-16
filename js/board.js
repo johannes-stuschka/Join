@@ -175,14 +175,37 @@ async function dropTask(event, status) {
   await patchData(`tasks/${task.id}`, { status });
 }
 
-initBoard();
-
-function openAddTask(status = "todo") {
-  const overlay = document.getElementById("task-overlay");
-  overlay.innerHTML = getAddTaskOverlayTemplate();
-  overlay.classList.add("open");
-  initAddTask((formTask) => createTaskFromForm(formTask, status));
+function toggleMoveMenu(event, id) {
+  event.stopPropagation();
+  const menu = document.getElementById(`move-menu-${id}`);
+  const wasOpen = menu.classList.contains("open");
+  closeMoveMenus();
+  menu.classList.toggle("open", !wasOpen);
 }
+
+function closeMoveMenus() {
+  document.querySelectorAll(".move-menu.open").forEach((menu) => menu.classList.remove("open"));
+}
+
+function closeMoveMenuOnOutsideClick(event) {
+  if (!document.querySelector(".move-menu.open")) return;
+  if (event.target.closest(".move-menu, .btn-move")) return;
+  event.stopPropagation();
+  closeMoveMenus();
+}
+
+async function moveTask(event, id, status) {
+  event.stopPropagation();
+  const task = getTaskById(id);
+  if (!task || task.status === status) return closeMoveMenus();
+  task.status = status;
+  renderColumns();
+  await patchData(`tasks/${id}`, { status });
+}
+
+document.addEventListener("click", closeMoveMenuOnOutsideClick, true);
+
+initBoard();
 
 function closeAddTask() {
   const overlay = document.getElementById("task-overlay");

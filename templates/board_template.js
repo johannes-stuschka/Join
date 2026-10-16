@@ -1,5 +1,5 @@
 function getBoardTemplate() {
-    return `
+  return `
     <div class="board-toolbar">
       <div class="board-search">
         <input id="board-search" type="text" placeholder="Find Task" />
@@ -13,11 +13,11 @@ function getBoardTemplate() {
 }
 
 function getSearchIcon() {
-    return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>`;
+  return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>`;
 }
 
 function getColumnTemplate(column, cardsHtml) {
-    return `
+  return `
     <section class="board-column" ondragover="allowDrop(event)"
       ondragleave="leaveDrop(event)" ondrop="dropTask(event, '${column.status}')">
       <div class="column-head">
@@ -29,20 +29,25 @@ function getColumnTemplate(column, cardsHtml) {
 }
 
 function getColumnAddButton(column) {
-    if (column.status === "done") return "";
-    return `<button type="button" class="btn-column-add" aria-label="Add task"
+  if (column.status === "done") return "";
+  return `<button type="button" class="btn-column-add" aria-label="Add task"
     onclick="openAddTask('${column.status}')"><img src="../assets/icons/add.svg" alt="" /></button>`;
 }
 
 function getEmptyTemplate(title) {
-    return `<div class="no-tasks">No tasks ${title}</div>`;
+  return `<div class="no-tasks">No tasks ${title}</div>`;
 }
 
 function getCardTemplate(task) {
-    return `
+  return `
     <article class="task-card" draggable="true" onclick="openTaskDetail('${task.id}')"
       ondragstart="startDrag(event, '${task.id}')" ondragend="endDrag(event)">
-      <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
+      <div class="task-card-top">
+        <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
+        <button type="button" class="btn-move" aria-label="Move task"
+          onclick="toggleMoveMenu(event, '${task.id}')"><img src="../assets/icons/move.svg" alt="" /></button>
+      </div>
+      ${getMoveMenuTemplate(task)}
       <h3 class="task-title">${escapeHtml(task.title)}</h3>
       <p class="task-desc">${escapeHtml(task.description)}</p>
       ${getProgressTemplate(task.subtasks)}
@@ -54,14 +59,14 @@ function getCardTemplate(task) {
 }
 
 function getCategoryClass(category) {
-    return category === "User Story" ? "cat-user" : "cat-tech";
+  return category === "User Story" ? "cat-user" : "cat-tech";
 }
 
 function getProgressTemplate(subtasks) {
-    if (!subtasks.length) return "";
-    const done = subtasks.filter((s) => s.done).length;
-    const percent = (done / subtasks.length) * 100;
-    return `
+  if (!subtasks.length) return "";
+  const done = subtasks.filter((s) => s.done).length;
+  const percent = (done / subtasks.length) * 100;
+  return `
     <div class="task-progress">
       <div class="progress-bar"><div class="progress-fill" style="width:${percent}%"></div></div>
       <span>${done}/${subtasks.length} Subtasks</span>
@@ -69,13 +74,13 @@ function getProgressTemplate(subtasks) {
 }
 
 function getAvatarsTemplate(assigned) {
-    return assigned
-        .map((u) => `<span class="avatar" style="background:${u.color}">${u.initials}</span>`)
-        .join("");
+  return assigned
+    .map((u) => `<span class="avatar" style="background:${u.color}">${u.initials}</span>`)
+    .join("");
 }
 
 function getAddTaskOverlayTemplate() {
-    return `
+  return `
     <div class="task-panel">
       <button type="button" class="panel-close" onclick="closeAddTask()" aria-label="Close"><img src="../assets/icons/exit.svg" alt="" /></button>
       <h1 class="panel-title">Add Task</h1>
@@ -84,7 +89,7 @@ function getAddTaskOverlayTemplate() {
 }
 
 function getTaskDetailTemplate(task) {
-    return `
+  return `
     <div class="detail-panel">
       ${getDetailHeaderTemplate(task)}
       <p class="detail-desc">${escapeHtml(task.description)}</p>
@@ -96,7 +101,7 @@ function getTaskDetailTemplate(task) {
 }
 
 function getDetailHeaderTemplate(task) {
-    return `
+  return `
     <div class="detail-top">
       <span class="task-category ${getCategoryClass(task.category)}">${task.category}</span>
       <button type="button" class="panel-close" onclick="closeAddTask()" aria-label="Close"><img src="../assets/icons/exit.svg" alt="" /></button>
@@ -105,8 +110,8 @@ function getDetailHeaderTemplate(task) {
 }
 
 function getDetailRowsTemplate(task) {
-    const prio = PRIORITIES.find((p) => p.key === task.priority);
-    return `
+  const prio = PRIORITIES.find((p) => p.key === task.priority);
+  return `
     <div class="detail-row">
       <span class="detail-label">Due date:</span><span>${formatDate(task.dueDate)}</span>
     </div>
@@ -117,8 +122,8 @@ function getDetailRowsTemplate(task) {
 }
 
 function getDetailAssignedTemplate(assigned) {
-    if (!assigned.length) return "";
-    return `
+  if (!assigned.length) return "";
+  return `
     <div class="detail-section">
       <span class="detail-label">Assigned To:</span>
       <ul class="detail-list">${assigned.map(getDetailContactTemplate).join("")}</ul>
@@ -126,16 +131,16 @@ function getDetailAssignedTemplate(assigned) {
 }
 
 function getDetailContactTemplate(user) {
-    return `<li class="detail-contact">
+  return `<li class="detail-contact">
     <span class="avatar" style="background:${user.color}">${user.initials}</span>
     ${escapeHtml(user.name)}
   </li>`;
 }
 
 function getDetailSubtasksTemplate(task) {
-    if (!task.subtasks.length) return "";
-    const items = task.subtasks.map((s, i) => getDetailSubtaskTemplate(task.id, s, i));
-    return `
+  if (!task.subtasks.length) return "";
+  const items = task.subtasks.map((s, i) => getDetailSubtaskTemplate(task.id, s, i));
+  return `
     <div class="detail-section">
       <span class="detail-label">Subtasks</span>
       <ul class="detail-list">${items.join("")}</ul>
@@ -143,7 +148,7 @@ function getDetailSubtasksTemplate(task) {
 }
 
 function getDetailSubtaskTemplate(taskId, subtask, index) {
-    return `<li class="detail-subtask"><label>
+  return `<li class="detail-subtask"><label>
     <input type="checkbox" ${subtask.done ? "checked" : ""}
       onchange="toggleSubtask('${taskId}', ${index})" />
     <span class="check-icon"></span>
@@ -152,7 +157,7 @@ function getDetailSubtaskTemplate(taskId, subtask, index) {
 }
 
 function getDetailActionsTemplate(id) {
-    return `
+  return `
     <div class="detail-actions">
       <button type="button" onclick="deleteTask('${id}')"><span class="detail-icon icon-delete"></span> Delete</button>
       <span class="detail-divider"></span>
@@ -161,9 +166,28 @@ function getDetailActionsTemplate(id) {
 }
 
 function getEditTaskTemplate() {
-    return `
+  return `
     <div class="edit-panel">
       <button type="button" class="panel-close" onclick="closeAddTask()" aria-label="Close"><img src="../assets/icons/exit.svg" alt="" /></button>
       ${getAddTaskFormTemplate(false, "Ok")}
     </div>`;
+}
+
+function getMoveMenuTemplate(task) {
+    const i = BOARD_COLUMNS.findIndex((c) => c.status === task.status);
+    const prev = BOARD_COLUMNS[i - 1];
+    const next = BOARD_COLUMNS[i + 1];
+    return `
+    <div class="move-menu" id="move-menu-${task.id}" onclick="event.stopPropagation()">
+      <span class="move-menu-title">Move to</span>
+      ${prev ? getMoveOptionTemplate(task.id, prev, "arrow_upward") : ""}
+      ${next ? getMoveOptionTemplate(task.id, next, "arrow_downward") : ""}
+    </div>`;
+}
+
+function getMoveOptionTemplate(id, column, icon) {
+    return `<button type="button" class="move-option"
+      onclick="moveTask(event, '${id}', '${column.status}')">
+      <img src="../assets/icons/${icon}.svg" alt="" />${column.title}
+    </button>`;
 }
