@@ -69,6 +69,21 @@
   color: var(--main-color);
 }
 
+.sidebar-legal a[aria-current="page"] {
+  align-self: flex-start;
+  margin-left: 20px;
+  padding: 4px 10px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 8px;
+  background-color: var(--main-color);
+  color: #fff;
+}
+
+.sidebar-legal a[aria-current="page"]:hover {
+  color: #fff;
+}
+
 @media (max-width: 700px) {
   .sidebar {
     position: fixed;
