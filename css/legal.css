@@ -42,6 +42,10 @@ body {
   color: var(--main-color);
 }
 
+.content p + p {
+  margin-top: 16px;
+}
+
 .content p,
 .content li {
   margin: 0;
