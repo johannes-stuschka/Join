@@ -10,6 +10,11 @@ function getAvatarTemplate(contact, sizeClass = "") {
   return `<span class="avatar ${sizeClass}" style="--avatar-color: ${contact.color}">${getContactInitials(contact.name)}</span>`;
 }
 
+// Renders the contact name and adds "(You)" for the logged-in user.
+function getContactNameTemplate(contact) {
+  return escapeHtml(contact.name) + (isOwnContact(contact) ? " (You)" : "");
+}
+
 // Renders the letter heading of a group.
 function getContactGroupTemplate(letter) {
   return `<li class="contact-group-letter">${escapeHtml(letter)}</li>`;
@@ -21,7 +26,7 @@ function getContactItemTemplate(contact, isActive) {
     <button type="button" class="contact-item ${isActive ? "active" : ""}" onclick="toggleContactSelection('${contact.id}')">
       ${getAvatarTemplate(contact)}
       <span class="contact-item-text">
-        <span class="contact-item-name">${escapeHtml(contact.name)}</span>
+        <span class="contact-item-name">${getContactNameTemplate(contact)}</span>
         <span class="contact-item-email">${escapeHtml(contact.email)}</span>
       </span>
     </button>
@@ -37,7 +42,7 @@ function getContactDetailTemplate(contact) {
     <div class="contact-detail-head">
       ${getAvatarTemplate(contact, "avatar-lg")}
       <div>
-        <h1 class="contact-detail-name">${escapeHtml(contact.name)}</h1>
+        <h1 class="contact-detail-name">${getContactNameTemplate(contact)}</h1>
         <div class="contact-actions">
           <button type="button" class="contact-action" onclick="openEditContact('${contact.id}')">
             <span class="icon icon-edit"></span>Edit

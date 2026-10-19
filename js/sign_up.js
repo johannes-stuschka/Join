@@ -52,7 +52,9 @@ async function saveUser(user) {
       return { field: "This email address is already registered." };
     }
     const result = await postData("users", user);
-    return result && result.name ? {} : { general: GENERAL_ERROR };
+    if (!result || !result.name) return { general: GENERAL_ERROR };
+    await ensureOwnContact(user);
+    return {};
   } catch (error) {
     return { general: GENERAL_ERROR };
   }

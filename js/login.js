@@ -69,6 +69,7 @@ async function handleLogin(event) {
   if (failed) return showGeneralError();
   if (!user) return showLoginError();
   setCurrentUser({ name: user.name || "", email: user.email, isGuest: false });
+  await ensureOwnContact(user).catch(() => {});
   goToSummary();
 }
 

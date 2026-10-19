@@ -30,6 +30,13 @@ function getContactInitials(name) {
   return escapeHtml((first + last).toUpperCase());
 }
 
+// Checks whether a contact belongs to the logged-in user.
+function isOwnContact(contact) {
+  const user = getCurrentUser();
+  if (!user || !user.email) return false;
+  return (contact.email || "").trim().toLowerCase() === user.email.trim().toLowerCase();
+}
+
 // Finds a contact by id.
 function getContactById(id) {
   return contacts.find((contact) => contact.id === id);

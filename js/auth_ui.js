@@ -1,3 +1,6 @@
+const OWN_CONTACT_COLOR = "#29abe2";
+
+
 // Builds the path to an icon in assets/icons.
 function getIconPath(name) {
   return getRootPath() + "assets/icons/" + name + ".svg";
@@ -72,4 +75,13 @@ async function loadUsers() {
 // Trims an email address and makes it lowercase so it can be compared.
 function normalizeEmail(email) {
   return email.trim().toLowerCase();
+}
+
+
+// Adds the user to the contacts unless a contact with the same email already exists.
+async function ensureOwnContact(user) {
+  const contacts = toList(await loadData("contacts"));
+  const exists = contacts.some((contact) => normalizeEmail(contact.email || "") === normalizeEmail(user.email));
+  if (exists) return;
+  await postData("contacts", { name: user.name || user.email, email: user.email, phone: "", color: OWN_CONTACT_COLOR });
 }
