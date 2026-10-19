@@ -5,10 +5,12 @@ const SIDEBAR_BUTTONS = [
   { label: "Contacts", href: "pages/contacts.html", icon: "assets/icons/contacts_icon.svg" },
 ];
 
+// Checks whether a link points to the open page.
 function isCurrentPage(href) {
   return window.location.pathname.endsWith(href);
 }
 
+// Renders the sidebar links and highlights the current page.
 function renderSidebar() {
   const nav = document.getElementById("sidebar-nav");
   nav.innerHTML = SIDEBAR_BUTTONS.map((button) =>

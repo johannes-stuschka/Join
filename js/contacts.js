@@ -22,6 +22,7 @@ let selectedContactId = null;
 let editingContactId = null;
 let toastTimeout = null;
 
+// Returns the initials from the first and last name.
 function getContactInitials(name) {
   const parts = name.trim().split(/\s+/);
   const first = parts[0][0];
@@ -29,14 +30,17 @@ function getContactInitials(name) {
   return escapeHtml((first + last).toUpperCase());
 }
 
+// Finds a contact by id.
 function getContactById(id) {
   return contacts.find((contact) => contact.id === id);
 }
 
+// Sorts the contacts alphabetically by name.
 function sortContacts() {
   contacts.sort((a, b) => a.name.localeCompare(b.name));
 }
 
+// Renders the contact list grouped by first letter.
 function renderContactList() {
   sortContacts();
   let html = "";
@@ -52,6 +56,7 @@ function renderContactList() {
   document.getElementById("contact-list").innerHTML = html;
 }
 
+// Shows the selected contact, or clears the detail view.
 function renderContactDetail() {
   const contact = getContactById(selectedContactId);
   const detail = document.getElementById("contact-detail");
@@ -60,25 +65,30 @@ function renderContactDetail() {
   document.querySelector(".contacts").classList.toggle("has-selection", Boolean(contact));
 }
 
+// Opens or closes the edit/delete menu on mobile.
 function toggleContactOptions(event) {
   event.stopPropagation();
   document.getElementById("contact-detail").classList.toggle("options-open");
 }
 
+// Closes the edit/delete menu on mobile.
 function closeContactOptions() {
   document.getElementById("contact-detail").classList.remove("options-open");
 }
 
+// Selects a contact, or deselects it if it is already selected.
 function toggleContactSelection(id) {
   selectContact(selectedContactId === id ? null : id);
 }
 
+// Selects a contact and renders list and detail.
 function selectContact(id) {
   selectedContactId = id;
   renderContactList();
   renderContactDetail();
 }
 
+// Opens the dialog with an empty form for a new contact.
 function openAddContact() {
   editingContactId = null;
   const dialog = document.getElementById("contact-dialog");
@@ -89,6 +99,7 @@ function openAddContact() {
   dialog.showModal();
 }
 
+// Opens the dialog with the data of an existing contact.
 function openEditContact(id) {
   const contact = getContactById(id);
   editingContactId = id;
@@ -103,24 +114,29 @@ function openEditContact(id) {
   dialog.showModal();
 }
 
+// Closes the contact dialog.
 function closeContactDialog() {
   document.getElementById("contact-dialog").close();
 }
 
+// Closes the dialog when the backdrop is clicked.
 function closeDialogOnBackdropClick(event) {
   if (event.target === event.currentTarget) closeContactDialog();
 }
 
+// Empties the form and removes all errors.
 function resetContactForm() {
   document.getElementById("contact-form").reset();
   document.querySelectorAll(".input-field").forEach((field) => setFieldError(field, ""));
 }
 
+// Shows or hides the error of a form field.
 function setFieldError(field, message) {
   field.classList.toggle("invalid", Boolean(message));
   field.querySelector(".input-error").textContent = message;
 }
 
+// Checks one input: required, email format or phone format.
 function validateField(input) {
   const field = input.closest(".input-field");
   const value = input.value.trim();
@@ -132,11 +148,13 @@ function validateField(input) {
   return !message;
 }
 
+// Checks every input of the contact form.
 function validateContactForm() {
   const inputs = document.querySelectorAll("#contact-form input");
   return [...inputs].map(validateField).every(Boolean);
 }
 
+// Reads name, email and phone from the form.
 function getContactFromForm() {
   return {
     name: document.getElementById("contact-name").value.trim(),
@@ -145,6 +163,7 @@ function getContactFromForm() {
   };
 }
 
+// Saves the form as a new or edited contact.
 async function handleContactSubmit(event) {
   event.preventDefault();
   if (!validateContactForm()) return;
@@ -160,6 +179,7 @@ async function handleContactSubmit(event) {
   }
 }
 
+// Saves a new contact with a color and selects it.
 async function createContact(data) {
   const color = AVATAR_COLORS[contacts.length % AVATAR_COLORS.length];
   const contact = { ...data, color };
@@ -169,12 +189,14 @@ async function createContact(data) {
   showToast("Contact successfully created");
 }
 
+// Saves changes to a contact.
 async function updateContact(id, data) {
   await patchData(`contacts/${id}`, data);
   Object.assign(getContactById(id), data);
   selectContact(id);
 }
 
+// Removes a contact from every task it was assigned to.
 async function removeContactFromTasks(name) {
   const tasks = toList(await loadData("tasks"));
   const affected = tasks.filter((task) => (task.assigned || []).some((user) => user.name === name));
@@ -183,6 +205,7 @@ async function removeContactFromTasks(name) {
   ));
 }
 
+// Deletes a contact and removes it from all tasks.
 async function deleteContact(id) {
   try {
     await deleteData(`contacts/${id}`);
@@ -196,11 +219,13 @@ async function deleteContact(id) {
   renderContactDetail();
 }
 
+// Deletes the contact that is open in the dialog.
 async function deleteEditingContact() {
   await deleteContact(editingContactId);
   closeContactDialog();
 }
 
+// Shows a short message at the bottom of the page.
 function showToast(message) {
   const toast = document.getElementById("contact-toast");
   toast.textContent = message;
@@ -209,6 +234,7 @@ function showToast(message) {
   toastTimeout = setTimeout(() => toast.classList.remove("show"), 2000);
 }
 
+// Adds the listeners for form, dialog and options menu.
 function addContactListeners() {
   const form = document.getElementById("contact-form");
   form.addEventListener("submit", handleContactSubmit);
@@ -219,6 +245,7 @@ function addContactListeners() {
   document.addEventListener("click", closeContactOptions);
 }
 
+// Saves the default contacts when the database is empty.
 async function seedContacts() {
   for (const contact of DEFAULT_CONTACTS) {
     await postData("contacts", contact);
@@ -226,12 +253,14 @@ async function seedContacts() {
   return await loadData("contacts");
 }
 
+// Loads the contacts, or creates the defaults first.
 async function loadContacts() {
   let data = await loadData("contacts");
   if (!data) data = await seedContacts();
   contacts = toList(data);
 }
 
+// Sets up the contacts page.
 async function initContacts() {
   addContactListeners();
   try {

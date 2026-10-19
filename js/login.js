@@ -7,18 +7,21 @@ const loginButton = document.getElementById("login-button");
 const formError = document.getElementById("loginFormError");
 
 
+// Marks both fields and shows the wrong-credentials message.
 function showLoginError() {
   markInvalid(emailInput);
   showFieldError(passwordInput, LOGIN_ERROR);
 }
 
 
+// Shows the general error when the users could not be loaded.
 function showGeneralError() {
   formError.textContent = GENERAL_ERROR;
   formError.hidden = false;
 }
 
 
+// Hides all login errors.
 function clearLoginError() {
   formError.hidden = true;
   clearFieldError(emailInput);
@@ -26,22 +29,26 @@ function clearLoginError() {
 }
 
 
+// Opens the summary page.
 function goToSummary() {
   window.location.href = getRootPath() + "pages/summary.html";
 }
 
 
+// Checks whether a user has this email and password.
 function matchesCredentials(user, email, password) {
   return normalizeEmail(user.email) === email && user.password === password;
 }
 
 
+// Looks for the user with these credentials.
 async function findUser(email, password) {
   const users = await loadUsers();
   return users.find((user) => matchesCredentials(user, email, password)) || null;
 }
 
 
+// Runs findUser and catches network errors.
 async function authenticate(email, password) {
   try {
     return { user: await findUser(email, password) };
@@ -51,6 +58,7 @@ async function authenticate(email, password) {
 }
 
 
+// Handles the login form: checks the input, logs the user in and opens the summary.
 async function handleLogin(event) {
   event.preventDefault();
   const email = normalizeEmail(emailInput.value);
@@ -65,12 +73,14 @@ async function handleLogin(event) {
 }
 
 
+// Logs in as guest and opens the summary.
 function handleGuestLogin() {
   setCurrentUser({ name: "Guest", email: "", isGuest: true });
   goToSummary();
 }
 
 
+// Sets up the login form and hides the splash logo after a short delay.
 function initLogin() {
   initPasswordField(passwordInput);
   emailInput.addEventListener("input", clearLoginError);

@@ -12,23 +12,27 @@ const formError = document.getElementById("signUpFormError");
 let isSubmitting = false;
 
 
+// Checks that every field is filled in and the privacy policy is accepted.
 function isFormComplete() {
   const inputs = [nameInput, emailInput, passwordInput, confirmInput];
   return inputs.every((input) => input.value.trim() !== "") && privacyInput.checked;
 }
 
 
+// Enables the sign-up button only when the form is complete and nothing is being sent.
 function updateSubmitState() {
   signUpButton.disabled = isSubmitting || !isFormComplete();
 }
 
 
+// Shows the message if a field is invalid.
 function validateField(input, isValid, message) {
   if (!isValid) showFieldError(input, message);
   return isValid;
 }
 
 
+// Checks name, email, password length and that both passwords match.
 function validateForm() {
   const results = [
     validateField(nameInput, nameInput.value.trim() !== "", "Please enter your name."),
@@ -40,6 +44,7 @@ function validateForm() {
 }
 
 
+// Saves a new user unless the email is already registered.
 async function saveUser(user) {
   try {
     const users = await loadUsers();
@@ -54,12 +59,14 @@ async function saveUser(user) {
 }
 
 
+// Shows the success toast and goes to the login page.
 function showSuccessToast() {
   document.getElementById("toast").classList.add("show");
   setTimeout(() => (window.location.href = "../index.html"), REDIRECT_DELAY);
 }
 
 
+// Shows the error that saveUser returned.
 function showSignUpError(result) {
   if (result.field) showFieldError(emailInput, result.field);
   formError.textContent = result.general || "";
@@ -67,6 +74,7 @@ function showSignUpError(result) {
 }
 
 
+// Handles the sign-up form: validates, saves the user and reacts to the result.
 async function handleSignUp(event) {
   event.preventDefault();
   if (!validateForm()) return;
@@ -81,6 +89,7 @@ async function handleSignUp(event) {
 }
 
 
+// Clears the error of the edited field and updates the button.
 function handleFormInput(event) {
   if (event.target.type !== "checkbox") clearFieldError(event.target);
   formError.hidden = true;
@@ -88,6 +97,7 @@ function handleFormInput(event) {
 }
 
 
+// Sets up the password fields and form listeners.
 function initSignUp() {
   const form = document.getElementById("signup-form");
   initPasswordField(passwordInput);

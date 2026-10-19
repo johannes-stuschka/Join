@@ -1,9 +1,11 @@
+// Escapes text so it can be put into HTML safely.
 function escapeHtml(text) {
   const div = document.createElement("div");
   div.textContent = text;
   return div.innerHTML;
 }
 
+// Renders a priority button.
 function getPrioButtonTemplate(prio, isActive) {
   return `<button type="button" class="prio-btn prio-${prio.key} ${isActive ? "active" : ""}"
     onclick="selectPriority('${prio.key}')">
@@ -12,6 +14,7 @@ function getPrioButtonTemplate(prio, isActive) {
   </button>`;
 }
 
+// Renders a contact with checkbox in the assigned-to dropdown.
 function getContactOptionTemplate(contact, index, isChecked) {
   return `<li class="dropdown-item">
     <label>
@@ -21,12 +24,14 @@ function getContactOptionTemplate(contact, index, isChecked) {
   </li>`;
 }
 
+// Renders a category option.
 function getCategoryOptionTemplate(category, index) {
   return `<li class="dropdown-option" onclick="selectCategory(${index})">
     ${escapeHtml(category)}
   </li>`;
 }
 
+// Renders a subtask, or its edit field.
 function getSubtaskTemplate(text, index, isEditing) {
   if (isEditing) return getSubtaskEditTemplate(index);
   return `<li class="subtask-item">
@@ -39,6 +44,7 @@ function getSubtaskTemplate(text, index, isEditing) {
   </li>`;
 }
 
+// Renders the edit field of a subtask.
 function getSubtaskEditTemplate(index) {
   return `<li class="subtask-item editing">
     <input class="subtask-edit-input" id="subtask-edit" type="text"
@@ -51,14 +57,17 @@ function getSubtaskEditTemplate(index) {
   </li>`;
 }
 
+// Returns the X icon.
 function getCrossIcon() {
   return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>`;
 }
 
+// Returns the check icon.
 function getCheckIcon() {
   return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>`;
 }
 
+// Renders the whole add task form.
 function getAddTaskFormTemplate(withClear, submitLabel = "Create Task") {
   return `<form class="add-task" id="add-task-form" novalidate>
     <div class="add-task-fields">
@@ -73,6 +82,7 @@ function getAddTaskFormTemplate(withClear, submitLabel = "Create Task") {
   </form>`;
 }
 
+// Renders the title and description fields.
 function getTitleDescriptionTemplate() {
   return `
     <div class="field">
@@ -85,6 +95,7 @@ function getTitleDescriptionTemplate() {
     </label>`;
 }
 
+// Renders the due date field.
 function getDueDateTemplate() {
   return `
     <label class="field input-field">
@@ -99,6 +110,7 @@ function getDueDateTemplate() {
     </label>`;
 }
 
+// Renders the priority field.
 function getPriorityFieldTemplate() {
   return `
     <div class="field">
@@ -107,6 +119,7 @@ function getPriorityFieldTemplate() {
     </div>`;
 }
 
+// Renders the assigned-to dropdown.
 function getAssignedFieldTemplate() {
   return `
     <div class="field">
@@ -119,6 +132,7 @@ function getAssignedFieldTemplate() {
     </div>`;
 }
 
+// Renders the category dropdown.
 function getCategoryFieldTemplate() {
   return `
     <div class="field category-field">
@@ -131,10 +145,12 @@ function getCategoryFieldTemplate() {
     </div>`;
 }
 
+// Renders the hidden "This field is required" message.
 function getErrorTemplate(id) {
   return `<span class="field-error" id="${id}" hidden>This field is required</span>`;
 }
 
+// Renders the subtask input and list.
 function getSubtaskFieldTemplate() {
   return `
     <div class="field">
@@ -144,6 +160,7 @@ function getSubtaskFieldTemplate() {
     </div>`;
 }
 
+// Renders the clear and submit buttons.
 function getAddTaskActionsTemplate(withClear, submitLabel) {
   const clearBtn = withClear
     ? `<button class="btn btn-secondary" type="reset">Clear ✕</button>`
@@ -155,10 +172,12 @@ function getAddTaskActionsTemplate(withClear, submitLabel) {
     </div>`;
 }
 
+// Renders the avatar of an assigned contact.
 function getSelectedAvatarTemplate(user) {
   return `<span class="avatar" style="background:${user.color}">${user.initials}</span>`;
 }
 
+// Renders the toast.
 function getToastTemplate(message) {
   return `<div class="toast" id="toast">
     <span>${escapeHtml(message)}</span>

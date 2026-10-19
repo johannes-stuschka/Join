@@ -1,3 +1,4 @@
+// Renders the header.
 function getHeaderTemplate(basePath) {
   return `
     <header class="header">

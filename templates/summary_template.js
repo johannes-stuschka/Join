@@ -1,9 +1,11 @@
+// Escapes text so it can be put into HTML safely.
 function escapeHtml(text) {
   const div = document.createElement("div");
   div.textContent = text;
   return div.innerHTML;
 }
 
+// Renders the greeting, with the name if there is one.
 function getGreetingTemplate(greeting, name) {
   if (!name) {
     return `<h1 class="summary-greeting">
@@ -16,6 +18,7 @@ function getGreetingTemplate(greeting, name) {
   </h1>`;
 }
 
+// Renders a summary card.
 function getSummaryCardTemplate(card) {
   return `<a class="summary-card ${card.cssClass}" href="${card.href}">
     <div class="card-top">
@@ -26,6 +29,7 @@ function getSummaryCardTemplate(card) {
   </a>`;
 }
 
+// Renders the urgent card with the deadline.
 function getUrgentCardTemplate(card, deadline) {
   return `<a class="summary-card card-urgent" href="${card.href}">
     <div class="urgent-left">
@@ -43,6 +47,7 @@ function getUrgentCardTemplate(card, deadline) {
   </a>`;
 }
 
+// Puts greeting, urgent card and cards together.
 function getSummaryTemplate(greetingHtml, urgentHtml, cardsHtml) {
   return `${greetingHtml}
   <div class="summary-grid">

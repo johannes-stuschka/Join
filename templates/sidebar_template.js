@@ -1,3 +1,4 @@
+// Renders a sidebar link.
 function getSidebarButtonTemplate(button) {
   return `
     <a class="sidebar-btn ${button.activeClass}" href="${button.href}">

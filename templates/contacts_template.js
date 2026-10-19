@@ -1,17 +1,21 @@
+// Escapes text so it can be put into HTML safely.
 function escapeHtml(text) {
   const div = document.createElement("div");
   div.textContent = text;
   return div.innerHTML;
 }
 
+// Renders the round avatar of a contact.
 function getAvatarTemplate(contact, sizeClass = "") {
   return `<span class="avatar ${sizeClass}" style="--avatar-color: ${contact.color}">${getContactInitials(contact.name)}</span>`;
 }
 
+// Renders the letter heading of a group.
 function getContactGroupTemplate(letter) {
   return `<li class="contact-group-letter">${escapeHtml(letter)}</li>`;
 }
 
+// Renders a contact in the list.
 function getContactItemTemplate(contact, isActive) {
   return `<li>
     <button type="button" class="contact-item ${isActive ? "active" : ""}" onclick="toggleContactSelection('${contact.id}')">
@@ -24,6 +28,7 @@ function getContactItemTemplate(contact, isActive) {
   </li>`;
 }
 
+// Renders the detail view of a contact.
 function getContactDetailTemplate(contact) {
   return `<div class="contact-detail-content">
     <button type="button" class="contact-back" onclick="selectContact(null)" aria-label="Back to contact list">
@@ -56,6 +61,7 @@ function getContactDetailTemplate(contact) {
   </div>`;
 }
 
+// Renders the avatar with a person icon shown when adding a contact.
 function getAvatarPlaceholderTemplate() {
   return `<span class="avatar avatar-lg avatar-placeholder"><span class="icon icon-person"></span></span>`;
 }

@@ -1,3 +1,4 @@
+// Renders the search bar, the column container and the overlay.
 function getBoardTemplate() {
   return `
     <div class="board-toolbar">
@@ -12,10 +13,12 @@ function getBoardTemplate() {
     <div class="task-overlay" id="task-overlay" onclick="closeAddTaskOnBackdrop(event)"></div>`;
 }
 
+// Returns the search icon.
 function getSearchIcon() {
   return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>`;
 }
 
+// Renders a column with its cards.
 function getColumnTemplate(column, cardsHtml) {
   return `
     <section class="board-column" ondragover="allowDrop(event)"
@@ -28,16 +31,19 @@ function getColumnTemplate(column, cardsHtml) {
     </section>`;
 }
 
+// Renders the plus button of a column. Done has none.
 function getColumnAddButton(column) {
   if (column.status === "done") return "";
   return `<button type="button" class="btn-column-add" aria-label="Add task"
     onclick="openAddTask('${column.status}')"><img src="../assets/icons/add.svg" alt="" /></button>`;
 }
 
+// Renders the hint for an empty column.
 function getEmptyTemplate(title) {
   return `<div class="no-tasks">No tasks ${title}</div>`;
 }
 
+// Renders a task card.
 function getCardTemplate(task) {
   return `
     <article class="task-card" draggable="true" onclick="openTaskDetail('${task.id}')"
@@ -58,10 +64,12 @@ function getCardTemplate(task) {
     </article>`;
 }
 
+// Returns the CSS class for the category label.
 function getCategoryClass(category) {
   return category === "User Story" ? "cat-user" : "cat-tech";
 }
 
+// Renders the subtask progress bar, or nothing without subtasks.
 function getProgressTemplate(subtasks) {
   if (!subtasks.length) return "";
   const done = subtasks.filter((s) => s.done).length;
@@ -73,12 +81,14 @@ function getProgressTemplate(subtasks) {
     </div>`;
 }
 
+// Renders the avatars of the assigned contacts.
 function getAvatarsTemplate(assigned) {
   return assigned
     .map((u) => `<span class="avatar" style="background:${u.color}">${u.initials}</span>`)
     .join("");
 }
 
+// Renders the add task form inside the overlay.
 function getAddTaskOverlayTemplate() {
   return `
     <div class="task-panel">
@@ -88,6 +98,7 @@ function getAddTaskOverlayTemplate() {
     </div>`;
 }
 
+// Renders the detail view of a task.
 function getTaskDetailTemplate(task) {
   return `
     <div class="detail-panel">
@@ -100,6 +111,7 @@ function getTaskDetailTemplate(task) {
     </div>`;
 }
 
+// Renders category, close button and title of the detail view.
 function getDetailHeaderTemplate(task) {
   return `
     <div class="detail-top">
@@ -109,6 +121,7 @@ function getDetailHeaderTemplate(task) {
     <h1 class="detail-title">${escapeHtml(task.title)}</h1>`;
 }
 
+// Renders due date and priority in the detail view.
 function getDetailRowsTemplate(task) {
   const prio = PRIORITIES.find((p) => p.key === task.priority);
   return `
@@ -121,6 +134,7 @@ function getDetailRowsTemplate(task) {
     </div>`;
 }
 
+// Renders the assigned contacts in the detail view.
 function getDetailAssignedTemplate(assigned) {
   if (!assigned.length) return "";
   return `
@@ -130,6 +144,7 @@ function getDetailAssignedTemplate(assigned) {
     </div>`;
 }
 
+// Renders one assigned contact in the detail view.
 function getDetailContactTemplate(user) {
   return `<li class="detail-contact">
     <span class="avatar" style="background:${user.color}">${user.initials}</span>
@@ -137,6 +152,7 @@ function getDetailContactTemplate(user) {
   </li>`;
 }
 
+// Renders the subtask checklist in the detail view.
 function getDetailSubtasksTemplate(task) {
   if (!task.subtasks.length) return "";
   const items = task.subtasks.map((s, i) => getDetailSubtaskTemplate(task.id, s, i));
@@ -147,6 +163,7 @@ function getDetailSubtasksTemplate(task) {
     </div>`;
 }
 
+// Renders one subtask with checkbox.
 function getDetailSubtaskTemplate(taskId, subtask, index) {
   return `<li class="detail-subtask"><label>
     <input type="checkbox" ${subtask.done ? "checked" : ""}
@@ -156,6 +173,7 @@ function getDetailSubtaskTemplate(taskId, subtask, index) {
   </label></li>`;
 }
 
+// Renders the delete and edit buttons.
 function getDetailActionsTemplate(id) {
   return `
     <div class="detail-actions">
@@ -165,6 +183,7 @@ function getDetailActionsTemplate(id) {
     </div>`;
 }
 
+// Renders the edit form inside the overlay.
 function getEditTaskTemplate() {
   return `
     <div class="edit-panel">
@@ -173,6 +192,7 @@ function getEditTaskTemplate() {
     </div>`;
 }
 
+// Renders the move menu with the previous and next column.
 function getMoveMenuTemplate(task) {
     const i = BOARD_COLUMNS.findIndex((c) => c.status === task.status);
     const prev = BOARD_COLUMNS[i - 1];
@@ -185,6 +205,7 @@ function getMoveMenuTemplate(task) {
     </div>`;
 }
 
+// Renders one option of the move menu.
 function getMoveOptionTemplate(id, column, icon) {
     return `<button type="button" class="move-option"
       onclick="moveTask(event, '${id}', '${column.status}')">

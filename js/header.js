@@ -1,6 +1,7 @@
 const BASE_PATH = window.location.pathname.includes("/pages/") ? "../" : "./";
 
 
+// Collects the header elements the menu needs.
 function getHeaderElements() {
   return {
     wrap: document.querySelector(".header-user-wrap"),
@@ -10,6 +11,7 @@ function getHeaderElements() {
 }
 
 
+// Returns the initials for the header button, or "G" for the guest.
 function getInitials(user) {
   if (user.isGuest) return "G";
   const words = String(user.name || "").trim().split(/\s+/).filter(Boolean);
@@ -19,6 +21,7 @@ function getInitials(user) {
 }
 
 
+// Opens or closes the user menu.
 function setMenuOpen(open) {
   const { button, menu } = getHeaderElements();
   menu.hidden = !open;
@@ -26,17 +29,20 @@ function setMenuOpen(open) {
 }
 
 
+// Checks whether the user menu is open.
 function isMenuOpen() {
   return !getHeaderElements().menu.hidden;
 }
 
 
+// Closes the user menu when the user clicks somewhere else.
 function onHeaderDocumentClick(event) {
   const { wrap } = getHeaderElements();
   if (isMenuOpen() && !wrap.contains(event.target)) setMenuOpen(false);
 }
 
 
+// Closes the user menu on Escape.
 function onHeaderKeydown(event) {
   if (event.key !== "Escape" || !isMenuOpen()) return;
   setMenuOpen(false);
@@ -44,6 +50,7 @@ function onHeaderKeydown(event) {
 }
 
 
+// Adds the listeners for the user menu and logout.
 function bindHeaderEvents() {
   const { button } = getHeaderElements();
   button.addEventListener("click", () => setMenuOpen(!isMenuOpen()));
@@ -54,6 +61,7 @@ function bindHeaderEvents() {
 }
 
 
+// Shows the user's initials, or hides the user area when nobody is logged in.
 function initHeader() {
   const { wrap, button } = getHeaderElements();
   if (!wrap) return;
@@ -67,6 +75,7 @@ function initHeader() {
 }
 
 
+// Renders the header and sets it up.
 function renderHeader() {
   document.getElementById("header").innerHTML = getHeaderTemplate(BASE_PATH);
   initHeader();
