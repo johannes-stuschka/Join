@@ -5,6 +5,12 @@ const SIDEBAR_BUTTONS = [
   { label: "Contacts", href: "pages/contacts.html", icon: "assets/icons/contacts_icon.svg" },
 ];
 
+const LOGIN_BUTTON = {
+  label: "Log In",
+  href: "index.html",
+  icon: "assets/icons/login_icon.svg",
+};
+
 // Checks whether a link points to the open page.
 function isCurrentPage(href) {
   return window.location.pathname.endsWith(href);
@@ -13,7 +19,8 @@ function isCurrentPage(href) {
 // Renders the sidebar links and highlights the current page.
 function renderSidebar() {
   const nav = document.getElementById("sidebar-nav");
-  nav.innerHTML = SIDEBAR_BUTTONS.map((button) =>
+  const buttons = getCurrentUser() ? SIDEBAR_BUTTONS : [LOGIN_BUTTON];
+  nav.innerHTML = buttons.map((button) =>
     getSidebarButtonTemplate({
       ...button,
       href: BASE_PATH + button.href,
