@@ -175,9 +175,18 @@ async function updateContact(id, data) {
   selectContact(id);
 }
 
+async function removeContactFromTasks(name) {
+  const tasks = toList(await loadData("tasks"));
+  const affected = tasks.filter((task) => (task.assigned || []).some((user) => user.name === name));
+  await Promise.all(affected.map((task) =>
+    putData(`tasks/${task.id}/assigned`, task.assigned.filter((user) => user.name !== name)),
+  ));
+}
+
 async function deleteContact(id) {
   try {
     await deleteData(`contacts/${id}`);
+    await removeContactFromTasks(getContactById(id).name);
   } catch (error) {
     return showToast("Contact could not be deleted");
   }
