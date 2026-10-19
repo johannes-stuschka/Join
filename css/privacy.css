@@ -1,0 +1,38 @@
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.layout {
+  flex: 1;
+  min-height: 0;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 32px;
+  overflow-y: auto;
+}
+
+@media (max-width: 700px) {
+  .content {
+    padding-bottom: calc(32px + var(--mobile-nav-height));
+  }
+}
+
+@media (max-width: 370px) {
+  .content {
+    padding: 16px 16px calc(16px + var(--mobile-nav-height));
+  }
+
+  .content h1 {
+    font-size: 28px;
+  }
+}
