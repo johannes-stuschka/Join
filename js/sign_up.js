@@ -1,4 +1,4 @@
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const EMAIL_REGEX = /^[a-z0-9_%+-]+(\.[a-z0-9_%+-]+)*@([a-z0-9]([a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}$/i;
 const MIN_PASSWORD_LENGTH = 6;
 const REDIRECT_DELAY = 1500;
 const GENERAL_ERROR = "Something went wrong. Please try again later.";
@@ -8,39 +8,69 @@ const passwordInput = document.getElementById("password");
 const confirmInput = document.getElementById("confirm-password");
 const privacyInput = document.getElementById("privacy");
 const signUpButton = document.getElementById("signup-button");
-const formError = document.getElementById("signUpFormError");
 let isSubmitting = false;
 
 
-// Checks that every field is filled in and the privacy policy is accepted.
-function isFormComplete() {
-  const inputs = [nameInput, emailInput, passwordInput, confirmInput];
-  return inputs.every((input) => input.value.trim() !== "") && privacyInput.checked;
+// Returns the error message for the name or an empty string.
+function getNameError() {
+  return nameInput.value.trim() ? "" : "Please enter your name.";
 }
 
 
-// Enables the sign-up button only when the form is complete and nothing is being sent.
+// Returns the error message for the email or an empty string.
+function getEmailError() {
+  const email = emailInput.value.trim();
+  if (!email) return "Please enter your email.";
+  return EMAIL_REGEX.test(email) ? "" : "Please enter a valid email.";
+}
+
+
+// Returns the error message for the password or an empty string.
+function getPasswordError() {
+  if (!passwordInput.value) return "Please enter a password.";
+  return passwordInput.value.length >= MIN_PASSWORD_LENGTH ? "" : "At least 6 characters required.";
+}
+
+
+// Returns the error message for the password confirmation or an empty string.
+function getConfirmError() {
+  if (!confirmInput.value) return "Please confirm your password.";
+  return confirmInput.value === passwordInput.value ? "" : "Passwords don't match.";
+}
+
+
+const FIELD_CHECKS = new Map([
+  [nameInput, getNameError],
+  [emailInput, getEmailError],
+  [passwordInput, getPasswordError],
+  [confirmInput, getConfirmError],
+]);
+
+
+// Checks that every field is valid and the privacy policy is accepted.
+function isFormValid() {
+  return [...FIELD_CHECKS.values()].every((check) => check() === "") && privacyInput.checked;
+}
+
+
+// Enables the sign-up button only when the form is valid and nothing is being sent.
 function updateSubmitState() {
-  signUpButton.disabled = isSubmitting || !isFormComplete();
+  signUpButton.disabled = isSubmitting || !isFormValid();
 }
 
 
-// Shows the message if a field is invalid.
-function validateField(input, isValid, message) {
-  if (!isValid) showFieldError(input, message);
-  return isValid;
+// Shows or clears the message of one field and returns whether it is valid.
+function validateField(input) {
+  const message = FIELD_CHECKS.get(input)();
+  if (message) showFieldError(input, message);
+  else clearFieldError(input);
+  return !message;
 }
 
 
-// Checks name, email, password length and that both passwords match.
+// Checks all fields and shows every message at once.
 function validateForm() {
-  const results = [
-    validateField(nameInput, nameInput.value.trim() !== "", "Please enter your name."),
-    validateField(emailInput, EMAIL_REGEX.test(emailInput.value.trim()), "Please enter a valid email address."),
-    validateField(passwordInput, passwordInput.value.length >= MIN_PASSWORD_LENGTH, "Your password must have at least 6 characters."),
-    validateField(confirmInput, confirmInput.value === passwordInput.value, "Your passwords don't match. Please try again."),
-  ];
-  return results.every(Boolean);
+  return [...FIELD_CHECKS.keys()].map(validateField).every(Boolean);
 }
 
 
@@ -49,7 +79,7 @@ async function saveUser(user) {
   try {
     const users = await loadUsers();
     if (users.some((entry) => normalizeEmail(entry.email) === normalizeEmail(user.email))) {
-      return { field: "This email address is already registered." };
+      return { field: "This email is already registered." };
     }
     const result = await postData("users", user);
     if (!result || !result.name) return { general: GENERAL_ERROR };
@@ -71,8 +101,7 @@ function showSuccessToast() {
 // Shows the error that saveUser returned.
 function showSignUpError(result) {
   if (result.field) showFieldError(emailInput, result.field);
-  formError.textContent = result.general || "";
-  formError.hidden = !result.general;
+  if (result.general) showFieldMessage(confirmInput, result.general);
 }
 
 
@@ -93,9 +122,17 @@ async function handleSignUp(event) {
 
 // Clears the error of the edited field and updates the button.
 function handleFormInput(event) {
-  if (event.target.type !== "checkbox") clearFieldError(event.target);
-  formError.hidden = true;
+  if (FIELD_CHECKS.has(event.target)) clearFieldError(event.target);
+  if (event.target === passwordInput && !getConfirmError()) clearFieldError(confirmInput);
   updateSubmitState();
+}
+
+
+// Checks a field as soon as the user leaves it.
+function handleFieldBlur(event) {
+  if (!FIELD_CHECKS.has(event.target)) return;
+  validateField(event.target);
+  if (event.target === passwordInput && confirmInput.value) validateField(confirmInput);
 }
 
 
@@ -106,6 +143,7 @@ function initSignUp() {
   initPasswordField(confirmInput);
   form.addEventListener("input", handleFormInput);
   form.addEventListener("change", updateSubmitState);
+  form.addEventListener("focusout", handleFieldBlur);
   form.addEventListener("submit", handleSignUp);
   updateSubmitState();
 }

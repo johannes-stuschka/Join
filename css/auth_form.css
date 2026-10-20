@@ -57,33 +57,19 @@ button {
   cursor: default;
 }
 
-.field-error {
-  margin: 8px 0 0;
-  font-size: 16px;
-  line-height: 1.2;
-  color: #e60026;
-}
-
-.auth-card-login .field-group {
+.field-group {
   position: relative;
 }
 
-.auth-card-login .field-error {
+.field-error {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-}
-
-.form-error {
-  margin: 0 0 16px;
+  margin: 8px 0 0;
   font-size: 16px;
   line-height: 1.2;
   color: #e60026;
-}
-
-.form-error[hidden] {
-  display: none;
 }
 
 .btn {
@@ -114,7 +100,8 @@ button {
 .btn-primary:disabled {
   background: var(--main-color);
   box-shadow: none;
-  cursor: default;
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .btn-secondary {
@@ -161,7 +148,7 @@ button {
 }
 
 .auth-card-signup .field-error {
-  font-size: 16px;
+  margin-top: 4px;
 }
 
 .checkbox {
