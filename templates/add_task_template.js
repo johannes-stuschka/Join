@@ -147,7 +147,7 @@ function getCategoryFieldTemplate() {
 
 // Renders the hidden "This field is required" message.
 function getErrorTemplate(id) {
-  return `<span class="field-error" id="${id}" hidden>This field is required</span>`;
+  return `<span class="field-error" id="${id}">This field is required</span>`;
 }
 
 // Renders the subtask input and list.

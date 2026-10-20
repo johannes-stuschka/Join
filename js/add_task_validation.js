@@ -14,7 +14,7 @@ function isFormValid() {
 function validateField(name) {
     const field = REQUIRED_FIELDS[name];
     const valid = isFieldValid(name);
-    document.getElementById(field.errorId).hidden = valid;
+    document.getElementById(field.errorId).classList.toggle("active", !valid);
     document.getElementById(field.inputId).classList.toggle("invalid", !valid);
     return valid;
 }
@@ -27,15 +27,15 @@ function validateAll() {
 // Checks again the fields that currently show an error.
 function refreshVisibleErrors() {
     Object.keys(REQUIRED_FIELDS).forEach((name) => {
-        const errorHidden = document.getElementById(REQUIRED_FIELDS[name].errorId).hidden;
-        if (!errorHidden) validateField(name);
+        const error = document.getElementById(REQUIRED_FIELDS[name].errorId);
+        if (error.classList.contains("active")) validateField(name);
     });
 }
 
 // Hides all errors in the form.
 function clearErrors() {
     Object.values(REQUIRED_FIELDS).forEach(({ inputId, errorId }) => {
-        document.getElementById(errorId).hidden = true;
+        document.getElementById(errorId).classList.remove("active");
         document.getElementById(inputId).classList.remove("invalid");
     });
 }

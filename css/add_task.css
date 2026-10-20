@@ -332,11 +332,11 @@ textarea:focus {
 .field-error {
   font-size: 16px;
   line-height: 1.2;
-  color: var(--error-color);
+  color: #000;
 }
 
-.field-error[hidden] {
-  display: none;
+.field-error.active {
+    color: var(--error-color);
 }
 
 .title-input.invalid,
@@ -625,7 +625,7 @@ input[type="date"] {
 
 @media (max-width: 370px) {
   .prio-buttons {
-    gap: 8px;
+    gap: 16px;
   }
 
   .prio-btn {
