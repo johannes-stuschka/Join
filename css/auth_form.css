@@ -70,6 +70,7 @@ button {
   font-size: 16px;
   line-height: 1.2;
   color: #e60026;
+  text-align: center;
 }
 
 .btn {
@@ -84,7 +85,10 @@ button {
   line-height: 1.2;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 100ms, box-shadow 100ms, color 100ms;
+  transition:
+    background-color 100ms,
+    box-shadow 100ms,
+    color 100ms;
 }
 
 .btn-primary {
@@ -111,7 +115,9 @@ button {
 }
 
 .btn-secondary:hover {
-  box-shadow: inset 0 0 0 2px var(--main-color), 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    inset 0 0 0 2px var(--main-color),
+    0 4px 8px rgba(0, 0, 0, 0.2);
   color: var(--main-color);
 }
 
