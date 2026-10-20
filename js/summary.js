@@ -40,7 +40,10 @@ function getUrgentTasks(tasks) {
 
 // Finds the earliest due date.
 function getNextDeadline(tasks) {
-  const dates = tasks.map((task) => task.dueDate).filter(Boolean).sort();
+  const dates = tasks
+    .map((task) => task.dueDate)
+    .filter(Boolean)
+    .sort();
   return dates.length ? new Date(`${dates[0]}T00:00:00`) : null;
 }
 
@@ -80,31 +83,29 @@ function buildCard(key, count, label, cssClass) {
 }
 
 // Loads the tasks and renders the summary page.
-async function renderSummary() {
+async function initSummary() {
   let tasks = [];
   try {
     tasks = await loadSummaryTasks();
   } catch (error) {
     console.error(error);
   }
-  const data = getSummaryData(tasks);
-  const greetingHtml = getGreetingTemplate(getGreeting(), getUserName());
-  const urgentHtml = getUrgentHtml(data);
-  const cardsHtml = getCardsHtml(data);
+  renderSummary(getSummaryData(tasks));
+}
 
+// Renders the greeting, the urgent card and the status cards.
+function renderSummary(data) {
+  const greetingHtml = getGreetingTemplate(getGreeting(), getUserName());
   document.getElementById("summary").innerHTML = getSummaryTemplate(
     greetingHtml,
-    urgentHtml,
-    cardsHtml
+    getUrgentHtml(data),
+    getCardsHtml(data),
   );
 }
 
 // Renders the urgent card with the next deadline.
 function getUrgentHtml(data) {
-  return getUrgentCardTemplate(
-    buildCard("urgent", data.urgent, "Tasks Urgent", ""),
-    formatDeadline(data.deadline)
-  );
+  return getUrgentCardTemplate(buildCard("urgent", data.urgent, "Tasks Urgent", ""), formatDeadline(data.deadline));
 }
 
 // Renders the cards for the board and each status.
@@ -119,4 +120,4 @@ function getCardsHtml(data) {
   return cards.map(getSummaryCardTemplate).join("");
 }
 
-document.addEventListener("DOMContentLoaded", renderSummary);
+document.addEventListener("DOMContentLoaded", initSummary);
