@@ -1,8 +1,22 @@
 // Checks whether a required field is filled in.
 function isFieldValid(name) {
     if (name === "title") return document.getElementById("task-title").value.trim() !== "";
-    if (name === "dueDate") return document.getElementById("task-due-date").value !== "";
+    if (name === "dueDate") return isDueDateValid(document.getElementById("task-due-date").value);
     return selectedCategory !== "";
+}
+
+// Checks that the due date is a real date from today on. An edited task may keep its old date.
+function isDueDateValid(value) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+    if (value === originalDueDate) return true;
+    return value >= getTodayIso();
+}
+
+// Returns the error text for a field. A filled in but wrong date gets its own text.
+function getErrorMessage(name) {
+    const date = document.getElementById("task-due-date").value;
+    if (name === "dueDate" && date) return "Please choose today or a future date";
+    return "This field is required";
 }
 
 // Checks every required field.
@@ -14,7 +28,9 @@ function isFormValid() {
 function validateField(name) {
     const field = REQUIRED_FIELDS[name];
     const valid = isFieldValid(name);
-    document.getElementById(field.errorId).hidden = valid;
+    const error = document.getElementById(field.errorId);
+    error.textContent = getErrorMessage(name);
+    error.hidden = valid;
     document.getElementById(field.inputId).classList.toggle("invalid", !valid);
     return valid;
 }
@@ -51,6 +67,6 @@ function handleFocusOut(event) {
 
 // Enables the create button only when all required fields are filled in.
 function updateCreateButton() {
-    document.getElementById("create-task-btn").disabled = !isFormValid();
+    document.getElementById("create-task-btn").disabled = isSubmitting || !isFormValid();
     refreshVisibleErrors();
 }

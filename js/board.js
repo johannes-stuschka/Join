@@ -5,6 +5,8 @@ const BOARD_COLUMNS = [
   { status: "done", title: "Done" },
 ];
 
+const MAX_CARD_AVATARS = 4;
+
 const DEFAULT_TASKS = [
   {
     status: "todo",
