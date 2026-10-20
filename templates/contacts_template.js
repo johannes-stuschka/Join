@@ -33,6 +33,13 @@ function getContactItemTemplate(contact, isActive) {
   </li>`;
 }
 
+// Renders the delete button of a contact.
+function getContactDeleteTemplate(contact) {
+  return `<button type="button" class="contact-action" onclick="deleteContact('${contact.id}')">
+            <span class="icon icon-delete"></span>Delete
+          </button>`;
+}
+
 // Renders the detail view of a contact.
 function getContactDetailTemplate(contact) {
   return `<div class="contact-detail-content">
@@ -47,9 +54,7 @@ function getContactDetailTemplate(contact) {
           <button type="button" class="contact-action" onclick="openEditContact('${contact.id}')">
             <span class="icon icon-edit"></span>Edit
           </button>
-          <button type="button" class="contact-action" onclick="deleteContact('${contact.id}')">
-            <span class="icon icon-delete"></span>Delete
-          </button>
+          ${isProtectedContact(contact) ? "" : getContactDeleteTemplate(contact)}
         </div>
       </div>
     </div>

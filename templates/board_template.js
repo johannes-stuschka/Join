@@ -83,9 +83,7 @@ function getProgressTemplate(subtasks) {
 
 // Renders the avatars of the assigned contacts.
 function getAvatarsTemplate(assigned) {
-  return assigned
-    .map((u) => `<span class="avatar" style="background:${u.color}">${u.initials}</span>`)
-    .join("");
+  return assigned.map((u) => `<span class="avatar" style="background:${u.color}">${u.initials}</span>`).join("");
 }
 
 // Renders the add task form inside the overlay.
@@ -194,10 +192,10 @@ function getEditTaskTemplate() {
 
 // Renders the move menu with the previous and next column.
 function getMoveMenuTemplate(task) {
-    const i = BOARD_COLUMNS.findIndex((c) => c.status === task.status);
-    const prev = BOARD_COLUMNS[i - 1];
-    const next = BOARD_COLUMNS[i + 1];
-    return `
+  const i = BOARD_COLUMNS.findIndex((c) => c.status === task.status);
+  const prev = BOARD_COLUMNS[i - 1];
+  const next = BOARD_COLUMNS[i + 1];
+  return `
     <div class="move-menu" id="move-menu-${task.id}" onclick="event.stopPropagation()">
       <span class="move-menu-title">Move to</span>
       ${prev ? getMoveOptionTemplate(task.id, prev, "arrow_upward") : ""}
@@ -207,7 +205,7 @@ function getMoveMenuTemplate(task) {
 
 // Renders one option of the move menu.
 function getMoveOptionTemplate(id, column, icon) {
-    return `<button type="button" class="move-option"
+  return `<button type="button" class="move-option"
       onclick="moveTask(event, '${id}', '${column.status}')">
       <img src="../assets/icons/${icon}.svg" alt="" />${column.title}
     </button>`;

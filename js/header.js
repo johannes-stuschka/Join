@@ -61,13 +61,14 @@ function bindHeaderEvents() {
 }
 
 
-// Shows the user's initials, or hides the user area when nobody is logged in.
+// Shows the user's initials, or hides help and user area when nobody is logged in.
 function initHeader() {
   const { wrap, button } = getHeaderElements();
   if (!wrap) return;
   const user = getCurrentUser();
   if (!user) {
     wrap.hidden = true;
+    document.querySelector(".header-nav").classList.add("header-nav-logged-out");
     return;
   }
   button.textContent = getInitials(user);

@@ -21,6 +21,16 @@ body {
   overflow-y: auto;
 }
 
+.layout > .content {
+  right: 0;
+  width: auto;
+  max-width: none;
+}
+
+.layout > .content > * {
+  max-width: calc(1440px - 230px - 192px);
+}
+
 .content h1 {
   margin: 0 0 40px;
   font-size: 56px;

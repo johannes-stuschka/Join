@@ -475,6 +475,10 @@
   display: flex;
 }
 
+.contact-dialog.is-protected .contact-dialog-delete {
+  display: none;
+}
+
 .contact-toast {
   position: fixed;
   right: 64px;

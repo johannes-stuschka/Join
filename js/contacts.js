@@ -17,6 +17,7 @@ const DEFAULT_CONTACTS = [
 ];
 
 let contacts = [];
+let registeredEmails = new Set();
 
 let selectedContactId = null;
 let editingContactId = null;
@@ -30,11 +31,21 @@ function getContactInitials(name) {
   return escapeHtml((first + last).toUpperCase());
 }
 
+// Trims an email address and makes it lowercase so it can be compared.
+function normalizeContactEmail(email) {
+  return (email || "").trim().toLowerCase();
+}
+
 // Checks whether a contact belongs to the logged-in user.
 function isOwnContact(contact) {
   const user = getCurrentUser();
   if (!user || !user.email) return false;
-  return (contact.email || "").trim().toLowerCase() === user.email.trim().toLowerCase();
+  return normalizeContactEmail(contact.email) === normalizeContactEmail(user.email);
+}
+
+// Checks whether a contact belongs to a registered user and must not be deleted.
+function isProtectedContact(contact) {
+  return isOwnContact(contact) || registeredEmails.has(normalizeContactEmail(contact.email));
 }
 
 // Finds a contact by id.
@@ -99,7 +110,7 @@ function selectContact(id) {
 function openAddContact() {
   editingContactId = null;
   const dialog = document.getElementById("contact-dialog");
-  dialog.classList.remove("is-edit");
+  dialog.classList.remove("is-edit", "is-protected");
   document.getElementById("contact-dialog-title").textContent = "Add contact";
   document.getElementById("contact-form-avatar").innerHTML = getAvatarPlaceholderTemplate();
   resetContactForm();
@@ -112,6 +123,7 @@ function openEditContact(id) {
   editingContactId = id;
   const dialog = document.getElementById("contact-dialog");
   dialog.classList.add("is-edit");
+  dialog.classList.toggle("is-protected", isProtectedContact(contact));
   document.getElementById("contact-dialog-title").textContent = "Edit contact";
   document.getElementById("contact-form-avatar").innerHTML = getAvatarTemplate(contact, "avatar-lg");
   resetContactForm();
@@ -214,9 +226,12 @@ async function removeContactFromTasks(name) {
 
 // Deletes a contact and removes it from all tasks.
 async function deleteContact(id) {
+  const contact = getContactById(id);
+  if (!contact) return;
+  if (isProtectedContact(contact)) return showToast("Registered users can't be deleted");
   try {
     await deleteData(`contacts/${id}`);
-    await removeContactFromTasks(getContactById(id).name);
+    await removeContactFromTasks(contact.name);
   } catch (error) {
     return showToast("Contact could not be deleted");
   }
@@ -267,11 +282,17 @@ async function loadContacts() {
   contacts = toList(data);
 }
 
+// Loads the emails of all registered users.
+async function loadRegisteredEmails() {
+  const users = toList(await loadData("users"));
+  registeredEmails = new Set(users.map((user) => normalizeContactEmail(user.email)));
+}
+
 // Sets up the contacts page.
 async function initContacts() {
   addContactListeners();
   try {
-    await loadContacts();
+    await Promise.all([loadContacts(), loadRegisteredEmails()]);
   } catch (error) {
     showToast("Contacts could not be loaded");
   }

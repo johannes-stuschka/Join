@@ -1,14 +1,3 @@
-html,
-body {
-  height: 100%;
-  overflow: hidden;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
 .layout {
   flex: 1;
   min-height: 0;
@@ -18,7 +7,18 @@ body {
   flex: 1;
   min-width: 0;
   padding: 56px 96px;
-  overflow-y: auto;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.layout > .content {
+  right: 0;
+  width: auto;
+  max-width: none;
+}
+
+.layout > .content > * {
+  max-width: calc(1440px - 230px - 192px);
 }
 
 .content h1 {

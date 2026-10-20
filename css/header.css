@@ -23,6 +23,14 @@
   width: 433px;
 }
 
+.header-nav-logged-out {
+  width: auto;
+}
+
+.header-nav-logged-out .header-help {
+  display: none;
+}
+
 .header-title {
   height: 23px;
   font-size: 19px;

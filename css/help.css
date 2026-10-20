@@ -1,8 +1,18 @@
+.layout > .content {
+  right: 0;
+  width: auto;
+  max-width: none;
+}
+
 .help {
   flex: 1;
   min-width: 0;
   overflow-y: auto;
   padding: 64px 88px;
+}
+
+.help > * {
+  max-width: calc(1440px - 230px - 176px);
 }
 
 .help p {
