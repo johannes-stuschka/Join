@@ -28,9 +28,7 @@ function isFormValid() {
 function validateField(name) {
     const field = REQUIRED_FIELDS[name];
     const valid = isFieldValid(name);
-    const error = document.getElementById(field.errorId);
-    error.textContent = getErrorMessage(name);
-    error.hidden = valid;
+    document.getElementById(field.errorId).classList.toggle("active", !valid);
     document.getElementById(field.inputId).classList.toggle("invalid", !valid);
     return valid;
 }

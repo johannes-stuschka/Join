@@ -3,19 +3,6 @@ const AVATAR_COLORS = [
   "#1fd7c1", "#462f8a", "#ff4646", "#00bee8",
 ];
 
-// const DEFAULT_CONTACTS = [
-//   { name: "Lena Hoffmann", email: "lena.hoffmann@gmail.com", phone: "+49 1511 234 56 7", color: "#ff7a00" },
-//   { name: "Jonas Becker", email: "jonas.becker@gmail.com", phone: "+49 1522 345 67 8", color: "#9327ff" },
-//   { name: "Mia Schneider", email: "mia.schneider@gmail.com", phone: "+49 1533 456 78 9", color: "#6e52ff" },
-//   { name: "Felix Wagner", email: "felix.wagner@gmail.com", phone: "+49 1544 567 89 0", color: "#fc71ff" },
-//   { name: "Clara Richter", email: "clara.richter@gmail.com", phone: "+49 1555 678 90 1", color: "#ffbb2b" },
-//   { name: "Lukas Neumann", email: "lukas.neumann@gmail.com", phone: "+49 1566 789 01 2", color: "#1fd7c1" },
-//   { name: "Nora Krause", email: "nora.krause@gmail.com", phone: "+49 1577 890 12 3", color: "#462f8a" },
-//   { name: "Paul Schäfer", email: "paul.schaefer@gmail.com", phone: "+49 1588 901 23 4", color: "#ff4646" },
-//   { name: "Hannah Vogel", email: "hannah.vogel@gmail.com", phone: "+49 1599 012 34 5", color: "#00bee8" },
-//   { name: "Tim Hartmann", email: "tim.hartmann@gmail.com", phone: "+49 1600 123 45 6", color: "#ff745e" },
-// ];
-
 let contacts = [];
 let registeredEmails = new Set();
 

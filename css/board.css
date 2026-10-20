@@ -562,6 +562,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 12px;
 }
 
 .btn-move {
@@ -572,6 +573,7 @@
   border: none;
   background: none;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .btn-move img {
