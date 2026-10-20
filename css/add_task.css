@@ -329,7 +329,7 @@ textarea:focus {
 
 /* Pflichtfeld-Meldungen */
 .field-error {
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.2;
   color: var(--error-color);
 }
@@ -361,7 +361,7 @@ textarea.title-input {
   border: 2px solid #fff;
   border-radius: 50%;
   color: #fff;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .avatar + .avatar {
@@ -468,7 +468,7 @@ input[type="date"] {
   appearance: none;
 }
 
-@media (min-width: 701px) {
+@media (min-width: 801px) {
   .prio-urgent:hover {
     box-shadow:
       0 2px 0 var(--prio-urgent),
@@ -537,7 +537,7 @@ input[type="date"] {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   .add-task {
     flex-direction: column;
     align-items: center;
@@ -631,7 +631,7 @@ input[type="date"] {
     min-width: 0;
     padding: 10px 4px;
     gap: 4px;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .prio-btn img {

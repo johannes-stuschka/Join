@@ -169,7 +169,7 @@
   border-radius: 50%;
   background: var(--avatar-color);
   color: #fff;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .avatar-lg {
@@ -418,7 +418,7 @@
   top: calc(100% + 2px);
   left: 21px;
   color: #ff8190;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .contact-form-actions {
@@ -688,7 +688,7 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   .contact-dialog,
   .contact-dialog.is-edit {
     width: 396px;
