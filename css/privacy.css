@@ -67,6 +67,7 @@ body {
 .content a {
   color: var(--main-color);
   text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
 .content a:hover {
