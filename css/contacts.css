@@ -151,11 +151,9 @@
 }
 
 .contact-item-email {
-  overflow: hidden;
   color: var(--c-link);
   font-size: 16px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .avatar {
@@ -402,7 +400,7 @@
 }
 
 .input-field.invalid input {
-  border-bottom-color: #ff8190;
+  border-bottom-color: var(--error-color);
 }
 
 .input-field .icon {
@@ -417,7 +415,7 @@
   position: absolute;
   top: calc(100% + 2px);
   left: 21px;
-  color: #ff8190;
+  color: var(--error-color);
   font-size: 16px;
 }
 

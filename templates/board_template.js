@@ -55,13 +55,19 @@ function getCardTemplate(task) {
       </div>
       ${getMoveMenuTemplate(task)}
       <h3 class="task-title">${escapeHtml(task.title)}</h3>
-      <p class="task-desc">${escapeHtml(task.description)}</p>
+      <p class="task-desc">${escapeHtml(shortenText(task.description, 60))}</p>
       ${getProgressTemplate(task.subtasks)}
       <div class="task-footer">
         <div class="task-avatars">${getAvatarsTemplate(task.assigned)}</div>
         <img class="task-priority" src="../assets/icons/prio_${task.priority}.svg" alt="${task.priority}" />
       </div>
     </article>`;
+}
+
+// Cuts a text after the given length and adds "...".
+function shortenText(text, maxLength) {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength).trimEnd() + "...";
 }
 
 // Returns the CSS class for the category label.
@@ -81,9 +87,15 @@ function getProgressTemplate(subtasks) {
     </div>`;
 }
 
-// Renders the avatars of the assigned contacts.
+// Renders up to four avatars of the assigned contacts and a "+X" bubble for the rest.
 function getAvatarsTemplate(assigned) {
-  return assigned.map((u) => `<span class="avatar" style="background:${u.color}">${u.initials}</span>`).join("");
+  const hidden = assigned.length - MAX_CARD_AVATARS;
+  let html = assigned
+    .slice(0, MAX_CARD_AVATARS)
+    .map((u) => `<span class="avatar" style="background:${u.color}">${u.initials}</span>`)
+    .join("");
+  if (hidden > 0) html += `<span class="avatar avatar-more">+${hidden}</span>`;
+  return html;
 }
 
 // Renders the add task form inside the overlay.
@@ -138,14 +150,14 @@ function getDetailAssignedTemplate(assigned) {
   return `
     <div class="detail-section">
       <span class="detail-label">Assigned To:</span>
-      <ul class="detail-list">${assigned.map(getDetailContactTemplate).join("")}</ul>
+      <ul class="detail-list detail-assigned-list">${assigned.map(getDetailContactTemplate).join("")}</ul>
     </div>`;
 }
 
 // Renders one assigned contact in the detail view.
 function getDetailContactTemplate(user) {
   return `<li class="detail-contact">
-    <span class="avatar" style="background:${user.color}">${user.initials}</span>
+    <span class="avatar avatar-large" style="background:${user.color}">${user.initials}</span>
     ${escapeHtml(user.name)}
   </li>`;
 }
@@ -157,7 +169,7 @@ function getDetailSubtasksTemplate(task) {
   return `
     <div class="detail-section">
       <span class="detail-label">Subtasks</span>
-      <ul class="detail-list">${items.join("")}</ul>
+      <ul class="detail-list detail-subtask-list">${items.join("")}</ul>
     </div>`;
 }
 

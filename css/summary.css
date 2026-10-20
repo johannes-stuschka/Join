@@ -5,7 +5,7 @@
     width: 100%;
     max-width: 640px;
     margin: 0 auto 0 max(0px, (min(100%, 1440px - 230px) - 640px) / 2);
-    padding: 80px 16px;
+    padding: 80px 16px 32px;
     align-self: flex-start;
 }
 
@@ -15,8 +15,8 @@
     align-items: baseline;
     justify-content: center;
     gap: 16px;
-    margin-bottom: 56px;
-    font-size: clamp(32px, 4vw, 48px);
+    margin-bottom: clamp(24px, 5vh, 56px);
+    font-size: 58px;
     color: var(--summary-text);
     text-align: center;
 }
@@ -146,6 +146,31 @@
 
     .card-urgent:hover .urgent-divider {
         background: var(--main-color);
+    }
+}
+
+@media (max-height: 760px) and (min-width: 801px) {
+    .summary {
+        padding-block: 24px;
+    }
+
+    .summary-greeting {
+        margin-bottom: 24px;
+        font-size: 44px;
+    }
+
+    .summary-card {
+        min-height: 110px;
+        padding: 12px;
+    }
+
+    .card-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .card-count {
+        font-size: 34px;
     }
 }
 

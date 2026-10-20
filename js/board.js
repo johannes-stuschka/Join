@@ -5,86 +5,88 @@ const BOARD_COLUMNS = [
   { status: "done", title: "Done" },
 ];
 
-// const DEFAULT_TASKS = [
-//   {
-//     status: "todo",
-//     category: "User Story",
-//     priority: "medium",
-//     title: "Kochwelt Page & Recipe Recommender",
-//     description: "Build start page with recipe recommendation.",
-//     dueDate: "2026-11-05",
-//     subtasks: [
-//       { text: "Implement Recipe Recommendation", done: true },
-//       { text: "Start Page Layout", done: false },
-//     ],
-//     assigned: [
-//       { name: "Lukas Neumann", initials: "LN", color: "#1fd7c1" },
-//       { name: "Nora Krause", initials: "NK", color: "#462f8a" },
-//       { name: "Lena Hoffmann", initials: "LH", color: "#ff7a00" },
-//     ],
-//   },
-//   {
-//     status: "progress",
-//     category: "Technical Task",
-//     priority: "urgent",
-//     title: "CSS Architecture Planning",
-//     description: "Define CSS naming conventions and structure.",
-//     dueDate: "2026-10-24",
-//     subtasks: [
-//       { text: "Define naming conventions", done: true },
-//       { text: "Document structure", done: false },
-//     ],
-//     assigned: [
-//       { name: "Jonas Becker", initials: "JB", color: "#9327ff" },
-//       { name: "Mia Schneider", initials: "MS", color: "#6e52ff" },
-//     ],
-//   },
-//   {
-//     status: "progress",
-//     category: "User Story",
-//     priority: "low",
-//     title: "Contact Form & Imprint",
-//     description: "Create a contact form and imprint page.",
-//     dueDate: "2026-11-12",
-//     subtasks: [
-//       { text: "Contact form validation", done: false },
-//       { text: "Imprint text", done: false },
-//     ],
-//     assigned: [
-//       { name: "Felix Wagner", initials: "FW", color: "#fc71ff" },
-//       { name: "Clara Richter", initials: "CR", color: "#ffbb2b" },
-//     ],
-//   },
-//   {
-//     status: "feedback",
-//     category: "Technical Task",
-//     priority: "medium",
-//     title: "HTML Base Template Creation",
-//     description: "Create reusable HTML base templates.",
-//     dueDate: "2026-10-30",
-//     subtasks: [],
-//     assigned: [
-//       { name: "Paul Schäfer", initials: "PS", color: "#ff4646" },
-//       { name: "Lena Hoffmann", initials: "LH", color: "#ff7a00" },
-//     ],
-//   },
-//   {
-//     status: "done",
-//     category: "User Story",
-//     priority: "urgent",
-//     title: "Daily Kochwelt Recipe",
-//     description: "Implement daily recipe and portion calculator.",
-//     dueDate: "2026-10-20",
-//     subtasks: [
-//       { text: "Daily recipe", done: true },
-//       { text: "Portion calculator", done: true },
-//     ],
-//     assigned: [
-//       { name: "Clara Richter", initials: "CR", color: "#ffbb2b" },
-//       { name: "Nora Krause", initials: "NK", color: "#462f8a" },
-//     ],
-//   },
-// ];
+const MAX_CARD_AVATARS = 4;
+
+const DEFAULT_TASKS = [
+  {
+    status: "todo",
+    category: "User Story",
+    priority: "medium",
+    title: "Kochwelt Page & Recipe Recommender",
+    description: "Build start page with recipe recommendation.",
+    dueDate: "2026-11-05",
+    subtasks: [
+      { text: "Implement Recipe Recommendation", done: true },
+      { text: "Start Page Layout", done: false },
+    ],
+    assigned: [
+      { name: "Lukas Neumann", initials: "LN", color: "#1fd7c1" },
+      { name: "Nora Krause", initials: "NK", color: "#462f8a" },
+      { name: "Lena Hoffmann", initials: "LH", color: "#ff7a00" },
+    ],
+  },
+  {
+    status: "progress",
+    category: "Technical Task",
+    priority: "urgent",
+    title: "CSS Architecture Planning",
+    description: "Define CSS naming conventions and structure.",
+    dueDate: "2026-10-24",
+    subtasks: [
+      { text: "Define naming conventions", done: true },
+      { text: "Document structure", done: false },
+    ],
+    assigned: [
+      { name: "Jonas Becker", initials: "JB", color: "#9327ff" },
+      { name: "Mia Schneider", initials: "MS", color: "#6e52ff" },
+    ],
+  },
+  {
+    status: "progress",
+    category: "User Story",
+    priority: "low",
+    title: "Contact Form & Imprint",
+    description: "Create a contact form and imprint page.",
+    dueDate: "2026-11-12",
+    subtasks: [
+      { text: "Contact form validation", done: false },
+      { text: "Imprint text", done: false },
+    ],
+    assigned: [
+      { name: "Felix Wagner", initials: "FW", color: "#fc71ff" },
+      { name: "Clara Richter", initials: "CR", color: "#ffbb2b" },
+    ],
+  },
+  {
+    status: "feedback",
+    category: "Technical Task",
+    priority: "medium",
+    title: "HTML Base Template Creation",
+    description: "Create reusable HTML base templates.",
+    dueDate: "2026-10-30",
+    subtasks: [],
+    assigned: [
+      { name: "Paul Schäfer", initials: "PS", color: "#ff4646" },
+      { name: "Lena Hoffmann", initials: "LH", color: "#ff7a00" },
+    ],
+  },
+  {
+    status: "done",
+    category: "User Story",
+    priority: "urgent",
+    title: "Daily Kochwelt Recipe",
+    description: "Implement daily recipe and portion calculator.",
+    dueDate: "2026-10-20",
+    subtasks: [
+      { text: "Daily recipe", done: true },
+      { text: "Portion calculator", done: true },
+    ],
+    assigned: [
+      { name: "Clara Richter", initials: "CR", color: "#ffbb2b" },
+      { name: "Nora Krause", initials: "NK", color: "#462f8a" },
+    ],
+  },
+];
 
 let boardTasks = [];
 let draggedTaskId = null;

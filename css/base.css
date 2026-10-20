@@ -20,7 +20,7 @@ body {
   --selected-color: rgba(210, 227, 255, 1);
   --hover-color: rgba(227, 238, 255, 1);
 
-  --error-color: #ff8190;
+  --error-color: #e60026;
 
   --header-height: 96px;
   --mobile-nav-height: 0px;
@@ -30,10 +30,6 @@ body {
   :root {
     --header-height: 80px;
     --mobile-nav-height: 77px;
-  }
-
-  body {
-    overflow-x: hidden;
   }
 }
 

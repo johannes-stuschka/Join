@@ -16,6 +16,9 @@ let selectedCategory = "";
 let addTaskCallback = null;
 let categoryTouched = false;
 let editingSubtask = -1;
+let isSubmitting = false;
+let originalDueDate = "";
+const MAX_VISIBLE_AVATARS = 5;
 
 const REQUIRED_FIELDS = {
     title: { inputId: "task-title", errorId: "title-error" },
@@ -27,6 +30,7 @@ const REQUIRED_FIELDS = {
 function initAddTask(callback = null, task = null) {
     addTaskCallback = callback;
     resetAddTaskState();
+    setMinDueDate();
     if (task) fillForm(task);
     initState();
     addFormListeners();
@@ -38,6 +42,7 @@ function fillForm(task) {
     document.getElementById("task-title").value = task.title;
     document.getElementById("task-description").value = task.description;
     document.getElementById("task-due-date").value = task.dueDate;
+    originalDueDate = task.dueDate;
     selectedPriority = task.priority;
     selectedCategory = task.category;
     assignedContacts = task.assigned.map((user) => user.name);
@@ -88,6 +93,21 @@ function resetAddTaskState() {
     subtasks = [];
     categoryTouched = false;
     editingSubtask = -1;
+    isSubmitting = false;
+    originalDueDate = "";
+}
+
+// Returns today's date as "YYYY-MM-DD" in local time.
+function getTodayIso() {
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    return `${now.getFullYear()}-${month}-${day}`;
+}
+
+// Stops the date picker from offering days in the past.
+function setMinDueDate() {
+    document.getElementById("task-due-date").min = getTodayIso();
 }
 
 // Renders the priority buttons.
@@ -103,11 +123,29 @@ function selectPriority(key) {
     renderPriorities();
 }
 
-// Renders the contacts in the assigned-to dropdown.
+// Renders the contacts in the assigned-to dropdown that match the search.
 function renderContacts() {
-    document.getElementById("assigned-list").innerHTML = CONTACTS
-        .map((contact, i) => getContactOptionTemplate(contact, i, assignedContacts.includes(contact)))
+    const search = document.getElementById("assigned-toggle").value.trim().toLowerCase();
+    const html = CONTACTS
+        .map((contact, i) => ({ contact, i }))
+        .filter(({ contact }) => contact.toLowerCase().includes(search))
+        .map(({ contact, i }) => getContactOptionTemplate(contact, i, assignedContacts.includes(contact)))
         .join("");
+    document.getElementById("assigned-list").innerHTML = html || getNoContactsTemplate();
+}
+
+// Opens the assigned-to dropdown and filters the contacts while typing.
+function searchContacts() {
+    document.getElementById("assigned-dropdown").classList.add("open");
+    renderContacts();
+    scrollDropdownIntoView("assigned-dropdown");
+}
+
+// Scrolls an open dropdown list into view so all its rows are visible.
+function scrollDropdownIntoView(id) {
+    const dropdown = document.getElementById(id);
+    if (!dropdown.classList.contains("open")) return;
+    dropdown.querySelector(".dropdown-list").scrollIntoView({ block: "nearest" });
 }
 
 // Assigns or unassigns a contact.
@@ -121,16 +159,21 @@ function toggleContact(index) {
     renderSelectedAvatars();
 }
 
-// Shows the avatars of the assigned contacts below the dropdown.
+// Shows up to five avatars of the assigned contacts and a "+X" bubble for the rest.
 function renderSelectedAvatars() {
-    document.getElementById("selected-avatars").innerHTML = assignedContacts
+    const hidden = assignedContacts.length - MAX_VISIBLE_AVATARS;
+    let html = assignedContacts
+        .slice(0, MAX_VISIBLE_AVATARS)
         .map((name) => getSelectedAvatarTemplate(toAvatar(name)))
         .join("");
+    if (hidden > 0) html += getMoreAvatarsTemplate(hidden);
+    document.getElementById("selected-avatars").innerHTML = html;
 }
 
 // Opens or closes a dropdown.
 function toggleDropdown(id) {
     document.getElementById(id).classList.toggle("open");
+    scrollDropdownIntoView(id);
     if (id === "category-dropdown") categoryTouched = true;
     checkCategoryOnClose();
 }
@@ -140,7 +183,24 @@ function closeDropdownOnOutsideClick(event) {
     document.querySelectorAll(".dropdown").forEach((dropdown) => {
         if (!dropdown.contains(event.target)) dropdown.classList.remove("open");
     });
+    if (!document.getElementById("assigned-dropdown")?.contains(event.target)) clearContactSearch();
     checkCategoryOnClose();
+}
+
+// Empties the contact search so all contacts show up again.
+function clearContactSearch() {
+    const input = document.getElementById("assigned-toggle");
+    if (!input || !input.value) return;
+    input.value = "";
+    renderContacts();
+}
+
+// Closes the assigned-to dropdown on Escape and keeps Enter from submitting.
+function handleContactSearchKey(event) {
+    if (event.key === "Enter") event.preventDefault();
+    if (event.key !== "Escape") return;
+    document.getElementById("assigned-dropdown").classList.remove("open");
+    clearContactSearch();
 }
 
 // Validates the category once its dropdown was opened and closed again.
@@ -172,14 +232,29 @@ function getTaskFromForm() {
     };
 }
 
-// Validates the form and passes the data to the callback.
-function handleSubmit(event) {
+// Validates the form and passes the data to the callback. The button stays disabled while saving.
+async function handleSubmit(event) {
     event.preventDefault();
-    if (!validateAll()) return;
+    if (isSubmitting || !validateAll()) return;
+    setSubmitting(true);
     const task = getTaskFromForm();
-    if (addTaskCallback) return addTaskCallback(task);
-    showToast("Task added to board");
-    event.target.reset();
+    if (!addTaskCallback) {
+        showToast("Task added to board");
+        return event.target.reset();
+    }
+    try {
+        await addTaskCallback(task);
+    } catch (error) {
+        console.error(error);
+        setSubmitting(false);
+    }
+}
+
+// Locks or unlocks the submit button while a task is being saved.
+function setSubmitting(value) {
+    isSubmitting = value;
+    const button = document.getElementById("create-task-btn");
+    if (button) button.disabled = value || !isFormValid();
 }
 
 // Resets the form after the clear button was clicked.
@@ -216,7 +291,9 @@ function addFormListeners() {
     form.addEventListener("focusout", handleFocusOut);
     document.getElementById("task-title").addEventListener("keydown", blockEnter);
     document.getElementById("subtask-input").addEventListener("keydown", addSubtask);
-    document.getElementById("assigned-toggle").addEventListener("click", () => toggleDropdown("assigned-dropdown"));
+    document.getElementById("assigned-toggle").addEventListener("click", searchContacts);
+    document.getElementById("assigned-toggle").addEventListener("input", searchContacts);
+    document.getElementById("assigned-toggle").addEventListener("keydown", handleContactSearchKey);
     document.getElementById("category-toggle").addEventListener("click", () => toggleDropdown("category-dropdown"));
 }
 
