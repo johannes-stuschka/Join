@@ -4,7 +4,6 @@ const SPLASH_DELAY = 500;
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const loginButton = document.getElementById("login-button");
-const formError = document.getElementById("loginFormError");
 
 
 // Marks both fields and shows the wrong-credentials message.
@@ -16,14 +15,13 @@ function showLoginError() {
 
 // Shows the general error when the users could not be loaded.
 function showGeneralError() {
-  formError.textContent = GENERAL_ERROR;
-  formError.hidden = false;
+  clearLoginError();
+  showFieldMessage(passwordInput, GENERAL_ERROR);
 }
 
 
 // Hides all login errors.
 function clearLoginError() {
-  formError.hidden = true;
   clearFieldError(emailInput);
   clearFieldError(passwordInput);
 }
