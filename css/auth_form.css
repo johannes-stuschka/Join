@@ -64,6 +64,17 @@ button {
   color: #e60026;
 }
 
+.auth-card-login .field-group {
+  position: relative;
+}
+
+.auth-card-login .field-error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
 .form-error {
   margin: 0 0 16px;
   font-size: 16px;

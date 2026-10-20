@@ -46,12 +46,18 @@ function markInvalid(input) {
 }
 
 
-// Marks an input as invalid and shows the message below it.
-function showFieldError(input, message) {
-  markInvalid(input);
+// Shows a message below an input without marking it as invalid.
+function showFieldMessage(input, message) {
   const error = input.closest(".field-group").querySelector(".field-error");
   error.textContent = message;
   error.hidden = false;
+}
+
+
+// Marks an input as invalid and shows the message below it.
+function showFieldError(input, message) {
+  markInvalid(input);
+  showFieldMessage(input, message);
 }
 
 
