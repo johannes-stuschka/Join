@@ -13,6 +13,13 @@
   overflow-y: auto;
 }
 
+.content:has(.summary),
+#add-task-page {
+  right: 0;
+  width: auto;
+  max-width: none;
+}
+
 @media (max-width: 800px) {
   .content {
     left: 0;

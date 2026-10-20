@@ -2,8 +2,9 @@
     --summary-text: #2a3647;
     --summary-border: #e0e0e0;
 
+    width: 100%;
     max-width: 640px;
-    margin: 0 auto;
+    margin: 0 auto 0 max(0px, (min(100%, 1440px - 230px) - 640px) / 2);
     padding: 80px 16px;
     align-self: flex-start;
 }

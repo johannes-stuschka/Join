@@ -24,6 +24,7 @@
 
 #add-task-page .add-task {
   align-self: flex-start;
+  max-width: calc(1440px - 230px);
 }
 
 .add-task ::placeholder {
