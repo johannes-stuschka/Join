@@ -1,4 +1,5 @@
 const ICON_PATH = "../assets/icons/";
+const AVATAR_COLORS = ["#ff7a00", "#1fd7c1", "#9327ff", "#ff70ff", "#ff4646", "#00bee8", "#6e52ff"];
 
 const PRIORITIES = [
     { key: "urgent", label: "Urgent", icon: ICON_PATH + "prio_urgent.svg" },
@@ -439,8 +440,6 @@ function selectCategory(index) {
     document.getElementById("category-dropdown").classList.remove("open");
     updateCreateButton();
 }
-
-const AVATAR_COLORS = ["#ff7a00", "#1fd7c1", "#9327ff", "#ff70ff", "#ff4646", "#00bee8", "#6e52ff"];
 
 /**
  * Builds initials and a fixed color from a name.
