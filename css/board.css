@@ -372,7 +372,7 @@
 
 .detail-title {
   margin: 0 0 16px;
-  font-size: clamp(32px, 3.4vw, 44px);
+  font-size: 36px;
   font-weight: 700;
   line-height: 1.1;
   overflow-wrap: anywhere;
@@ -748,7 +748,7 @@
   }
 
   .edit-panel {
-    width: calc(100% - 16px);
+    width: min(calc(100% - 16px), 520px);
     padding: 64px 16px 16px;
   }
 
@@ -759,7 +759,7 @@
   }
 
   .detail-panel {
-    width: calc(100% - 16px);
+    width: min(calc(100% - 16px), 520px);
     padding: 24px 20px 20px;
   }
 
