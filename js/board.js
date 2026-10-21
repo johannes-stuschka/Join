@@ -30,25 +30,12 @@ async function initBoard() {
 }
 
 /**
- * Saves the default tasks when the database is empty.
- *
- * @returns {Promise<Object>} The stored tasks.
- */
-async function seedTasks() {
-  for (const task of DEFAULT_TASKS) {
-    await postData("tasks", task);
-  }
-  return await loadData("tasks");
-}
-
-/**
- * Loads the tasks, or creates the defaults first.
+ * Loads the tasks from Firebase.
  *
  * @returns {Promise<void>}
  */
 async function loadTasks() {
-  let data = await loadData("tasks");
-  if (!data) data = await seedTasks();
+  const data = await loadData("tasks");
   boardTasks = toList(data).map(normalizeTask);
 }
 

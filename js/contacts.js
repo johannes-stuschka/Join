@@ -368,25 +368,12 @@ function addContactListeners() {
 }
 
 /**
- * Saves the default contacts when the database is empty.
- *
- * @returns {Promise<Object>} The stored contacts.
- */
-async function seedContacts() {
-  for (const contact of DEFAULT_CONTACTS) {
-    await postData("contacts", contact);
-  }
-  return await loadData("contacts");
-}
-
-/**
- * Loads the contacts, or creates the defaults first.
+ * Loads the contacts from Firebase.
  *
  * @returns {Promise<void>}
  */
 async function loadContacts() {
-  let data = await loadData("contacts");
-  if (!data) data = await seedContacts();
+  const data = await loadData("contacts");
   contacts = toList(data);
 }
 
