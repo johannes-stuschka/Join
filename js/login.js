@@ -6,47 +6,74 @@ const passwordInput = document.getElementById("password");
 const loginButton = document.getElementById("login-button");
 
 
-// Marks both fields and shows the wrong-credentials message.
+/**
+ * Marks both fields and shows the wrong-credentials message.
+ */
 function showLoginError() {
   markInvalid(emailInput);
   showFieldError(passwordInput, LOGIN_ERROR);
 }
 
 
-// Shows the general error when the users could not be loaded.
+/**
+ * Shows the general error when the users could not be loaded.
+ */
 function showGeneralError() {
   clearLoginError();
   showFieldMessage(passwordInput, GENERAL_ERROR);
 }
 
 
-// Hides all login errors.
+/**
+ * Hides all login errors.
+ */
 function clearLoginError() {
   clearFieldError(emailInput);
   clearFieldError(passwordInput);
 }
 
 
-// Opens the summary page.
+/**
+ * Opens the summary page.
+ */
 function goToSummary() {
   window.location.href = getRootPath() + "pages/summary.html";
 }
 
 
-// Checks whether a user has this email and password.
+/**
+ * Checks whether a user has this email and password.
+ *
+ * @param {Object} user - A registered user.
+ * @param {string} email - The normalized email.
+ * @param {string} password - The password.
+ * @returns {boolean} True if email and password match.
+ */
 function matchesCredentials(user, email, password) {
   return normalizeEmail(user.email) === email && user.password === password;
 }
 
 
-// Looks for the user with these credentials.
+/**
+ * Looks for the user with these credentials.
+ *
+ * @param {string} email - The normalized email.
+ * @param {string} password - The password.
+ * @returns {Promise<Object|null>} The user, or null.
+ */
 async function findUser(email, password) {
   const users = await loadUsers();
   return users.find((user) => matchesCredentials(user, email, password)) || null;
 }
 
 
-// Runs findUser and catches network errors.
+/**
+ * Runs findUser and catches network errors.
+ *
+ * @param {string} email - The normalized email.
+ * @param {string} password - The password.
+ * @returns {Promise<{user?: Object|null, failed?: boolean}>} The user, or failed if loading failed.
+ */
 async function authenticate(email, password) {
   try {
     return { user: await findUser(email, password) };
@@ -56,7 +83,12 @@ async function authenticate(email, password) {
 }
 
 
-// Handles the login form: checks the input, logs the user in and opens the summary.
+/**
+ * Handles the login form: checks the input, logs the user in and opens the summary.
+ *
+ * @param {SubmitEvent} event - The submit event of the form.
+ * @returns {Promise<void>}
+ */
 async function handleLogin(event) {
   event.preventDefault();
   const email = normalizeEmail(emailInput.value);
@@ -72,14 +104,18 @@ async function handleLogin(event) {
 }
 
 
-// Logs in as guest and opens the summary.
+/**
+ * Logs in as guest and opens the summary.
+ */
 function handleGuestLogin() {
   setCurrentUser({ name: "Guest", email: "", isGuest: true });
   goToSummary();
 }
 
 
-// Sets up the login form and hides the splash logo after a short delay.
+/**
+ * Sets up the login form and hides the splash logo after a short delay.
+ */
 function initLogin() {
   initPasswordField(passwordInput);
   emailInput.addEventListener("input", clearLoginError);
@@ -88,6 +124,3 @@ function initLogin() {
   document.getElementById("guest-button").addEventListener("click", handleGuestLogin);
   setTimeout(() => document.body.classList.remove("splash"), SPLASH_DELAY);
 }
-
-
-initLogin();

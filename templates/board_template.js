@@ -1,4 +1,8 @@
-// Renders the search bar, the column container and the overlay.
+/**
+ * Renders the search bar, the column container and the overlay.
+ *
+ * @returns {string} The HTML.
+ */
 function getBoardTemplate() {
   return `
     <div class="board-toolbar">
@@ -13,12 +17,22 @@ function getBoardTemplate() {
     <div class="task-overlay" id="task-overlay" onclick="closeAddTaskOnBackdrop(event)"></div>`;
 }
 
-// Returns the search icon.
+/**
+ * Returns the search icon.
+ *
+ * @returns {string} The SVG markup.
+ */
 function getSearchIcon() {
   return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>`;
 }
 
-// Renders a column with its cards.
+/**
+ * Renders a column with its cards.
+ *
+ * @param {{status: string, title: string}} column - The column.
+ * @param {string} cardsHtml - The HTML of the cards.
+ * @returns {string} The HTML.
+ */
 function getColumnTemplate(column, cardsHtml) {
   return `
     <section class="board-column" ondragover="allowDrop(event)"
@@ -31,19 +45,34 @@ function getColumnTemplate(column, cardsHtml) {
     </section>`;
 }
 
-// Renders the plus button of a column. Done has none.
+/**
+ * Renders the plus button of a column. Done has none.
+ *
+ * @param {{status: string, title: string}} column - The column.
+ * @returns {string} The HTML.
+ */
 function getColumnAddButton(column) {
   if (column.status === "done") return "";
   return `<button type="button" class="btn-column-add" aria-label="Add task"
     onclick="openAddTask('${column.status}')"><img src="../assets/icons/add.svg" alt="" /></button>`;
 }
 
-// Renders the hint for an empty column.
+/**
+ * Renders the hint for an empty column.
+ *
+ * @param {string} title - The column title.
+ * @returns {string} The HTML.
+ */
 function getEmptyTemplate(title) {
   return `<div class="no-tasks">No tasks ${title}</div>`;
 }
 
-// Renders a task card.
+/**
+ * Renders a task card.
+ *
+ * @param {Object} task - The task object.
+ * @returns {string} The HTML.
+ */
 function getCardTemplate(task) {
   return `
     <article class="task-card" draggable="true" onclick="openTaskDetail('${task.id}')"
@@ -64,18 +93,34 @@ function getCardTemplate(task) {
     </article>`;
 }
 
-// Cuts a text after the given length and adds "...".
+/**
+ * Cuts a text after the given length and adds "...".
+ *
+ * @param {string} text - The text.
+ * @param {number} maxLength - The maximum number of characters.
+ * @returns {string} The shortened text.
+ */
 function shortenText(text, maxLength) {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength).trimEnd() + "...";
 }
 
-// Returns the CSS class for the category label.
+/**
+ * Returns the CSS class for the category label.
+ *
+ * @param {string} category - The category name.
+ * @returns {string} The CSS class.
+ */
 function getCategoryClass(category) {
   return category === "User Story" ? "cat-user" : "cat-tech";
 }
 
-// Renders the subtask progress bar, or nothing without subtasks.
+/**
+ * Renders the subtask progress bar, or nothing without subtasks.
+ *
+ * @param {{text: string, done: boolean}[]} subtasks - The subtasks of the task.
+ * @returns {string} The HTML.
+ */
 function getProgressTemplate(subtasks) {
   if (!subtasks.length) return "";
   const done = subtasks.filter((s) => s.done).length;
@@ -87,7 +132,12 @@ function getProgressTemplate(subtasks) {
     </div>`;
 }
 
-// Renders up to four avatars of the assigned contacts and a "+X" bubble for the rest.
+/**
+ * Renders up to four avatars of the assigned contacts and a "+X" bubble for the rest.
+ *
+ * @param {Object[]} assigned - The assigned contacts with initials and color.
+ * @returns {string} The HTML.
+ */
 function getAvatarsTemplate(assigned) {
   const hidden = assigned.length - MAX_CARD_AVATARS;
   let html = assigned
@@ -98,7 +148,11 @@ function getAvatarsTemplate(assigned) {
   return html;
 }
 
-// Renders the add task form inside the overlay.
+/**
+ * Renders the add task form inside the overlay.
+ *
+ * @returns {string} The HTML.
+ */
 function getAddTaskOverlayTemplate() {
   return `
     <div class="task-panel">
@@ -108,7 +162,12 @@ function getAddTaskOverlayTemplate() {
     </div>`;
 }
 
-// Renders the detail view of a task.
+/**
+ * Renders the detail view of a task.
+ *
+ * @param {Object} task - The task object.
+ * @returns {string} The HTML.
+ */
 function getTaskDetailTemplate(task) {
   return `
     <div class="detail-panel">
@@ -121,7 +180,12 @@ function getTaskDetailTemplate(task) {
     </div>`;
 }
 
-// Renders category, close button and title of the detail view.
+/**
+ * Renders category, close button and title of the detail view.
+ *
+ * @param {Object} task - The task object.
+ * @returns {string} The HTML.
+ */
 function getDetailHeaderTemplate(task) {
   return `
     <div class="detail-top">
@@ -131,7 +195,12 @@ function getDetailHeaderTemplate(task) {
     <h1 class="detail-title">${escapeHtml(task.title)}</h1>`;
 }
 
-// Renders due date and priority in the detail view.
+/**
+ * Renders due date and priority in the detail view.
+ *
+ * @param {Object} task - The task object.
+ * @returns {string} The HTML.
+ */
 function getDetailRowsTemplate(task) {
   const prio = PRIORITIES.find((p) => p.key === task.priority);
   return `
@@ -144,7 +213,12 @@ function getDetailRowsTemplate(task) {
     </div>`;
 }
 
-// Renders the assigned contacts in the detail view.
+/**
+ * Renders the assigned contacts in the detail view.
+ *
+ * @param {Object[]} assigned - The assigned contacts.
+ * @returns {string} The HTML.
+ */
 function getDetailAssignedTemplate(assigned) {
   if (!assigned.length) return "";
   return `
@@ -154,7 +228,12 @@ function getDetailAssignedTemplate(assigned) {
     </div>`;
 }
 
-// Renders one assigned contact in the detail view.
+/**
+ * Renders one assigned contact in the detail view.
+ *
+ * @param {{name: string, initials: string, color: string}} user - The avatar data of the contact.
+ * @returns {string} The HTML.
+ */
 function getDetailContactTemplate(user) {
   return `<li class="detail-contact">
     <span class="avatar avatar-large" style="background:${user.color}">${user.initials}</span>
@@ -162,7 +241,12 @@ function getDetailContactTemplate(user) {
   </li>`;
 }
 
-// Renders the subtask checklist in the detail view.
+/**
+ * Renders the subtask checklist in the detail view.
+ *
+ * @param {Object} task - The task object.
+ * @returns {string} The HTML.
+ */
 function getDetailSubtasksTemplate(task) {
   if (!task.subtasks.length) return "";
   const items = task.subtasks.map((s, i) => getDetailSubtaskTemplate(task.id, s, i));
@@ -173,7 +257,14 @@ function getDetailSubtasksTemplate(task) {
     </div>`;
 }
 
-// Renders one subtask with checkbox.
+/**
+ * Renders one subtask with checkbox.
+ *
+ * @param {string} taskId - The id of the task.
+ * @param {{text: string, done: boolean}} subtask - The subtask.
+ * @param {number} index - The position of the subtask in the list.
+ * @returns {string} The HTML.
+ */
 function getDetailSubtaskTemplate(taskId, subtask, index) {
   return `<li class="detail-subtask"><label>
     <input type="checkbox" ${subtask.done ? "checked" : ""}
@@ -183,7 +274,12 @@ function getDetailSubtaskTemplate(taskId, subtask, index) {
   </label></li>`;
 }
 
-// Renders the delete and edit buttons.
+/**
+ * Renders the delete and edit buttons.
+ *
+ * @param {string} id - The id of the task.
+ * @returns {string} The HTML.
+ */
 function getDetailActionsTemplate(id) {
   return `
     <div class="detail-actions">
@@ -193,7 +289,11 @@ function getDetailActionsTemplate(id) {
     </div>`;
 }
 
-// Renders the edit form inside the overlay.
+/**
+ * Renders the edit form inside the overlay.
+ *
+ * @returns {string} The HTML.
+ */
 function getEditTaskTemplate() {
   return `
     <div class="edit-panel">
@@ -202,7 +302,12 @@ function getEditTaskTemplate() {
     </div>`;
 }
 
-// Renders the move menu with the previous and next column.
+/**
+ * Renders the move menu with the previous and next column.
+ *
+ * @param {Object} task - The task object.
+ * @returns {string} The HTML.
+ */
 function getMoveMenuTemplate(task) {
   const i = BOARD_COLUMNS.findIndex((c) => c.status === task.status);
   const prev = BOARD_COLUMNS[i - 1];
@@ -215,7 +320,14 @@ function getMoveMenuTemplate(task) {
     </div>`;
 }
 
-// Renders one option of the move menu.
+/**
+ * Renders one option of the move menu.
+ *
+ * @param {string} id - The id of the task.
+ * @param {{status: string, title: string}} column - The target column.
+ * @param {string} icon - The icon file name without ".svg".
+ * @returns {string} The HTML.
+ */
 function getMoveOptionTemplate(id, column, icon) {
   return `<button type="button" class="move-option"
       onclick="moveTask(event, '${id}', '${column.status}')">

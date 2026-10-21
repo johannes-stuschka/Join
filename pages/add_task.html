@@ -18,12 +18,11 @@
 
   <script src="../js/firebase.js"></script>
   <script src="../js/auth.js"></script>
-  <script>requireLogin();</script>
   <script src="../templates/sidebar_template.js" defer></script>
   <script src="../js/sidebar.js" defer></script>
 </head>
 
-<body>
+<body onload="initAddTaskPage()">
   <section id="header"></section>
 
   <div class="layout">
@@ -42,7 +41,6 @@
   <script src="../js/add_task.js"></script>
   <script src="../js/add_task_subtasks.js"></script>
   <script src="../js/add_task_validation.js"></script>
-  <script>initAddTaskPage();</script>
   <script src="../templates/header_template.js"></script>
   <script src="../js/header.js"></script>
 </body>

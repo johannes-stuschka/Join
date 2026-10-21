@@ -11,12 +11,19 @@ const LOGIN_BUTTON = {
   icon: "assets/icons/login_icon.svg",
 };
 
-// Checks whether a link points to the open page.
+/**
+ * Checks whether a link points to the open page.
+ *
+ * @param {string} href - The link target.
+ * @returns {boolean} True if it is the current page.
+ */
 function isCurrentPage(href) {
   return window.location.pathname.endsWith(href);
 }
 
-// Renders the sidebar links and highlights the current page.
+/**
+ * Renders the sidebar links and highlights the current page.
+ */
 function renderSidebar() {
   const nav = document.getElementById("sidebar-nav");
   const buttons = getCurrentUser() ? SIDEBAR_BUTTONS : [LOGIN_BUTTON];
@@ -30,4 +37,10 @@ function renderSidebar() {
   ).join("");
 }
 
-renderSidebar();
+/**
+ * Renders header and sidebar of a page.
+ */
+function renderLayout() {
+  renderHeader();
+  renderSidebar();
+}

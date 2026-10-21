@@ -1,7 +1,11 @@
 const BASE_PATH = window.location.pathname.includes("/pages/") ? "../" : "./";
 
 
-// Collects the header elements the menu needs.
+/**
+ * Collects the header elements the menu needs.
+ *
+ * @returns {{wrap: HTMLElement, button: HTMLButtonElement, menu: HTMLElement}} The elements.
+ */
 function getHeaderElements() {
   return {
     wrap: document.querySelector(".header-user-wrap"),
@@ -11,7 +15,12 @@ function getHeaderElements() {
 }
 
 
-// Returns the initials for the header button, or "G" for the guest.
+/**
+ * Returns the initials for the header button, or "G" for the guest.
+ *
+ * @param {{name: string, isGuest: boolean}} user - The logged-in user.
+ * @returns {string} The initials.
+ */
 function getInitials(user) {
   if (user.isGuest) return "G";
   const words = String(user.name || "").trim().split(/\s+/).filter(Boolean);
@@ -21,7 +30,11 @@ function getInitials(user) {
 }
 
 
-// Opens or closes the user menu.
+/**
+ * Opens or closes the user menu.
+ *
+ * @param {boolean} open - True to open the menu.
+ */
 function setMenuOpen(open) {
   const { button, menu } = getHeaderElements();
   menu.hidden = !open;
@@ -29,20 +42,32 @@ function setMenuOpen(open) {
 }
 
 
-// Checks whether the user menu is open.
+/**
+ * Checks whether the user menu is open.
+ *
+ * @returns {boolean} True if the menu is open.
+ */
 function isMenuOpen() {
   return !getHeaderElements().menu.hidden;
 }
 
 
-// Closes the user menu when the user clicks somewhere else.
+/**
+ * Closes the user menu when the user clicks somewhere else.
+ *
+ * @param {MouseEvent} event - The click event.
+ */
 function onHeaderDocumentClick(event) {
   const { wrap } = getHeaderElements();
   if (isMenuOpen() && !wrap.contains(event.target)) setMenuOpen(false);
 }
 
 
-// Closes the user menu on Escape.
+/**
+ * Closes the user menu on Escape.
+ *
+ * @param {KeyboardEvent} event - The keyboard event.
+ */
 function onHeaderKeydown(event) {
   if (event.key !== "Escape" || !isMenuOpen()) return;
   setMenuOpen(false);
@@ -50,7 +75,9 @@ function onHeaderKeydown(event) {
 }
 
 
-// Adds the listeners for the user menu and logout.
+/**
+ * Adds the listeners for the user menu and logout.
+ */
 function bindHeaderEvents() {
   const { button } = getHeaderElements();
   button.addEventListener("click", () => setMenuOpen(!isMenuOpen()));
@@ -61,7 +88,9 @@ function bindHeaderEvents() {
 }
 
 
-// Shows the user's initials, or hides help and user area when nobody is logged in.
+/**
+ * Shows the user's initials, or hides help and user area when nobody is logged in.
+ */
 function initHeader() {
   const { wrap, button } = getHeaderElements();
   if (!wrap) return;
@@ -76,11 +105,10 @@ function initHeader() {
 }
 
 
-// Renders the header and sets it up.
+/**
+ * Renders the header and sets it up.
+ */
 function renderHeader() {
   document.getElementById("header").innerHTML = getHeaderTemplate(BASE_PATH);
   initHeader();
 }
-
-
-renderHeader();

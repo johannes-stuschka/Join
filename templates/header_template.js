@@ -1,4 +1,9 @@
-// Renders the header.
+/**
+ * Renders the header.
+ *
+ * @param {string} basePath - The path to the project root.
+ * @returns {string} The HTML.
+ */
 function getHeaderTemplate(basePath) {
   return `
     <header class="header">

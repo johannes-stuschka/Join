@@ -722,12 +722,25 @@
     flex: none;
     flex-direction: row;
     overflow-x: auto;
+    overflow-y: hidden;
     padding: 8px 16px 16px;
   }
 
   .task-card {
     flex: 0 0 220px;
-    min-height: 175px;
+    min-height: 236px;
+  }
+
+  .task-title,
+  .task-desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .task-footer {
+    margin-top: auto;
   }
 
   .no-tasks {

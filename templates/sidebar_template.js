@@ -1,4 +1,9 @@
-// Renders a sidebar link.
+/**
+ * Renders a sidebar link.
+ *
+ * @param {{label: string, href: string, icon: string, activeClass: string}} button - The link data.
+ * @returns {string} The HTML.
+ */
 function getSidebarButtonTemplate(button) {
   return `
     <a class="sidebar-btn ${button.activeClass}" href="${button.href}">

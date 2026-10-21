@@ -1,11 +1,17 @@
-// Renders the subtask list.
+/**
+ * Renders the subtask list.
+ */
 function renderSubtasks() {
     document.getElementById("subtask-list").innerHTML = subtasks
         .map((text, i) => getSubtaskTemplate(text, i, i === editingSubtask))
         .join("");
 }
 
-// Switches a subtask into edit mode.
+/**
+ * Switches a subtask into edit mode.
+ *
+ * @param {number} index - The position of the subtask in the list.
+ */
 function editSubtask(index) {
     editingSubtask = index;
     renderSubtasks();
@@ -14,7 +20,12 @@ function editSubtask(index) {
     input.focus();
 }
 
-// Saves the edited text. An empty text keeps the old one.
+/**
+ * Saves the edited text. An empty text keeps the old one.
+ *
+ * @param {number} index - The position of the subtask in the list.
+ * @param {string} value - The new text.
+ */
 function saveSubtask(index, value) {
     if (editingSubtask !== index) return;
     const text = value.trim();
@@ -23,18 +34,29 @@ function saveSubtask(index, value) {
     renderSubtasks();
 }
 
-// Saves the subtask that is being edited.
+/**
+ * Saves the subtask that is being edited.
+ *
+ * @param {number} index - The position of the subtask in the list.
+ */
 function confirmSubtaskEdit(index) {
     saveSubtask(index, document.getElementById("subtask-edit").value);
 }
 
-// Leaves edit mode without saving.
+/**
+ * Leaves edit mode without saving.
+ */
 function cancelSubtaskEdit() {
     editingSubtask = -1;
     renderSubtasks();
 }
 
-// Saves on Enter, cancels on Escape.
+/**
+ * Saves on Enter, cancels on Escape.
+ *
+ * @param {KeyboardEvent} event - The keyboard event.
+ * @param {number} index - The position of the subtask in the list.
+ */
 function handleSubtaskEditKey(event, index) {
     if (event.key === "Enter") {
         event.preventDefault();
@@ -43,7 +65,11 @@ function handleSubtaskEditKey(event, index) {
     if (event.key === "Escape") cancelSubtaskEdit();
 }
 
-// Adds the subtask on Enter without submitting the form, clears the field on Escape.
+/**
+ * Adds the subtask on Enter without submitting the form, clears the field on Escape.
+ *
+ * @param {KeyboardEvent} event - The keyboard event.
+ */
 function addSubtask(event) {
     if (event.key === "Escape") return clearSubtaskInput();
     if (event.key !== "Enter") return;
@@ -51,7 +77,9 @@ function addSubtask(event) {
     confirmNewSubtask();
 }
 
-// Adds the text of the subtask field as a new subtask.
+/**
+ * Adds the text of the subtask field as a new subtask.
+ */
 function confirmNewSubtask() {
     const input = document.getElementById("subtask-input");
     const text = input.value.trim();
@@ -64,14 +92,20 @@ function confirmNewSubtask() {
     list.scrollTop = list.scrollHeight;
 }
 
-// Empties the subtask field.
+/**
+ * Empties the subtask field.
+ */
 function clearSubtaskInput() {
     const input = document.getElementById("subtask-input");
     input.value = "";
     input.focus();
 }
 
-// Deletes a subtask.
+/**
+ * Deletes a subtask.
+ *
+ * @param {number} index - The position of the subtask in the list.
+ */
 function deleteSubtask(index) {
     subtasks.splice(index, 1);
     editingSubtask = -1;
