@@ -558,8 +558,26 @@
     color: #fff;
   }
 
-  .avatar {
-    font-size: 16px;
+  .contact-dialog,
+  .contact-dialog.is-edit {
+    height: fit-content;
+    max-height: calc(100dvh - 32px);
+    margin: auto;
+    border-radius: 30px;
+  }
+
+  .contact-dialog.is-edit[open] {
+    animation-name: slide-in;
+  }
+
+  .contact-dialog-head,
+  .contact-dialog.is-edit .contact-dialog-head {
+    padding: 48px 46px;
+  }
+
+  .contact-form {
+    padding-top: 40px;
+    padding-bottom: 24px;
   }
 
   .contact-fab {

@@ -682,7 +682,7 @@
 
   .detail-actions button:hover {
     color: var(--blue);
-    font-weight: 700;
+    text-shadow: 0.4px 0 0 currentColor, -0.4px 0 0 currentColor;
   }
 }
 

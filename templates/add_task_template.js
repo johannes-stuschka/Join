@@ -152,7 +152,7 @@ function getAddTaskFormTemplate(withClear, submitLabel = "Create Task") {
 function getTitleDescriptionTemplate() {
   return `
     <div class="field">
-      <textarea class="title-input" id="task-title" rows="1" placeholder="Enter a title" required></textarea>
+      <textarea class="title-input" id="task-title" rows="1" maxlength="45" placeholder="Enter a title" required></textarea>
       ${getErrorTemplate("title-error")}
     </div>
     <label class="field">
@@ -267,9 +267,7 @@ function getSubtaskFieldTemplate() {
  * @returns {string} The HTML.
  */
 function getAddTaskActionsTemplate(withClear, submitLabel) {
-  const clearBtn = withClear
-    ? `<button class="btn btn-secondary" type="reset">Clear ✕</button>`
-    : "";
+  const clearBtn = withClear ? `<button class="btn btn-secondary" type="reset">Clear ✕</button>` : "";
   return `
     <div class="add-task-actions">
       ${clearBtn}
